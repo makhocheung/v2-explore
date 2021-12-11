@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		70616D2C2764D7DA0007AD6E /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70616D2B2764D7DA0007AD6E /* ProfileView.swift */; };
 		707A077B2764A7EA0047EC33 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707A077A2764A7EA0047EC33 /* WebView.swift */; };
 		707A077F2764A9F60047EC33 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707A077E2764A9F60047EC33 /* Global.swift */; };
 		707A07842764AB3D0047EC33 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 707A07832764AB3D0047EC33 /* Kingfisher */; };
@@ -33,6 +34,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		70616D2B2764D7DA0007AD6E /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		707A077A2764A7EA0047EC33 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		707A077E2764A9F60047EC33 /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		707A07892764B0DA0047EC33 /* LatestTopicsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestTopicsView.swift; sourceTree = "<group>"; };
@@ -81,9 +83,10 @@
 				707A077E2764A9F60047EC33 /* Global.swift */,
 				70BC2D60274CB664008E2AF1 /* MainView.swift */,
 				70BC2D80274CBFC5008E2AF1 /* HomeView.swift */,
+				70C669AF27607F3300D3AF2B /* NodesView.swift */,
+				70616D2B2764D7DA0007AD6E /* ProfileView.swift */,
 				707A07892764B0DA0047EC33 /* LatestTopicsView.swift */,
 				707A078C2764B1220047EC33 /* HotTopicsView.swift */,
-				70C669AF27607F3300D3AF2B /* NodesView.swift */,
 				70C669B32760980800D3AF2B /* TopicView.swift */,
 				70AAAFFF27633429000D3A98 /* ReplyView.swift */,
 				70AAB002276337EA000D3A98 /* RepliesView.swift */,
@@ -252,6 +255,7 @@
 			files = (
 				70BC2D7E274CBC2A008E2AF1 /* BriefTopicView.swift in Sources */,
 				70AAB00027633429000D3A98 /* ReplyView.swift in Sources */,
+				70616D2C2764D7DA0007AD6E /* ProfileView.swift in Sources */,
 				70BC2D81274CBFC5008E2AF1 /* HomeView.swift in Sources */,
 				70AAB003276337EA000D3A98 /* RepliesView.swift in Sources */,
 				70BC2D71274CB665008E2AF1 /* MainView.swift in Sources */,
