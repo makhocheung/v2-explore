@@ -8,58 +8,56 @@
 import SwiftUI
 
 struct MainView: View {
-    @State var selectedTabItemType = TabItemType.home
+    @State var selectedTab = Tab.home
     var body: some View {
         NavigationView {
-            TabView(selection: $selectedTabItemType) {
+            ZStack {
                 HomeView()
-                    .tabItem {
-                        TabItemType.home.tabItem
-                    }
-                    .tag(TabItemType.home)
+                    .zIndex(selectedTab == .home ? .infinity : 0)
                 NodesView()
-                    .tabItem {
-                        TabItemType.nodes.tabItem
-                    }
-                    .tag(TabItemType.nodes)
+                    .zIndex(selectedTab == .nodes ? .infinity : 0)
                 ProfileView()
-                    .tabItem {
-                        TabItemType.profile.tabItem
-                    }
-                    .tag(TabItemType.profile)
+                    .zIndex(selectedTab == .profile ? .infinity : 0)
+            }
+            .navigationBarTitle("")
+            .safeAreaInset(edge: .bottom) {
+                HStack {
+                    Tab.home.tabItem
+                        .opacity(selectedTab == .home ? 1 : 0.5)
+                        .onTapGesture {
+                            selectedTab = .home
+                        }
+                    Spacer()
+                    Tab.nodes.tabItem
+                        .opacity(selectedTab == .nodes ? 1 : 0.5)
+                        .onTapGesture {
+                            selectedTab = .nodes
+                        }
+                    Spacer()
+                    Tab.profile.tabItem
+                        .opacity(selectedTab == .profile ? 1 : 0.5)
+                        .onTapGesture {
+                            selectedTab = .profile
+                        }
+                }
+                .font(.title3)
+                .padding(.vertical, 7)
+                .padding(.horizontal, 60)
+                .background(.regularMaterial)
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    HStack {
-                        Text(selectedTabItemType.rawValue)
-                            .foregroundColor(.accentColor)
-                            .font(.title2)
-                            .bold()
-                        if selectedTabItemType == .home {
-                            NavigationLink {
-                                Text("empty")
-                            } label: {
-                                HStack {
-                                    Image(systemName: "magnifyingglass")
-                                        .foregroundColor(Color("InputTextColor"))
-                                    Text("搜索")
-                                        .foregroundColor(Color("InputTextColor"))
-                                }
-                                .padding(6)
-                                .frame(width: UIScreen.main.bounds.width / 1.5, alignment: .leading)
-                                .background(Color("InputColor"))
-                                .cornerRadius(20)
-                            }
-                            .buttonStyle(.plain)
-                        }
-                    }
+                ToolbarItem(placement: .principal) {
+                    Text(selectedTab.title)
+                        .font(.title2)
+                        .bold()
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    if selectedTabItemType == .home {
+                    if selectedTab == .home {
                         Button {
                         } label: {
                             Image(systemName: "plus")
+                                .foregroundColor(.accentColor)
                         }
                     }
                 }
@@ -78,17 +76,28 @@ struct ContentView_Previews: PreviewProvider {
     }
 }
 
-enum TabItemType: String {
-    case home = "首页", nodes = "节点", profile = "我的"
+enum Tab {
+    case home, nodes, profile
+
+    var title: String {
+        switch self {
+        case .home:
+            return "V2EX You"
+        case .nodes:
+            return "节点"
+        case .profile:
+            return "我的"
+        }
+    }
 
     var tabItem: some View {
         switch self {
         case .home:
-            return Label(self.rawValue, systemImage: "house")
+            return TabIcon(systemName: "house", title: "首页")
         case .nodes:
-            return Label(self.rawValue, systemImage: "square.grid.3x3.topleft.filled")
+            return TabIcon(systemName: "square.grid.3x3.topleft.filled", title: "节点")
         case .profile:
-            return Label(self.rawValue, systemImage: "person")
+            return TabIcon(systemName: "person", title: "我的")
         }
     }
 }

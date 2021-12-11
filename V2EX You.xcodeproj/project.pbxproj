@@ -31,6 +31,7 @@
 		70C669AD2760710700D3AF2B /* ScrollableTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C669AC2760710700D3AF2B /* ScrollableTabView.swift */; };
 		70C669B027607F3300D3AF2B /* NodesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C669AF27607F3300D3AF2B /* NodesView.swift */; };
 		70C669B42760980800D3AF2B /* TopicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C669B32760980800D3AF2B /* TopicView.swift */; };
+		70F77B4827893A82002D6A17 /* TabIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F77B4727893A82002D6A17 /* TabIcon.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +56,7 @@
 		70C669AC2760710700D3AF2B /* ScrollableTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollableTabView.swift; sourceTree = "<group>"; };
 		70C669AF27607F3300D3AF2B /* NodesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodesView.swift; sourceTree = "<group>"; };
 		70C669B32760980800D3AF2B /* TopicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicView.swift; sourceTree = "<group>"; };
+		70F77B4727893A82002D6A17 /* TabIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabIcon.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +95,7 @@
 				70BC2D7D274CBC2A008E2AF1 /* BriefTopicView.swift */,
 				70C669AC2760710700D3AF2B /* ScrollableTabView.swift */,
 				707A077A2764A7EA0047EC33 /* WebView.swift */,
+				70F77B4727893A82002D6A17 /* TabIcon.swift */,
 			);
 			path = iOS;
 			sourceTree = "<group>";
@@ -257,6 +260,7 @@
 				70AAB00027633429000D3A98 /* ReplyView.swift in Sources */,
 				70616D2C2764D7DA0007AD6E /* ProfileView.swift in Sources */,
 				70BC2D81274CBFC5008E2AF1 /* HomeView.swift in Sources */,
+				70F77B4827893A82002D6A17 /* TabIcon.swift in Sources */,
 				70AAB003276337EA000D3A98 /* RepliesView.swift in Sources */,
 				70BC2D71274CB665008E2AF1 /* MainView.swift in Sources */,
 				707A078D2764B1220047EC33 /* HotTopicsView.swift in Sources */,
