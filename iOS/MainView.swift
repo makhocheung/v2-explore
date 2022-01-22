@@ -20,7 +20,7 @@ struct MainView: View {
                     .zIndex(selectedTab == .profile ? .infinity : 0)
             }
             .navigationBarTitle("")
-            .safeAreaInset(edge: .bottom) {
+            .safeAreaInset(edge: .bottom, spacing: 0) {
                 HStack {
                     Tab.home.tabItem
                         .opacity(selectedTab == .home ? 1 : 0.5)

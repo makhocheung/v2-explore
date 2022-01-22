@@ -21,8 +21,8 @@ struct LatestTopicsView: View {
                 .opacity(0.0)
                 BriefTopicView(briefTopic: topic)
             }
+            .listRowBackground(Color("ContentBackgroundColor"))
         }
-        .background(Color("ContentBackgroundColor"))
         .listStyle(.plain)
         .alert("获取或解析数据出错", isPresented: $showError) {
             Text("完成")
@@ -53,5 +53,6 @@ struct LatestTopicsView: View {
 struct LatestTopicsView_Previews: PreviewProvider {
     static var previews: some View {
         LatestTopicsView()
+            .preferredColorScheme(.dark)
     }
 }

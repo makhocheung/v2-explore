@@ -17,7 +17,7 @@ struct TopicView: View {
     @State var webViewHeight = CGFloat.zero
 
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             HStack {
                 KFImage(URL(string: topic.member.avatarLarge))
                     .resizable()
@@ -45,10 +45,10 @@ struct TopicView: View {
                 if !topic.contentRendered.isEmpty {
                     WebView(webViewHeight: $webViewHeight, content: webContent)
                         .frame(height: webViewHeight)
-                    Divider()
                 }
                 RepliesView(topic: topic)
             }
+            .background(Color("ContentBackgroundColor"))
             HStack {
                 HStack {
                     TextField("回复评论", text: $replyContent, prompt: nil)
@@ -67,6 +67,7 @@ struct TopicView: View {
                 Text("完成")
             }
         }
+        .background(Color("RootBackgroundColor"))
     }
 
     var webContent: String {
