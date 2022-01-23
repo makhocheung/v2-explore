@@ -31,7 +31,8 @@ struct TopicView: View {
                 Spacer()
                 Text(topic.node.name)
                     .padding(3)
-                    .background(Color("TagColor"))
+                    .foregroundColor(Color("StressTextColor"))
+                    .background(Color("StressBackgroundColor"))
                     .cornerRadius(4)
             }
             .foregroundColor(.accentColor)
@@ -45,6 +46,7 @@ struct TopicView: View {
                 if !topic.contentRendered.isEmpty {
                     WebView(webViewHeight: $webViewHeight, content: webContent)
                         .frame(height: webViewHeight)
+                    Divider()
                 }
                 RepliesView(topic: topic)
             }
