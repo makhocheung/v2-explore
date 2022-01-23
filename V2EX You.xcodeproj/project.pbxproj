@@ -40,6 +40,7 @@
 		707A077E2764A9F60047EC33 /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		707A07892764B0DA0047EC33 /* LatestTopicsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestTopicsView.swift; sourceTree = "<group>"; };
 		707A078C2764B1220047EC33 /* HotTopicsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotTopicsView.swift; sourceTree = "<group>"; };
+		70946E0F279CEC7500BEFC94 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		70AAAFFC27632F38000D3A98 /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; path = www; sourceTree = "<group>"; };
 		70AAAFFF27633429000D3A98 /* ReplyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplyView.swift; sourceTree = "<group>"; };
 		70AAB002276337EA000D3A98 /* RepliesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepliesView.swift; sourceTree = "<group>"; };
@@ -110,6 +111,7 @@
 		70BC2D59274CB664008E2AF1 = {
 			isa = PBXGroup;
 			children = (
+				70946E0F279CEC7500BEFC94 /* .gitignore */,
 				70BC2D5E274CB664008E2AF1 /* Shared */,
 				707A07792764A7AD0047EC33 /* iOS */,
 				70BC2D6D274CB665008E2AF1 /* macOS */,
