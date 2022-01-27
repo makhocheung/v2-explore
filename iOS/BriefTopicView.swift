@@ -44,6 +44,7 @@ struct BriefTopicView: View {
             Spacer()
             Text(briefTopic.title)
                 .bold()
+                .multilineTextAlignment(.leading)
             Spacer()
             HStack(spacing: 0) {
                 Spacer()
@@ -53,6 +54,7 @@ struct BriefTopicView: View {
             }
         }
         .padding(5)
+        .padding(.horizontal, 10)
         .foregroundColor(.accentColor)
     }
 }
