@@ -11,19 +11,19 @@ struct HotTopicsView: View {
     @State var topics: [Topic] = []
     @State var showError = false
     var body: some View {
-        List(topics) { topic in
-            ZStack {
-                NavigationLink {
-                    TopicView(topic: topic)
-                } label: {
-                    EmptyView()
+        ScrollView {
+            VStack {
+                ForEach(topics) { topic in
+                    NavigationLink {
+                        TopicView(topic: topic)
+                    } label: {
+                        BriefTopicView(briefTopic: topic)
+                    }
+                    Divider()
                 }
-                .opacity(0.0)
-                BriefTopicView(briefTopic: topic)
             }
-            .listRowBackground(Color("ContentBackgroundColor"))
         }
-        .listStyle(.plain)
+        .background(Color("ContentBackgroundColor"))
         .alert("获取或解析数据出错", isPresented: $showError) {
             Text("完成")
         }

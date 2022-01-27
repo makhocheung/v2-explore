@@ -11,7 +11,7 @@ struct RepliesView: View {
     var topic: Topic
     @State var replies: [Reply]?
     var body: some View {
-        LazyVStack {
+        VStack {
             if let replies = replies {
                 ForEach(replies.indices) { floor in
                     let reply = replies[floor]
@@ -19,6 +19,7 @@ struct RepliesView: View {
                 }
             } else {
                 ProgressView()
+                    .frame(maxWidth: .infinity)
             }
         }
         .task {
