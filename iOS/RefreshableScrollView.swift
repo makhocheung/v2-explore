@@ -5,6 +5,9 @@
 //  Created by Mak Ho-Cheung on 2022/1/29.
 //
 
+// This is a third party SwfitUI Code
+// Refer to https://github.com/globulus/swiftui-pull-to-refresh.git
+
 import SwiftUI
 
 // There are two type of positioning views - one that scrolls with the content,
