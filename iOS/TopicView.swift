@@ -46,8 +46,8 @@ struct TopicView: View {
                 if !topic.contentRendered.isEmpty {
                     WebView(webViewHeight: $webViewHeight, content: webContent)
                         .frame(height: webViewHeight)
-                    Divider()
                 }
+                Divider()
                 RepliesView(topic: topic)
             }
             .background(Color("ContentBackgroundColor"))

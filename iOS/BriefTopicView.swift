@@ -41,11 +41,9 @@ struct BriefTopicView: View {
                     .background(Color("TagColor"))
                     .cornerRadius(4)
             }
-            Spacer()
             Text(briefTopic.title)
                 .bold()
                 .multilineTextAlignment(.leading)
-            Spacer()
             HStack(spacing: 0) {
                 Spacer()
                 Image(systemName: "bubble.right")
