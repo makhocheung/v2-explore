@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct Node: Codable {
+struct Node: Codable, Identifiable {
     var avatarMini: String
     var avatarNormal: String
     var avatarLarge: String
@@ -132,4 +132,3 @@ struct Reply: Codable, Identifiable {
         case id
     }
 }
- 

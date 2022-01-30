@@ -82,7 +82,7 @@ enum Tab {
     var title: String {
         switch self {
         case .home:
-            return "V2EX You"
+            return "V2EX"
         case .nodes:
             return "节点"
         case .profile:
