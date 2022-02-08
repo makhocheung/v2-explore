@@ -23,7 +23,7 @@ struct NavigationLinkView: View {
         .background(Color("ContentBackgroundColor"))
         .opacity(isActive ? 0.5 : 1)
         .onTapGesture {
-            isActive.toggle()
+        isActive.toggle()
         }
     }
 }

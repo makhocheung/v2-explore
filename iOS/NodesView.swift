@@ -18,7 +18,8 @@ struct NodesView: View {
     }
 
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
+            Divider()
             List {
                 Section {
                     ForEach(hotNodes, id: \.self) { it in
@@ -26,9 +27,17 @@ struct NodesView: View {
                             NodeView(node: parentNodes[it]!)
                         } label: {
                             HStack {
-                                KFImage(URL(string: parentNodes[it]!.avatarNormal))
-                                    .resizable()
-                                    .frame(width: 30, height: 30)
+                                let img = parentNodes[it]!.avatarNormal
+
+                                if img.starts(with: "/static") {
+                                    Rectangle()
+                                        .frame(width: 30, height: 30)
+                                        .background(Color.blue)
+                                } else {
+                                    KFImage(URL(string: img))
+                                        .resizable()
+                                        .frame(width: 30, height: 30)
+                                }
                                 Text(parentNodes[it]!.title)
                             }
                         }

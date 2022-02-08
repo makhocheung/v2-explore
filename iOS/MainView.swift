@@ -19,7 +19,8 @@ struct MainView: View {
                 ProfileView()
                     .zIndex(selectedTab == .profile ? .infinity : 0)
             }
-            .navigationBarTitle("")
+            .navigationBarTitle(selectedTab.title)
+            .navigationBarTitleDisplayMode(.inline)
             .safeAreaInset(edge: .bottom, spacing: 0) {
                 HStack {
                     Tab.home.tabItem
@@ -45,34 +46,13 @@ struct MainView: View {
                 .padding(.horizontal, 60)
                 .background(.regularMaterial)
             }
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    Text(selectedTab.title)
-                        .font(.title2)
-                        .bold()
-                }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    if selectedTab == .home {
-                        Button {
-                        } label: {
-                            Image(systemName: "plus")
-                                .foregroundColor(.accentColor)
-                        }
-                    }
-                }
-            }
         }
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        Group {
-            MainView()
-            MainView()
-                .preferredColorScheme(.dark)
-        }
+        MainView()
     }
 }
 
