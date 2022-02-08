@@ -16,9 +16,16 @@ struct SubNodesView: View {
                 NodeView(node: it)
             } label: {
                 HStack {
-                    KFImage(URL(string: it.avatarNormal))
-                        .resizable()
-                        .frame(width: 30, height: 30)
+                    let img = it.avatarNormal
+                    if img.starts(with: "/static") {
+                        Rectangle()
+                            .frame(width: 30, height: 30)
+                            .background(Color.blue)
+                    } else {
+                        KFImage(URL(string: img))
+                            .resizable()
+                            .frame(width: 30, height: 30)
+                    }
                     Text(it.title)
                 }
             }

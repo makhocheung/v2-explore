@@ -13,6 +13,7 @@ struct NodeView: View {
     @State var topics: [Topic] = []
     @State var showError = false
     @State var showAlert = false
+    @StateObject var preferNodesState = PreferNodesState.shared
 
     var body: some View {
         VStack(spacing: 10) {
@@ -31,13 +32,11 @@ struct NodeView: View {
             RefreshableScrollView { done in
                 Task {
                     do {
-                        let url = URL(string: "https://www.v2ex.com/api/topics/show.json?node_id=\(node.id)&time=\(Date().timeIntervalSince1970)")!
-                        let (data, _) = try await URLSession.shared.data(from: url)
-                        topics = try JSONDecoder().decode([Topic].self, from: data)
+                        topics = try await APIService.shared.getTopics(PreferNode(title: node.title, id: node.id))
                         done()
                     } catch {
                         print("\(error)")
-                        // showError.toggle()
+                        showError.toggle()
                     }
                 }
             } content: {
@@ -57,9 +56,7 @@ struct NodeView: View {
             }
             .task {
                 do {
-                    let url = URL(string: "https://www.v2ex.com/api/topics/show.json?node_id=\(node.id)&time=\(Date().timeIntervalSince1970)")!
-                    let (data, _) = try await URLSession.shared.data(from: url)
-                    topics = try JSONDecoder().decode([Topic].self, from: data)
+                    topics = try await APIService.shared.getTopics(PreferNode(title: node.title, id: node.id))
                 } catch {
                     print("\(error)")
                     showError.toggle()
@@ -80,8 +77,10 @@ struct NodeView: View {
             }
         }
         .navigationTitle("")
-        .confirmationDialog("是否将节点加入到首页", isPresented: $showAlert,titleVisibility: .visible) {
+        .confirmationDialog("是否将节点加入到首页", isPresented: $showAlert, titleVisibility: .visible) {
             Button(role: .destructive) {
+                preferNodesState.tmpPreferNodes.append(SimplePreferNode(id: node.id, title: node.title))
+                PreferNodesState.savePreferNodes()
             } label: {
                 Text("确认")
             }

@@ -70,6 +70,11 @@ struct TopicView: View {
             }
         }
         .background(Color("RootBackgroundColor"))
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text("话题")
+            }
+        }
     }
 
     var webContent: String {

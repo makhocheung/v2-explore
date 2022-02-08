@@ -13,15 +13,7 @@ struct HotTopicsView: View {
     var body: some View {
         RefreshableScrollView(onRefresh: { done in
             Task {
-                do {
-                    let url = URL(string: "https://www.v2ex.com/api/topics/hot.json?time=\(Date().timeIntervalSince1970)")!
-                    let (data, _) = try await URLSession.shared.data(from: url)
-                    topics = try JSONDecoder().decode([Topic].self, from: data)
-                    done()
-                } catch {
-                    print("\(error)")
-                    showError.toggle()
-                }
+                
             }
         }) {
             VStack {

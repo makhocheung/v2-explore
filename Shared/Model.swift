@@ -8,6 +8,31 @@
 import Foundation
 import SwiftUI
 
+class PreferNode: Equatable,Identifiable {
+    static func == (p1: PreferNode, p2: PreferNode) -> Bool {
+        return p1.id == p2.id
+    }
+
+    static let hotPreferNode = PreferNode(title: "最热", id: -1)
+    static let latestPreferNode = PreferNode(title: "最新", id: -2)
+
+    init(title: String, id: Int) {
+        self.title = title
+        self.id = id
+        topicsState = TopicsState()
+        topicsState.preferNode = self
+    }
+
+    let title: String
+    let id: Int
+    let topicsState: TopicsState
+}
+
+struct SimplePreferNode: Codable {
+    let id: Int
+    let title: String
+}
+
 struct Node: Codable, Identifiable {
     var avatarMini: String
     var avatarNormal: String

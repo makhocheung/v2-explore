@@ -8,13 +8,12 @@
 import SwiftUI
 
 struct ScrollableTabView: View {
+    @StateObject var preferNodesState: PreferNodesState
     @Binding var activeIdx: Int
-    @State private var w: [CGFloat]
-    private let dataSet: [String]
-    init(activeIdx: Binding<Int>, dataSet: [String]) {
+
+    init(activeIdx: Binding<Int>) {
         _activeIdx = activeIdx
-        self.dataSet = dataSet
-        _w = State(initialValue: [CGFloat](repeating: 0, count: dataSet.count))
+        _preferNodesState = StateObject(wrappedValue: PreferNodesState.shared)
     }
 
     var body: some View {
@@ -22,12 +21,12 @@ struct ScrollableTabView: View {
             ScrollViewReader { scrollReader in
                 VStack(alignment: .underlineLeading, spacing: 5) {
                     HStack {
-                        ForEach(0 ..< dataSet.count) { i in
-                            Text(dataSet[i])
+                        ForEach(0 ..< preferNodesState.preferNodes.count, id: \.self) { i in
+                            Text(preferNodesState.preferNodes[i].title)
                                 .font(Font.body)
                                 .modifier(ScrollableTabViewModifier(activeIdx: $activeIdx, idx: i))
                                 .background(TextGeometry())
-                                .onPreferenceChange(WidthPreferenceKey.self, perform: { self.w[i] = $0 })
+                                .onPreferenceChange(WidthPreferenceKey.self, perform: { preferNodesState.w[i] = $0 })
                                 .id(i)
                             Spacer().frame(width: 20)
                         }
@@ -35,7 +34,7 @@ struct ScrollableTabView: View {
                     .padding(.horizontal, 10)
                     Rectangle()
                         .alignmentGuide(.underlineLeading) { d in d[.leading] }
-                        .frame(width: w[activeIdx], height: 3)
+                        .frame(width: preferNodesState.w[activeIdx], height: 3)
                         .cornerRadius(5)
                         .animation(.linear)
                 }
