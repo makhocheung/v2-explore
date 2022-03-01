@@ -12,18 +12,19 @@ struct NavigationLinkView: View {
     let topic: Topic
 
     var body: some View {
-        ZStack {
-            NavigationLink(isActive: $isActive) {
-                TopicView(topic: topic)
-            } label: {
-                EmptyView()
+        BriefTopicView(briefTopic: topic)
+            .overlay {
+                NavigationLink(isActive: $isActive) {
+                    TopicView(topic: topic)
+                } label: {
+                    EmptyView()
+                }
+                .buttonStyle(PlainButtonStyle())
+                .opacity(0.0)
             }
-            BriefTopicView(briefTopic: topic)
-        }
-        .background(Color("ContentBackgroundColor"))
-        .opacity(isActive ? 0.5 : 1)
-        .onTapGesture {
-        isActive.toggle()
-        }
+            .opacity(isActive ? 0.5 : 1)
+            .onTapGesture {
+                isActive.toggle()
+            }
     }
 }

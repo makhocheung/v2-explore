@@ -17,7 +17,7 @@ struct BriefTopicView: View {
                 KFImage(URL(string: briefTopic.member.avatarNormal))
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 30, height: 30)
+                    .frame(width: 40, height: 40)
                     .cornerRadius(4)
                 VStack(alignment: .leading, spacing: 2) {
                     Text(briefTopic.member.username)
@@ -33,26 +33,25 @@ struct BriefTopicView: View {
                         Text(timestamp2Date(timestamp: briefTopic.created))
                     }
                 }
-                .font(.system(size: 12))
                 Spacer()
                 Text(briefTopic.node.name)
-                    .font(.subheadline)
                     .padding(5)
                     .background(Color("TagColor"))
                     .cornerRadius(4)
             }
+            Spacer()
             Text(briefTopic.title)
+                .font(.body)
                 .bold()
                 .multilineTextAlignment(.leading)
+            Spacer()
             HStack(spacing: 0) {
                 Spacer()
                 Image(systemName: "bubble.right")
-                    .font(.title3)
                 Text(String(briefTopic.replies))
             }
         }
-        .padding(5)
-        .padding(.horizontal, 10)
+        .font(.caption)
         .foregroundColor(.accentColor)
     }
 }

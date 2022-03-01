@@ -1,95 +1,52 @@
 //
-//  NodesView.swift
-//  V2EX You
+//  SubNodesView.swift
+//  V2EX You (iOS)
 //
-//  Created by Mak Ho-Cheung on 2021/12/8.
+//  Created by Mak Ho-Cheung on 2022/1/23.
 //
 
 import Kingfisher
 import SwiftUI
 
 struct NodesView: View {
-    let hierachyNodes = ["apple", "fe", "programming", "dev", "ml", "games", "life", "internet", "cn"]
-    let hotNodes = ["qna", "jobs", "programmer", "share", "macos", "apple", "create", "python", "career", "bb", "android", "iphone", "gts", "mbp", "cv"]
-
-    init() {
-        UITableViewCell.appearance().backgroundColor = UIColor(Color("RootBackgroundColor"))
-        UITableView.appearance().backgroundColor = UIColor(Color("RootBackgroundColor"))
-    }
-
+    let parentNode: Node
     var body: some View {
-        VStack(spacing: 0) {
-            Divider()
-            List {
-                Section {
-                    ForEach(hotNodes, id: \.self) { it in
-                        NavigationLink {
-                            NodeView(node: parentNodes[it]!)
-                        } label: {
-                            HStack {
-                                let img = parentNodes[it]!.avatarNormal
-
-                                if img.starts(with: "/static") {
-                                    Rectangle()
-                                        .frame(width: 30, height: 30)
-                                        .background(Color.blue)
-                                } else {
-                                    KFImage(URL(string: img))
-                                        .resizable()
-                                        .frame(width: 30, height: 30)
-                                }
-                                Text(parentNodes[it]!.title)
-                            }
-                        }
+        List(nodesByParent(name: parentNode.name), id: \.id) { it in
+            NavigationLink {
+                NodeView(node: it)
+            } label: {
+                HStack {
+                    let img = it.avatarNormal
+                    if img.starts(with: "/static") {
+                        Rectangle()
+                            .frame(width: 30, height: 30)
+                            .background(Color.blue)
+                    } else {
+                        KFImage(URL(string: img))
+                            .resizable()
+                            .frame(width: 30, height: 30)
                     }
-                    .listRowBackground(Color("ContentBackgroundColor"))
-                } header: {
-                    Text("最热节点")
+                    Text(it.title)
                 }
-
-                Section {
-                    ForEach(hierachyNodes, id: \.self) { it in
-                        NavigationLink {
-                            SubNodesView(parentNode: parentNodes[it]!)
-                        } label: {
-                            HStack {
-                                KFImage(URL(string: parentNodes[it]!.avatarNormal))
-                                    .resizable()
-                                    .frame(width: 30, height: 30)
-                                Text(parentNodes[it]!.title)
-                            }
-                        }
-                    }
-                    .listRowBackground(Color("ContentBackgroundColor"))
-                } header: {
-                    Text("节点导航")
-                }
-
-                NavigationLink {
-                    Text("所有节点")
-                } label: {
-                    Text("所有节点")
-                }
-                .listRowBackground(Color("ContentBackgroundColor"))
             }
         }
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text(parentNode.title)
+            }
+        }
+        .navigationTitle("")
     }
 
-    var parentNodes: [String: Node] {
-        return Dictionary(uniqueKeysWithValues: nodes.map { ($0.name, $0) })
+    func nodesByParent(name: String) -> [Node] {
+        return nodes.filter {
+            $0.parentNodeName == name
+        }
     }
 }
 
-struct NodesView_Previews: PreviewProvider {
+struct SubNodesView_Previews: PreviewProvider {
     static var previews: some View {
-        Group {
-            NavigationView {
-                NodesView()
-                    .navigationTitle("")
-                    .navigationBarTitleDisplayMode(.inline)
-            }
-            .navigationBarTitleDisplayMode(.inline)
-            NodesView().preferredColorScheme(.dark)
-        }
+        NodesView(parentNode: nodes[1])
     }
 }

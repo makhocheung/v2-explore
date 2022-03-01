@@ -5,72 +5,87 @@
 //  Created by Mak Ho-Cheung on 2021/12/11.
 //
 
+import Kingfisher
 import SwiftUI
 
 struct ProfileView: View {
+    @State var cacheSize = "计算中"
+
+    let appVersion: String
+    let build: String
+
+    // alert boolean
     @State var isShowCleanCacheAlert = false
+    @State var isShowShareAlert = false
+
     init() {
-        UITableViewCell.appearance().backgroundColor = UIColor(Color("RootBackgroundColor"))
-        UITableView.appearance().backgroundColor = UIColor(Color("RootBackgroundColor"))
+        let dict = Bundle.main.infoDictionary!
+        appVersion = dict["CFBundleShortVersionString"] as? String ?? "0.0"
+        build = dict["CFBundleVersion"] as? String ?? "0"
     }
 
     var body: some View {
-        VStack {
-            Image("Icon")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 100, height: 100)
-                .clipShape(RoundedRectangle(cornerRadius: 10))
-            Text("V2EX You")
-                .font(.title)
-            Text("v1.0(build 1)")
-                .foregroundColor(.gray)
-                .padding(.bottom)
-            VStack(spacing: 15) {
-                NavigationLink {
-                    PreferNodesView()
-                } label: {
-                    Label("节点管理", systemImage: "circle.dashed.inset.filled")
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                }
-                Divider()
-                Button {
-                    isShowCleanCacheAlert.toggle()
-                } label: {
-                    Label("缓存清理", systemImage: "clear.fill")
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                }
-                .confirmationDialog("确定要清理缓存吗", isPresented: $isShowCleanCacheAlert, titleVisibility: .visible) {
-                    Button(role: .destructive) {
-                    } label: {
-                        Text("确认")
+        List {
+            VStack {
+                Image("Icon")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 100, height: 100)
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                Text("V2EX You")
+                    .font(.title)
+            }
+            .frame(maxWidth: .infinity)
+            .listRowSeparator(.hidden)
+            Button {
+                isShowCleanCacheAlert.toggle()
+            } label: {
+                Label("缓存清理", systemImage: "clear.fill")
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            .confirmationDialog("共 \(cacheSize)，确定要清理缓存吗", isPresented: $isShowCleanCacheAlert, titleVisibility: .visible) {
+                Button(role: .destructive) {
+                    ImageCache.default.clearDiskCache {
+                        cacheSize = "0 MB"
                     }
-                    Button(role: .cancel) {
-                    } label: {
-                        Text("取消")
-                    }
-                }
-                Divider()
-                Button {
                 } label: {
-                    Label("GitHub 与反馈", systemImage: "link.circle.fill")
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                    Text("确认")
                 }
-                Divider()
-                Button {
+                Button(role: .cancel) {
                 } label: {
-                    Label("分享", systemImage: "square.and.arrow.up.fill")
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                    Text("取消")
                 }
             }
-            .padding(.horizontal, 30)
-            Spacer()
-            Text("Develop by Mak Ho Cheung")
-                .font(.footnote)
-                .padding(.bottom, 20)
+            Link(destination: URL(string: "https://github.com/makhocheung/v2ex-you")!) {
+                Label("GitHub 与反馈", systemImage: "link.circle.fill")
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            Button {
+                UIPasteboard.general.url = URL(string: "https://testflight.apple.com/join/SdCh3Wbb")
+            } label: {
+                Label("分享", systemImage: "square.and.arrow.up.fill")
+                        .frame(maxWidth: .infinity, alignment: .leading)
+            }
+                    .alert("已复制分享链接", isPresented: $isShowShareAlert) {
+                        Text("完成")
+                    }
+            Text("版本：\(appVersion)(build \(build))")
+                    .font(.footnote)
+                    .padding()
+                    .frame(maxWidth: .infinity)
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+        .listStyle(.plain)
         .background(Color("RootBackgroundColor"))
+        .onAppear {
+            ImageCache.default.calculateDiskStorageSize { result in
+                switch result {
+                case let .success(size):
+                    cacheSize = String(format: "%.1f MB", Double(size) / 1024 / 1024)
+                case let .failure(error):
+                    print(error)
+                }
+            }
+        }
     }
 }
 
@@ -78,7 +93,7 @@ struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             ProfileView()
-                .navigationBarTitleDisplayMode(.inline)
+                .navigationTitle("我的")
         }
     }
 }

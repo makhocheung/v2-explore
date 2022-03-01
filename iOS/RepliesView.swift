@@ -24,9 +24,7 @@ struct RepliesView: View {
         }
         .task {
             do {
-                let url = URL(string: "https://www.v2ex.com/api/replies/show.json?topic_id=\(topic.id)&time=\(Date().timeIntervalSince1970)")!
-                let (data, _) = try await URLSession.shared.data(from: url)
-                replies = try JSONDecoder().decode([Reply].self, from: data)
+                replies = try await APIService.shared.getRepliesByTopic(topicId: topic.id)
             } catch {
                 print("\(error)")
             }

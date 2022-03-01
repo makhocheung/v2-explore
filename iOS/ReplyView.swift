@@ -16,6 +16,7 @@ struct ReplyView: View {
         HStack(alignment: .top) {
             KFImage(URL(string: reply.member.avatarNormal))
                 .resizable()
+                .scaledToFit()
                 .frame(width: 40, height: 40)
                 .cornerRadius(4)
             VStack {
@@ -27,7 +28,6 @@ struct ReplyView: View {
                                 .foregroundColor(.accentColor)
                             if isOP {
                                 Text("OP")
-                                    .font(.footnote)
                                     .padding(2)
                                     .foregroundColor(.blue)
                                     .overlay {
@@ -37,10 +37,10 @@ struct ReplyView: View {
                             }
                         }
                         Text(timestamp2Date(timestamp: reply.lastModified))
-                            .font(.caption)
                             .foregroundColor(.accentColor)
-                            .font(.system(size: 12))
                         Text(reply.content)
+                            .fixedSize(horizontal: false, vertical: true)
+                            .font(.body)
                     }
                     Spacer()
                     Text("#\(floor)")
@@ -49,7 +49,8 @@ struct ReplyView: View {
                 Divider()
             }
         }
-        .padding(.horizontal, 10)
+        .padding(EdgeInsets(top: 5, leading: 10, bottom: 0, trailing: 10))
+        .font(.caption)
     }
 }
 

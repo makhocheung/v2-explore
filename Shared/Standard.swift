@@ -11,6 +11,9 @@ let tabViewstyle = PageTabViewStyle(indexDisplayMode: .never)
 let htmlTemplate = try! String(contentsOf: Bundle.main.url(forResource: "index", withExtension: "html", subdirectory: "www")!)
 let htmlDarkTemplate = try! String(contentsOf: Bundle.main.url(forResource: "index_dark", withExtension: "html", subdirectory: "www")!)
 
+let jsonEncoder = JSONEncoder()
+let jsonDecoder = JSONDecoder()
+
 func timestamp2Date(timestamp: Int64) -> String {
     var timeStr: String = ""
     let duration = Int64(Date.now.timeIntervalSince1970) - timestamp
@@ -27,7 +30,7 @@ func timestamp2Date(timestamp: Int64) -> String {
     case 43201 ... 86400: timeStr = "一天前"
     default:
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        formatter.dateFormat = "yyyy-MM-dd"
         timeStr = formatter.string(from: Date(timeIntervalSince1970: Double(timestamp)))
     }
     return timeStr
