@@ -8,43 +8,36 @@
 import SwiftUI
 
 struct MainView: View {
-    @State var selectedTab = Tab.home
+    init() {
+        UITableViewCell.appearance().backgroundColor = UIColor(Color("RootBackgroundColor"))
+        UITableView.appearance().backgroundColor = UIColor(Color("RootBackgroundColor"))
+    }
+
     var body: some View {
-        NavigationView {
-            ZStack {
-                HomeView()
-                    .zIndex(selectedTab == .home ? .infinity : 0)
-                NodesView()
-                    .zIndex(selectedTab == .nodes ? .infinity : 0)
-                ProfileView()
-                    .zIndex(selectedTab == .profile ? .infinity : 0)
+        TabView {
+            NavigationView {
+                ExploreView()
+                    .navigationTitle("探索")
             }
-            .navigationBarTitle(selectedTab.title)
-            .navigationBarTitleDisplayMode(.inline)
-            .safeAreaInset(edge: .bottom, spacing: 0) {
-                HStack {
-                    Tab.home.tabItem
-                        .opacity(selectedTab == .home ? 1 : 0.5)
-                        .onTapGesture {
-                            selectedTab = .home
-                        }
-                    Spacer()
-                    Tab.nodes.tabItem
-                        .opacity(selectedTab == .nodes ? 1 : 0.5)
-                        .onTapGesture {
-                            selectedTab = .nodes
-                        }
-                    Spacer()
-                    Tab.profile.tabItem
-                        .opacity(selectedTab == .profile ? 1 : 0.5)
-                        .onTapGesture {
-                            selectedTab = .profile
-                        }
-                }
-                .font(.title3)
-                .padding(.vertical, 7)
-                .padding(.horizontal, 60)
-                .background(.regularMaterial)
+            .navigationViewStyle(.stack)
+            .tabItem {
+                Label("探索", systemImage: "newspaper.fill")
+            }
+            NavigationView {
+                GlanceView()
+                    .navigationTitle("浏览")
+            }
+            .navigationViewStyle(.stack)
+            .tabItem {
+                Label("浏览", systemImage: "rectangle.stack.fill")
+            }
+            NavigationView {
+                ProfileView()
+                    .navigationTitle("我的")
+            }
+            .navigationViewStyle(.stack)
+            .tabItem {
+                Label("我的", systemImage: "person.circle.fill")
             }
         }
     }
@@ -52,7 +45,11 @@ struct MainView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView()
+        Group {
+            MainView()
+            MainView()
+                .preferredColorScheme(.dark)
+        }
     }
 }
 

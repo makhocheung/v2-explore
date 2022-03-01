@@ -17,10 +17,11 @@ struct TopicView: View {
     @State var webViewHeight = CGFloat.zero
 
     var body: some View {
-        VStack(spacing: 0) {
+        List {
             HStack {
                 KFImage(URL(string: topic.member.avatarLarge))
                     .resizable()
+                    .scaledToFit()
                     .frame(width: 50, height: 50)
                     .cornerRadius(4)
                 VStack(alignment: .leading, spacing: 5) {
@@ -37,44 +38,26 @@ struct TopicView: View {
             }
             .foregroundColor(.accentColor)
             .padding(.horizontal, 10)
+            .listRowSeparator(.hidden)
+            .listRowBackground(Color("ContentBackgroundColor"))
             Text(topic.title)
                 .bold()
-                .padding(10)
                 .frame(maxWidth: .infinity, alignment: .leading)
-            Divider()
-            ScrollView {
-                if !topic.contentRendered.isEmpty {
-                    WebView(webViewHeight: $webViewHeight, content: webContent)
-                        .frame(height: webViewHeight)
-                }
-                Divider()
-                RepliesView(topic: topic)
+                .listRowSeparator(.hidden)
+                .listRowBackground(Color("ContentBackgroundColor"))
+     
+            if !topic.contentRendered.isEmpty {
+                WebView(webViewHeight: $webViewHeight, content: webContent)
+                    .frame(height: webViewHeight)
+                    .listRowBackground(Color("ContentBackgroundColor"))
             }
-            .background(Color("ContentBackgroundColor"))
-            HStack {
-                HStack {
-                    TextField("回复评论", text: $replyContent, prompt: nil)
-                    Button {
-                        showReplySuccess.toggle()
-                    } label: {
-                        Image(systemName: "paperplane.fill")
-                    }
-                }
-                .padding(10)
-                .background(Color("InputColor"))
-                .cornerRadius(8)
-            }
-            .padding(8)
-            .alert("回复成功", isPresented: $showReplySuccess) {
-                Text("完成")
-            }
+            RepliesView(topic: topic)
+            .listRowBackground(Color("ContentBackgroundColor"))
+            .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
         }
+        .listStyle(.plain)
         .background(Color("RootBackgroundColor"))
-        .toolbar {
-            ToolbarItem(placement: .principal) {
-                Text("话题")
-            }
-        }
+        .navigationBarTitleDisplayMode(.inline)
     }
 
     var webContent: String {
@@ -88,11 +71,9 @@ struct TopicView: View {
 
 struct TopicView_Previews: PreviewProvider {
     static var previews: some View {
-        Group {
+        NavigationView {
             TopicView()
-
-            TopicView()
-                .preferredColorScheme(.dark)
         }
+        .preferredColorScheme(.dark)
     }
 }
