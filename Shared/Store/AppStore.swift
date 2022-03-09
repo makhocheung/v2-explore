@@ -12,7 +12,7 @@ import Foundation
 class AppStore {
     static let HOTTEST_NODES = ["programmer", "create", "share", "apple", "jobs", "all4all", "guangzhou", "qna"]
 
-    static let latestTopicStore = TopicsStore(node: "latest")
-    static let hottestTopicStore = TopicsStore(node: "hottest")
+    static let latestTopicStore = TopicsStore(.latest)
+    static let hottestTopicStore = TopicsStore(.hottest)
     static let user = UserStore()
 }
