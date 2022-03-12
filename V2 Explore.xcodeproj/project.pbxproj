@@ -67,8 +67,8 @@
 		70BC2D5F274CB664008E2AF1 /* V2EXApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = V2EXApp.swift; sourceTree = "<group>"; };
 		70BC2D60274CB664008E2AF1 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		70BC2D61274CB665008E2AF1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		70BC2D66274CB665008E2AF1 /* V2EX You.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "V2EX You.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		70BC2D6C274CB665008E2AF1 /* V2EX You.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "V2EX You.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		70BC2D66274CB665008E2AF1 /* V2 Explore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "V2 Explore.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		70BC2D6C274CB665008E2AF1 /* V2 Explore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "V2 Explore.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		70BC2D6E274CB665008E2AF1 /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
 		70BC2D7D274CBC2A008E2AF1 /* BriefTopicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BriefTopicView.swift; sourceTree = "<group>"; };
 		70BC2D80274CBFC5008E2AF1 /* ExploreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreView.swift; sourceTree = "<group>"; };
@@ -175,8 +175,8 @@
 		70BC2D67274CB665008E2AF1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				70BC2D66274CB665008E2AF1 /* V2EX You.app */,
-				70BC2D6C274CB665008E2AF1 /* V2EX You.app */,
+				70BC2D66274CB665008E2AF1 /* V2 Explore.app */,
+				70BC2D6C274CB665008E2AF1 /* V2 Explore.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -192,9 +192,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		70BC2D65274CB665008E2AF1 /* V2EX You (iOS) */ = {
+		70BC2D65274CB665008E2AF1 /* V2 Explore (iOS) */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 70BC2D77274CB665008E2AF1 /* Build configuration list for PBXNativeTarget "V2EX You (iOS)" */;
+			buildConfigurationList = 70BC2D77274CB665008E2AF1 /* Build configuration list for PBXNativeTarget "V2 Explore (iOS)" */;
 			buildPhases = (
 				70BC2D62274CB665008E2AF1 /* Sources */,
 				70BC2D63274CB665008E2AF1 /* Frameworks */,
@@ -204,17 +204,17 @@
 			);
 			dependencies = (
 			);
-			name = "V2EX You (iOS)";
+			name = "V2 Explore (iOS)";
 			packageProductDependencies = (
 				707A078F2764B1E10047EC33 /* Kingfisher */,
 			);
 			productName = "V2EX You (iOS)";
-			productReference = 70BC2D66274CB665008E2AF1 /* V2EX You.app */;
+			productReference = 70BC2D66274CB665008E2AF1 /* V2 Explore.app */;
 			productType = "com.apple.product-type.application";
 		};
-		70BC2D6B274CB665008E2AF1 /* V2EX You (macOS) */ = {
+		70BC2D6B274CB665008E2AF1 /* V2 Explore (macOS) */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 70BC2D7A274CB665008E2AF1 /* Build configuration list for PBXNativeTarget "V2EX You (macOS)" */;
+			buildConfigurationList = 70BC2D7A274CB665008E2AF1 /* Build configuration list for PBXNativeTarget "V2 Explore (macOS)" */;
 			buildPhases = (
 				70BC2D68274CB665008E2AF1 /* Sources */,
 				70BC2D69274CB665008E2AF1 /* Frameworks */,
@@ -224,12 +224,12 @@
 			);
 			dependencies = (
 			);
-			name = "V2EX You (macOS)";
+			name = "V2 Explore (macOS)";
 			packageProductDependencies = (
 				707A07832764AB3D0047EC33 /* Kingfisher */,
 			);
 			productName = "V2EX You (macOS)";
-			productReference = 70BC2D6C274CB665008E2AF1 /* V2EX You.app */;
+			productReference = 70BC2D6C274CB665008E2AF1 /* V2 Explore.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -250,7 +250,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 70BC2D5D274CB664008E2AF1 /* Build configuration list for PBXProject "V2EX You" */;
+			buildConfigurationList = 70BC2D5D274CB664008E2AF1 /* Build configuration list for PBXProject "V2 Explore" */;
 			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -260,14 +260,14 @@
 			);
 			mainGroup = 70BC2D59274CB664008E2AF1;
 			packageReferences = (
-				707A07822764AB3D0047EC33 /* XCRemoteSwiftPackageReference "Kingfisher.git" */,
+				707A07822764AB3D0047EC33 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 70BC2D67274CB665008E2AF1 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				70BC2D65274CB665008E2AF1 /* V2EX You (iOS) */,
-				70BC2D6B274CB665008E2AF1 /* V2EX You (macOS) */,
+				70BC2D65274CB665008E2AF1 /* V2 Explore (iOS) */,
+				70BC2D6B274CB665008E2AF1 /* V2 Explore (macOS) */,
 			);
 		};
 /* End PBXProject section */
@@ -481,7 +481,7 @@
 				);
 				MARKETING_VERSION = "1.0-SNAPSHOT";
 				PRODUCT_BUNDLE_IDENTIFIER = pub.cellebi.v2ex;
-				PRODUCT_NAME = "V2EX You";
+				PRODUCT_NAME = "V2 Explore";
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -511,7 +511,7 @@
 				);
 				MARKETING_VERSION = "1.0-SNAPSHOT";
 				PRODUCT_BUNDLE_IDENTIFIER = pub.cellebi.v2ex;
-				PRODUCT_NAME = "V2EX You";
+				PRODUCT_NAME = "V2 Explore";
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -542,7 +542,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MARKETING_VERSION = "1.0-SNAPSHOT";
 				PRODUCT_BUNDLE_IDENTIFIER = pub.cellebi.v2ex;
-				PRODUCT_NAME = "V2EX You";
+				PRODUCT_NAME = "V2 Explore";
 				SDKROOT = macosx;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -571,7 +571,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MARKETING_VERSION = "1.0-SNAPSHOT";
 				PRODUCT_BUNDLE_IDENTIFIER = pub.cellebi.v2ex;
-				PRODUCT_NAME = "V2EX You";
+				PRODUCT_NAME = "V2 Explore";
 				SDKROOT = macosx;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -581,7 +581,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		70BC2D5D274CB664008E2AF1 /* Build configuration list for PBXProject "V2EX You" */ = {
+		70BC2D5D274CB664008E2AF1 /* Build configuration list for PBXProject "V2 Explore" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				70BC2D75274CB665008E2AF1 /* Debug */,
@@ -590,7 +590,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		70BC2D77274CB665008E2AF1 /* Build configuration list for PBXNativeTarget "V2EX You (iOS)" */ = {
+		70BC2D77274CB665008E2AF1 /* Build configuration list for PBXNativeTarget "V2 Explore (iOS)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				70BC2D78274CB665008E2AF1 /* Debug */,
@@ -599,7 +599,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		70BC2D7A274CB665008E2AF1 /* Build configuration list for PBXNativeTarget "V2EX You (macOS)" */ = {
+		70BC2D7A274CB665008E2AF1 /* Build configuration list for PBXNativeTarget "V2 Explore (macOS)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				70BC2D7B274CB665008E2AF1 /* Debug */,
@@ -611,7 +611,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		707A07822764AB3D0047EC33 /* XCRemoteSwiftPackageReference "Kingfisher.git" */ = {
+		707A07822764AB3D0047EC33 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://gitee.com/MakHoCheung/Kingfisher.git";
 			requirement = {
@@ -624,12 +624,12 @@
 /* Begin XCSwiftPackageProductDependency section */
 		707A07832764AB3D0047EC33 /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 707A07822764AB3D0047EC33 /* XCRemoteSwiftPackageReference "Kingfisher.git" */;
+			package = 707A07822764AB3D0047EC33 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
 		};
 		707A078F2764B1E10047EC33 /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 707A07822764AB3D0047EC33 /* XCRemoteSwiftPackageReference "Kingfisher.git" */;
+			package = 707A07822764AB3D0047EC33 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
 		};
 /* End XCSwiftPackageProductDependency section */
