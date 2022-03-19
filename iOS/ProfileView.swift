@@ -32,7 +32,7 @@ struct ProfileView: View {
                     .scaledToFit()
                     .frame(width: 100, height: 100)
                     .clipShape(RoundedRectangle(cornerRadius: 10))
-                Text("V2EX You")
+                Text("V2 Explore")
                     .font(.title)
             }
             .frame(maxWidth: .infinity)
@@ -56,26 +56,26 @@ struct ProfileView: View {
                     Text("取消")
                 }
             }
-            Link(destination: URL(string: "https://github.com/makhocheung/v2ex-you")!) {
+            Link(destination: URL(string: "https://github.com/makhocheung/v2-explore")!) {
                 Label("GitHub 与反馈", systemImage: "link.circle.fill")
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
             Button {
                 UIPasteboard.general.url = URL(string: "https://testflight.apple.com/join/SdCh3Wbb")
+                isShowShareAlert.toggle()
             } label: {
                 Label("分享", systemImage: "square.and.arrow.up.fill")
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                    .frame(maxWidth: .infinity, alignment: .leading)
             }
-                    .alert("已复制分享链接", isPresented: $isShowShareAlert) {
-                        Text("完成")
-                    }
+            .alert("已复制分享链接", isPresented: $isShowShareAlert) {
+                Text("完成")
+            }
             Text("版本：\(appVersion)(build \(build))")
-                    .font(.footnote)
-                    .padding()
-                    .frame(maxWidth: .infinity)
+                .font(.footnote)
+                .padding()
+                .frame(maxWidth: .infinity)
         }
         .listStyle(.plain)
-        .background(Color("RootBackgroundColor"))
         .onAppear {
             ImageCache.default.calculateDiskStorageSize { result in
                 switch result {

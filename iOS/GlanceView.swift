@@ -25,7 +25,6 @@ struct GlanceView: View {
                         Text(parentNodes[it]!.title)
                     }
                 }
-                .listRowBackground(Color("ContentBackgroundColor"))
             }
             Section {
                 ForEach(hierachyNodes, id: \.self) { it in
@@ -39,7 +38,6 @@ struct GlanceView: View {
                             Text(parentNodes[it]!.title)
                         }
                     }
-                    .listRowBackground(Color("ContentBackgroundColor"))
                 }
             } header: {
                 Text("导航")
