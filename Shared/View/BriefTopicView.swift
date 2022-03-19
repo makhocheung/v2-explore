@@ -15,6 +15,12 @@ struct BriefTopicView: View {
         VStack(spacing: 5) {
             HStack {
                 KFImage(URL(string: briefTopic.member.avatarNormal))
+                    .placeholder({ _ in
+                        Image(systemName: "photo")
+                            .resizable()
+                            .scaledToFit()
+                    })
+                    .fade(duration: 0.25)
                     .resizable()
                     .scaledToFit()
                     .frame(width: 40, height: 40)
@@ -60,17 +66,18 @@ struct Dot: View {
             .frame(width: 5, height: 5)
     }
 }
-
+#if DEBUG
 struct TopicItemView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            BriefTopicView(briefTopic: testTopic)
+            BriefTopicView(briefTopic: debugTopic)
                 .previewLayout(.fixed(width: 400, height: 120))
                 .padding()
-            BriefTopicView(briefTopic: testTopic)
+            BriefTopicView(briefTopic: debugTopic)
                 .preferredColorScheme(.dark)
                 .previewLayout(.fixed(width: 400, height: 120))
                 .padding()
         }
     }
 }
+#endif

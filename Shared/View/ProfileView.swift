@@ -74,6 +74,10 @@ struct ProfileView: View {
                 .font(.footnote)
                 .padding()
                 .frame(maxWidth: .infinity)
+            Text("Copyright © 2022 Mak Ho Cheung. All Rights Reserved.")
+                .font(.footnote)
+                .frame(maxWidth: .infinity)
+                .listRowSeparator(.hidden)
         }
         .listStyle(.plain)
         .onAppear {
@@ -89,11 +93,13 @@ struct ProfileView: View {
     }
 }
 
-struct ProfileView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            ProfileView()
-                .navigationTitle("我的")
+#if DEBUG
+    struct ProfileView_Previews: PreviewProvider {
+        static var previews: some View {
+            NavigationView {
+                ProfileView()
+                    .navigationTitle("我的")
+            }
         }
     }
-}
+#endif

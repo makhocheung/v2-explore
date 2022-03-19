@@ -7,8 +7,8 @@
 
 import Foundation
 
-class ErrorStore : ObservableObject {
+class AppState : ObservableObject {
     
-    @Published var isShowError = false
+    @Published var isShowErrorMsg = false
     @Published var errorMsg = ""
 }

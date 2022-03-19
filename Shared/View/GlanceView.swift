@@ -9,31 +9,45 @@ import Kingfisher
 import SwiftUI
 
 struct GlanceView: View {
-    let hierachyNodes = ["apple", "fe", "programming", "dev", "ml", "games", "life", "internet", "cn"]
+    let hierarchyNodes = ["apple", "fe", "programming", "dev", "ml", "games", "life", "internet", "cn"]
 
     var body: some View {
         List {
-            ForEach(AppStore.HOTTEST_NODES, id: \.self) { it in
+            ForEach(HOTTEST_NODES, id: \.self) { it in
                 NavigationLink {
                     let node = parentNodes[it]!
                     GlanceTopicsView(node: node.name, title: node.title)
                 } label: {
                     HStack {
                         KFImage(URL(string: parentNodes[it]!.avatarNormal))
+                            .placeholder({ _ in
+                                Image(systemName: "photo")
+                                    .resizable()
+                                    .scaledToFit()
+                            })
+                            .fade(duration: 0.25)
                             .resizable()
+                            .scaledToFit()
                             .frame(width: 30, height: 30)
                         Text(parentNodes[it]!.title)
                     }
                 }
             }
             Section {
-                ForEach(hierachyNodes, id: \.self) { it in
+                ForEach(hierarchyNodes, id: \.self) { it in
                     NavigationLink {
                         NodesView(parentNode: parentNodes[it]!)
                     } label: {
                         HStack {
                             KFImage(URL(string: parentNodes[it]!.avatarNormal))
+                                .placeholder({ _ in
+                                    Image(systemName: "photo")
+                                        .resizable()
+                                        .scaledToFit()
+                                })
+                                .fade(duration: 0.25)
                                 .resizable()
+                                .scaledToFit()
                                 .frame(width: 30, height: 30)
                             Text(parentNodes[it]!.title)
                         }
@@ -52,6 +66,7 @@ struct GlanceView: View {
     }
 }
 
+#if DEBUG
 struct NodesView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
@@ -60,3 +75,4 @@ struct NodesView_Previews: PreviewProvider {
         }
     }
 }
+#endif

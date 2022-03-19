@@ -12,3 +12,7 @@ V2 Explore 是一个基于 SwiftUI 开发的跨多个苹果平台的第三方 [V
 ## 许可证
 
 [Apache 许可证](./LICENSE).
+
+---
+
+Copyright © 2022 Mak Ho Cheung. All Rights Reserved.

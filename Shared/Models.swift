@@ -1,5 +1,5 @@
 //
-//  Model.swift
+//  Models.swift
 //  V2EX You
 //
 //  Created by Mak Ho-Cheung on 2021/11/23.

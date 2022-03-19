@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MainView: View {
-    @StateObject var errorStore = AppStore.errorStore
+    @StateObject var appState = AppContext.shared.appState
 
     var body: some View {
         TabView {
@@ -37,13 +37,14 @@ struct MainView: View {
                 Label("我的", systemImage: "person.circle.fill")
             }
         }
-        .alert(errorStore.errorMsg, isPresented: $errorStore.isShowError) {
+        .alert(appState.errorMsg, isPresented: $appState.isShowErrorMsg) {
             Button("完成") {
             }
         }
     }
 }
 
+#if DEBUG
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
@@ -53,3 +54,4 @@ struct ContentView_Previews: PreviewProvider {
         }
     }
 }
+#endif

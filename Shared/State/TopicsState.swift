@@ -4,16 +4,12 @@
 
 import Foundation
 
-class TopicsStore: ObservableObject {
+class TopicsState: ObservableObject {
     @Published var topics: [Topic] = []
 
     let listType: ExploreTopicListType
 
     init(_ listType: ExploreTopicListType) {
         self.listType = listType
-    }
-
-    public func loadTopics(topics: [Topic]) {
-        self.topics = topics
     }
 }

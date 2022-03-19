@@ -11,7 +11,7 @@ import WebKit
 
 struct TopicView: View {
     @Environment(\.colorScheme) var colorScheme
-    var topic = testTopic
+    var topic: Topic
     @State var replyContent = ""
     @State var webViewHeight = CGFloat.zero
 
@@ -19,6 +19,12 @@ struct TopicView: View {
         List {
             HStack {
                 KFImage(URL(string: topic.member.avatarLarge))
+                    .placeholder({ _ in
+                        Image(systemName: "photo")
+                            .resizable()
+                            .scaledToFit()
+                    })
+                    .fade(duration: 0.25)
                     .resizable()
                     .scaledToFit()
                     .frame(width: 50, height: 50)
@@ -41,12 +47,14 @@ struct TopicView: View {
                 .listRowSeparator(.hidden)
 
             if !topic.contentRendered.isEmpty {
-                WebView(webViewHeight: $webViewHeight, content: webContent)
-                    .frame(height: webViewHeight)
-                    .listRowSeparator(.hidden)
+                VStack {
+                    WebView(webViewHeight: $webViewHeight, content: webContent)
+                        .frame(height: webViewHeight)
+                    Divider()
+                }
+                .listRowSeparator(.hidden)
             }
             RepliesView(topic: topic)
-                .listRowSeparator(.hidden)
         }
         .listStyle(.plain)
         .navigationBarTitleDisplayMode(.inline)
@@ -61,10 +69,12 @@ struct TopicView: View {
     }
 }
 
+#if DEBUG
 struct TopicView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            TopicView()
+            TopicView(topic: debugTopic)
         }
     }
 }
+#endif
