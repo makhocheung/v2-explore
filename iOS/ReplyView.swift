@@ -13,43 +13,38 @@ struct ReplyView: View {
     var isOP = false
     var floor = 1
     var body: some View {
-        HStack(alignment: .top) {
-            KFImage(URL(string: reply.member.avatarNormal))
-                .resizable()
-                .scaledToFit()
-                .frame(width: 40, height: 40)
-                .cornerRadius(4)
-            VStack {
-                HStack(alignment: .top) {
-                    VStack(alignment: .leading, spacing: 6) {
-                        HStack {
-                            Text(reply.member.username)
-                                .bold()
-                                .foregroundColor(.accentColor)
-                            if isOP {
-                                Text("OP")
-                                    .padding(2)
-                                    .foregroundColor(.blue)
-                                    .overlay {
-                                        RoundedRectangle(cornerRadius: 4)
-                                            .stroke(Color.blue, lineWidth: 1)
-                                    }
-                            }
+        VStack {
+            HStack {
+                KFImage(URL(string: reply.member.avatarNormal))
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 40, height: 40)
+                    .cornerRadius(4)
+                VStack(alignment: .leading) {
+                    HStack {
+                        Text(reply.member.username)
+                        if isOP {
+                            Text("OP")
+                                .padding(2)
+                                .foregroundColor(.blue)
+                                .overlay {
+                                    RoundedRectangle(cornerRadius: 4)
+                                        .stroke(Color.blue, lineWidth: 1)
+                                }
                         }
-                        Text(timestamp2Date(timestamp: reply.lastModified))
-                            .foregroundColor(.accentColor)
-                        Text(reply.content)
-                            .fixedSize(horizontal: false, vertical: true)
-                            .font(.body)
                     }
-                    Spacer()
-                    Text("#\(floor)")
-                        .foregroundColor(.accentColor)
+                    Text(timestamp2Date(timestamp: reply.lastModified))
+                        .foregroundColor(.secondary)
                 }
-                Divider()
+                Spacer()
+                Text("#\(floor)")
+                    .foregroundColor(.secondary)
             }
+            Text(reply.content)
+                .fixedSize(horizontal: false, vertical: true)
+                .font(.body)
+                .frame(maxWidth: .infinity, alignment: .leading)
         }
-        .padding(EdgeInsets(top: 5, leading: 10, bottom: 0, trailing: 10))
         .font(.caption)
     }
 }

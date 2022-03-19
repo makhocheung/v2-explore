@@ -13,81 +13,80 @@ struct ExploreView: View {
     @StateObject var hottestTopicStore = AppStore.hottestTopicStore
     var body: some View {
         List {
-            switch listType {
-            case .latest:
-                ForEach(latestTopicStore.topics) {
-                    NavigationLinkView(topic: $0)
-                            .listRowBackground(Color("ContentBackgroundColor"))
-                            .listRowInsets(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
+            Section {
+                switch listType {
+                case .latest:
+                    ForEach(latestTopicStore.topics) {
+                        NavigationLinkView(topic: $0)
+                    }
+                case .hottest:
+                    ForEach(hottestTopicStore.topics) {
+                        NavigationLinkView(topic: $0)
+                    }
                 }
-            case .hottest:
-                ForEach(hottestTopicStore.topics) {
-                    NavigationLinkView(topic: $0)
-                            .listRowBackground(Color("ContentBackgroundColor"))
-                            .listRowInsets(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
+            }
+            .listRowSeparator(.hidden)
+            .listRowInsets(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
+        }
+        .background(bgView)
+        .listStyle(.plain)
+        .task {
+            do {
+                switch listType {
+                case .latest:
+                    latestTopicStore.loadTopics(topics: try await getTopics(topicStore: latestTopicStore))
+                case .hottest:
+                    hottestTopicStore.loadTopics(topics: try await getTopics(topicStore: hottestTopicStore))
+                }
+                print("Get \(listType) topics")
+            } catch {
+                print("error: \(error)")
+            }
+        }
+        .refreshable {
+            do {
+                switch listType {
+                case .latest:
+                    latestTopicStore.loadTopics(topics: try await refreshGetTopics(topicStore: latestTopicStore))
+                case .hottest:
+                    hottestTopicStore.loadTopics(topics: try await refreshGetTopics(topicStore: hottestTopicStore))
+                }
+                print("Get \(listType) topics")
+            } catch {
+                print(error)
+            }
+        }
+        .toolbar {
+            ToolbarItem {
+                Picker("类型", selection: $listType) {
+                    Text("最新")
+                        .tag(ExploreTopicListType.latest)
+                    Text("热门")
+                        .tag(ExploreTopicListType.hottest)
+                }
+                .pickerStyle(.segmented)
+                .onChange(of: listType) { _ in
+                    Task {
+                        do {
+                            switch listType {
+                            case .latest:
+                                latestTopicStore.loadTopics(topics: try await getTopics(topicStore: latestTopicStore))
+                            case .hottest:
+                                hottestTopicStore.loadTopics(topics: try await getTopics(topicStore: hottestTopicStore))
+                            }
+                            print("Get \(listType) topics")
+                        } catch {
+                            print(error)
+                        }
+                    }
                 }
             }
         }
-                .background(bgView)
-                .listStyle(.plain)
-                .task {
-                    do {
-                        switch listType {
-                        case .latest:
-                            latestTopicStore.loadTopics(topics: try await getTopics(topicStore: latestTopicStore))
-                        case .hottest:
-                            hottestTopicStore.loadTopics(topics: try await getTopics(topicStore: hottestTopicStore))
-                        }
-                        print("Get \(listType) topics")
-                    } catch {
-                        print("error: \(error)")
-                    }
-                }
-                .refreshable {
-                    do {
-                        switch listType {
-                        case .latest:
-                            latestTopicStore.loadTopics(topics: try await refreshGetTopics(topicStore: latestTopicStore))
-                        case .hottest:
-                            hottestTopicStore.loadTopics(topics: try await refreshGetTopics(topicStore: hottestTopicStore))
-                        }
-                        print("Get \(listType) topics")
-                    } catch {
-                        print(error)
-                    }
-                }
-                .toolbar {
-                    ToolbarItem {
-                        Picker("类型", selection: $listType) {
-                            Text("最新")
-                                    .tag(ExploreTopicListType.latest)
-                            Text("热门")
-                                    .tag(ExploreTopicListType.hottest)
-                        }
-                                .pickerStyle(.segmented)
-                                .onChange(of: listType) { _ in
-                                    Task {
-                                        do {
-                                            switch listType {
-                                            case .latest:
-                                                latestTopicStore.loadTopics(topics: try await getTopics(topicStore: latestTopicStore))
-                                            case .hottest:
-                                                hottestTopicStore.loadTopics(topics: try await getTopics(topicStore: hottestTopicStore))
-                                            }
-                                            print("Get \(listType) topics")
-                                        } catch {
-                                            print(error)
-                                        }
-                                    }
-                                }
-                    }
-                }
     }
 
     var bgView: some View {
         ProgressView()
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color("RootBackgroundColor"))
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 
     private func getTopics(topicStore: TopicsStore) async throws -> [Topic] {
@@ -105,12 +104,10 @@ struct ExploreView: View {
             return try await APIService.shared.getHottestTopics()
         }
     }
-
 }
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         ExploreView()
-                .preferredColorScheme(.dark)
     }
 }

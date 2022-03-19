@@ -10,7 +10,7 @@ import SwiftUI
 struct GlanceTopicsView: View {
     let node: String
     let title: String
-    @State var topics : [Topic] = []
+    @State var topics: [Topic] = []
 
     init(node: String, title: String) {
         self.node = node
@@ -19,11 +19,13 @@ struct GlanceTopicsView: View {
 
     var body: some View {
         List {
-            ForEach(topics) {
-                NavigationLinkView(topic: $0)
-                    .listRowBackground(Color("ContentBackgroundColor"))
-                    .listRowInsets(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
+            Section {
+                ForEach(topics) {
+                    NavigationLinkView(topic: $0)
+                }
             }
+            .listRowInsets(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
+            .listRowSeparator(.hidden)
         }
         .listStyle(.plain)
         .navigationTitle(title)
@@ -40,7 +42,6 @@ struct GlanceTopicsView: View {
     var bgView: some View {
         ProgressView()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color("RootBackgroundColor"))
     }
 }
 

@@ -12,19 +12,23 @@ struct NavigationLinkView: View {
     let topic: Topic
 
     var body: some View {
-        BriefTopicView(briefTopic: topic)
-            .overlay {
-                NavigationLink(isActive: $isActive) {
-                    TopicView(topic: topic)
-                } label: {
-                    EmptyView()
-                }
-                .buttonStyle(PlainButtonStyle())
-                .opacity(0.0)
+        VStack {
+            BriefTopicView(briefTopic: topic)
+            Divider()
+        }
+        .padding(.top, 10)
+        .overlay {
+            NavigationLink(isActive: $isActive) {
+                TopicView(topic: topic)
+            } label: {
+                EmptyView()
             }
-            .opacity(isActive ? 0.5 : 1)
-            .onTapGesture {
-                isActive.toggle()
-            }
+            .buttonStyle(PlainButtonStyle())
+            .opacity(0.0)
+        }
+        .opacity(isActive ? 0.5 : 1)
+        .onTapGesture {
+            isActive.toggle()
+        }
     }
 }

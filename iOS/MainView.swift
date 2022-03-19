@@ -8,10 +8,6 @@
 import SwiftUI
 
 struct MainView: View {
-    init() {
-        UITableViewCell.appearance().backgroundColor = UIColor(Color("RootBackgroundColor"))
-        UITableView.appearance().backgroundColor = UIColor(Color("RootBackgroundColor"))
-    }
 
     var body: some View {
         TabView {
@@ -49,32 +45,6 @@ struct ContentView_Previews: PreviewProvider {
             MainView()
             MainView()
                 .preferredColorScheme(.dark)
-        }
-    }
-}
-
-enum Tab {
-    case home, nodes, profile
-
-    var title: String {
-        switch self {
-        case .home:
-            return "V2EX"
-        case .nodes:
-            return "节点"
-        case .profile:
-            return "我的"
-        }
-    }
-
-    var tabItem: some View {
-        switch self {
-        case .home:
-            return TabIcon(systemName: "house", title: "首页")
-        case .nodes:
-            return TabIcon(systemName: "square.grid.3x3.topleft.filled", title: "节点")
-        case .profile:
-            return TabIcon(systemName: "person", title: "我的")
         }
     }
 }

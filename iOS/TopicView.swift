@@ -26,37 +26,30 @@ struct TopicView: View {
                     .cornerRadius(4)
                 VStack(alignment: .leading, spacing: 5) {
                     Text(topic.member.username)
-                        .bold()
                     Text(timestamp2Date(timestamp: topic.lastModified))
+                        .foregroundColor(.secondary)
                 }
                 Spacer()
                 Text(topic.node.name)
                     .padding(3)
-                    .foregroundColor(Color("StressTextColor"))
-                    .background(Color("StressBackgroundColor"))
+                    .background(Color("TagColor"))
                     .cornerRadius(4)
             }
-            .foregroundColor(.accentColor)
-            .padding(.horizontal, 10)
             .listRowSeparator(.hidden)
-            .listRowBackground(Color("ContentBackgroundColor"))
             Text(topic.title)
                 .bold()
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .listRowSeparator(.hidden)
-                .listRowBackground(Color("ContentBackgroundColor"))
-     
+
             if !topic.contentRendered.isEmpty {
                 WebView(webViewHeight: $webViewHeight, content: webContent)
                     .frame(height: webViewHeight)
-                    .listRowBackground(Color("ContentBackgroundColor"))
+                    .listRowSeparator(.hidden)
             }
             RepliesView(topic: topic)
-            .listRowBackground(Color("ContentBackgroundColor"))
-            .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+                .listRowSeparator(.hidden)
         }
         .listStyle(.plain)
-        .background(Color("RootBackgroundColor"))
         .navigationBarTitleDisplayMode(.inline)
     }
 
@@ -74,6 +67,5 @@ struct TopicView_Previews: PreviewProvider {
         NavigationView {
             TopicView()
         }
-        .preferredColorScheme(.dark)
     }
 }

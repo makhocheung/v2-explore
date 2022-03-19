@@ -12,7 +12,6 @@ struct V2EXApp: App {
     var body: some Scene {
         WindowGroup {
             MainView()
-                .foregroundColor(Color("TextColor"))
         }
     }
 }

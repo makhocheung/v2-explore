@@ -12,7 +12,7 @@ struct BriefTopicView: View {
     @Environment(\.colorScheme) var colorScheme
     let briefTopic: Topic
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(spacing: 5) {
             HStack {
                 KFImage(URL(string: briefTopic.member.avatarNormal))
                     .resizable()
@@ -21,16 +21,16 @@ struct BriefTopicView: View {
                     .cornerRadius(4)
                 VStack(alignment: .leading, spacing: 2) {
                     Text(briefTopic.member.username)
-                        .bold()
                     if !briefTopic.lastReplyBy.isEmpty {
                         HStack {
                             Text(timestamp2Date(timestamp: briefTopic.lastTouched))
                             Dot()
                             Text(briefTopic.lastReplyBy)
-                                .bold()
                         }
+                        .foregroundColor(.secondary)
                     } else {
                         Text(timestamp2Date(timestamp: briefTopic.created))
+                            .foregroundColor(.secondary)
                     }
                 }
                 Spacer()
@@ -39,12 +39,10 @@ struct BriefTopicView: View {
                     .background(Color("TagColor"))
                     .cornerRadius(4)
             }
-            Spacer()
             Text(briefTopic.title)
                 .font(.body)
-                .bold()
-                .multilineTextAlignment(.leading)
-            Spacer()
+                .fixedSize(horizontal: false, vertical: true)
+                .frame(maxWidth: .infinity, alignment: .leading)
             HStack(spacing: 0) {
                 Spacer()
                 Image(systemName: "bubble.right")
@@ -52,7 +50,6 @@ struct BriefTopicView: View {
             }
         }
         .font(.caption)
-        .foregroundColor(.accentColor)
     }
 }
 
@@ -66,9 +63,14 @@ struct Dot: View {
 
 struct TopicItemView_Previews: PreviewProvider {
     static var previews: some View {
-        BriefTopicView(briefTopic: testTopic)
-            .preferredColorScheme(.dark)
-            .previewLayout(.fixed(width: 400, height: 120))
-            .padding()
+        Group {
+            BriefTopicView(briefTopic: testTopic)
+                .previewLayout(.fixed(width: 400, height: 120))
+                .padding()
+            BriefTopicView(briefTopic: testTopic)
+                .preferredColorScheme(.dark)
+                .previewLayout(.fixed(width: 400, height: 120))
+                .padding()
+        }
     }
 }
