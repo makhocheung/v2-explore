@@ -50,6 +50,7 @@
 /* Begin PBXFileReference section */
 		704F2F3727A4D9B60047FCFB /* RefreshableScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshableScrollView.swift; sourceTree = "<group>"; };
 		70616D2B2764D7DA0007AD6E /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		70717B2027E5F0A8005C315A /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
 		707A077A2764A7EA0047EC33 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		707A07892764B0DA0047EC33 /* GlanceTopicsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlanceTopicsView.swift; sourceTree = "<group>"; };
 		708771DD27A50FD500068A66 /* NavigationLinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationLinkView.swift; sourceTree = "<group>"; };
@@ -101,6 +102,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		70717B1727E5ED1F005C315A /* screenshot */ = {
+			isa = PBXGroup;
+			children = (
+				70717B2027E5F0A8005C315A /* 1.png */,
+			);
+			path = screenshot;
+			sourceTree = "<group>";
+		};
 		707A07792764A7AD0047EC33 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
@@ -144,6 +153,7 @@
 		70BC2D59274CB664008E2AF1 = {
 			isa = PBXGroup;
 			children = (
+				70717B1727E5ED1F005C315A /* screenshot */,
 				70946E0F279CEC7500BEFC94 /* .gitignore */,
 				70BC2D5E274CB664008E2AF1 /* Shared */,
 				707A07792764A7AD0047EC33 /* iOS */,
