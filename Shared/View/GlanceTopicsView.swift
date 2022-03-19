@@ -11,7 +11,7 @@ struct GlanceTopicsView: View {
     let node: String
     let title: String
     @State var topics: [Topic] = []
-    @StateObject var errorStore = AppStore.errorStore
+    var appAction = AppContext.shared.appAction
 
     init(node: String, title: String) {
         self.node = node
@@ -25,21 +25,25 @@ struct GlanceTopicsView: View {
                     NavigationLinkView(topic: $0)
                 }
             }
-            .listRowInsets(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
+            .listRowInsets(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
             .listRowSeparator(.hidden)
         }
         .listStyle(.plain)
         .navigationTitle(title)
         .task {
-            do {
-                topics = try await APIService.shared.getTopicsByNode(nodeName: node)
-            } catch {
-                if error.localizedDescription != "cancelled" {
-                    print("[v2-explore]: \(error.localizedDescription)")
-                    errorStore.errorMsg = "网络请求异常"
-                    errorStore.isShowError.toggle()
+            #if DEBUG
+                topics = debugTopics
+            #else
+                do {
+                    topics = try await APIService.shared.getTopicsByNode(nodeName: node)
+                } catch {
+                    if error.localizedDescription != "cancelled" {
+                        print("[v2-explore]: \(error.localizedDescription)")
+                        appAction.updateErrorMsg(errorMsg: "网络请求异常")
+                        appAction.toggleIsShowErrorMsg()
+                    }
                 }
-            }
+            #endif
         }
         .background(bgView)
     }
@@ -50,6 +54,7 @@ struct GlanceTopicsView: View {
     }
 }
 
+#if DEBUG
 struct LatestTopicsView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
@@ -57,3 +62,4 @@ struct LatestTopicsView_Previews: PreviewProvider {
         }
     }
 }
+#endif

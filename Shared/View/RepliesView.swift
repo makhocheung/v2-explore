@@ -10,7 +10,7 @@ import SwiftUI
 struct RepliesView: View {
     var topic: Topic
     @State var replies: [Reply]?
-    @State var errorStore = AppStore.errorStore
+    var appAction = AppContext.shared.appAction
     var body: some View {
         Section {
             if let replies = replies {
@@ -28,23 +28,31 @@ struct RepliesView: View {
             }
         }
         .listRowSeparator(.hidden)
-        .listRowInsets(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
+        .listRowInsets(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
         .task {
-            do {
-                replies = try await APIService.shared.getRepliesByTopic(topicId: topic.id)
-            } catch {
-                if error.localizedDescription != "cancelled" {
-                    print("[v2-explore]: \(error.localizedDescription)")
-                    errorStore.errorMsg = "网络请求异常"
-                    errorStore.isShowError.toggle()
+            #if DEBUG
+                replies = debugReplies
+            #else
+                do {
+                    replies = try await APIService.shared.getRepliesByTopic(topicId: topic.id)
+                } catch {
+                    if error.localizedDescription != "cancelled" {
+                        print("[v2-explore]: \(error.localizedDescription)")
+                        appAction.updateErrorMsg(errorMsg: "网络请求异常")
+                        appAction.toggleIsShowErrorMsg()
+                    }
                 }
-            }
+            #endif
         }
     }
 }
 
+#if DEBUG
 struct RepliesView_Previews: PreviewProvider {
     static var previews: some View {
-        RepliesView(topic: testTopic)
+        List {
+            RepliesView(topic: debugTopic)
+        }
     }
 }
+#endif

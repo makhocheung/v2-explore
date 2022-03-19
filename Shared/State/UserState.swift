@@ -4,5 +4,5 @@
 
 import Foundation
 
-class UserStore: ObservableObject {
+class UserState: ObservableObject {
 }

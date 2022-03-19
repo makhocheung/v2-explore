@@ -32,3 +32,11 @@ struct NavigationLinkView: View {
         }
     }
 }
+
+#if DEBUG
+    struct NavigationLinkView_Previews: PreviewProvider {
+        static var previews: some View {
+            NavigationLinkView(topic: debugTopic)
+        }
+    }
+#endif
