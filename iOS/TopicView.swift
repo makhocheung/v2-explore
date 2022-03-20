@@ -13,7 +13,6 @@ struct TopicView: View {
     @Environment(\.colorScheme) var colorScheme
     var topic = testTopic
     @State var replyContent = ""
-    @State var showReplySuccess = false
     @State var webViewHeight = CGFloat.zero
 
     var body: some View {
@@ -30,7 +29,7 @@ struct TopicView: View {
                         .foregroundColor(.secondary)
                 }
                 Spacer()
-                Text(topic.node.name)
+                Text(topic.node.title)
                     .padding(3)
                     .background(Color("TagColor"))
                     .cornerRadius(4)

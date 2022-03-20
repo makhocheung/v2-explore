@@ -15,4 +15,5 @@ class AppStore {
     static let latestTopicStore = TopicsStore(.latest)
     static let hottestTopicStore = TopicsStore(.hottest)
     static let user = UserStore()
+    static let errorStore = ErrorStore()
 }

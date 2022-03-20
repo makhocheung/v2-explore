@@ -11,6 +11,7 @@ struct ExploreView: View {
     @State var listType = ExploreTopicListType.latest
     @StateObject var latestTopicStore = AppStore.latestTopicStore
     @StateObject var hottestTopicStore = AppStore.hottestTopicStore
+    @StateObject var errorStore = AppStore.errorStore
     var body: some View {
         List {
             Section {
@@ -38,9 +39,12 @@ struct ExploreView: View {
                 case .hottest:
                     hottestTopicStore.loadTopics(topics: try await getTopics(topicStore: hottestTopicStore))
                 }
-                print("Get \(listType) topics")
             } catch {
-                print("error: \(error)")
+                if error.localizedDescription != "cancelled" {
+                    print("[v2-explore]: \(error.localizedDescription)")
+                    errorStore.errorMsg = "网络请求异常"
+                    errorStore.isShowError.toggle()
+                }
             }
         }
         .refreshable {
@@ -51,9 +55,12 @@ struct ExploreView: View {
                 case .hottest:
                     hottestTopicStore.loadTopics(topics: try await refreshGetTopics(topicStore: hottestTopicStore))
                 }
-                print("Get \(listType) topics")
             } catch {
-                print(error)
+                if error.localizedDescription != "cancelled" {
+                    print("[v2-explore]: \(error.localizedDescription)")
+                    errorStore.errorMsg = "网络请求异常"
+                    errorStore.isShowError.toggle()
+                }
             }
         }
         .toolbar {
@@ -74,9 +81,12 @@ struct ExploreView: View {
                             case .hottest:
                                 hottestTopicStore.loadTopics(topics: try await getTopics(topicStore: hottestTopicStore))
                             }
-                            print("Get \(listType) topics")
                         } catch {
-                            print(error)
+                            if error.localizedDescription != "cancelled" {
+                                print("[v2-explore]: \(error.localizedDescription)")
+                                errorStore.errorMsg = "网络请求异常"
+                                errorStore.isShowError.toggle()
+                            }
                         }
                     }
                 }

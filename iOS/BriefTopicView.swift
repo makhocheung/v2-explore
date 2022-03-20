@@ -34,7 +34,7 @@ struct BriefTopicView: View {
                     }
                 }
                 Spacer()
-                Text(briefTopic.node.name)
+                Text(briefTopic.node.title)
                     .padding(5)
                     .background(Color("TagColor"))
                     .cornerRadius(4)
