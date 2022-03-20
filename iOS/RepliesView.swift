@@ -10,6 +10,7 @@ import SwiftUI
 struct RepliesView: View {
     var topic: Topic
     @State var replies: [Reply]?
+    @State var errorStore = AppStore.errorStore
     var body: some View {
         Section {
             if let replies = replies {
@@ -32,7 +33,11 @@ struct RepliesView: View {
             do {
                 replies = try await APIService.shared.getRepliesByTopic(topicId: topic.id)
             } catch {
-                print("\(error)")
+                if error.localizedDescription != "cancelled" {
+                    print("[v2-explore]: \(error.localizedDescription)")
+                    errorStore.errorMsg = "网络请求异常"
+                    errorStore.isShowError.toggle()
+                }
             }
         }
     }

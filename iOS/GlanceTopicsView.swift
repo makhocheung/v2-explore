@@ -11,6 +11,7 @@ struct GlanceTopicsView: View {
     let node: String
     let title: String
     @State var topics: [Topic] = []
+    @StateObject var errorStore = AppStore.errorStore
 
     init(node: String, title: String) {
         self.node = node
@@ -33,7 +34,11 @@ struct GlanceTopicsView: View {
             do {
                 topics = try await APIService.shared.getTopicsByNode(nodeName: node)
             } catch {
-                print(error)
+                if error.localizedDescription != "cancelled" {
+                    print("[v2-explore]: \(error.localizedDescription)")
+                    errorStore.errorMsg = "网络请求异常"
+                    errorStore.isShowError.toggle()
+                }
             }
         }
         .background(bgView)

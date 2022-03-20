@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MainView: View {
+    @StateObject var errorStore = AppStore.errorStore
 
     var body: some View {
         TabView {
@@ -34,6 +35,10 @@ struct MainView: View {
             .navigationViewStyle(.stack)
             .tabItem {
                 Label("我的", systemImage: "person.circle.fill")
+            }
+        }
+        .alert(errorStore.errorMsg, isPresented: $errorStore.isShowError) {
+            Button("完成") {
             }
         }
     }

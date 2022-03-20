@@ -11,6 +11,7 @@ import SwiftUI
 struct NodeView: View {
     let node: Node
     @State var topics: [Topic] = []
+    @State var errorStore = AppStore.errorStore
 
     var body: some View {
         List {
@@ -41,7 +42,11 @@ struct NodeView: View {
             do {
                 topics = try await APIService.shared.getTopicsByNode(nodeName: node.name)
             } catch {
-                print("\(error)")
+                if error.localizedDescription != "cancelled" {
+                    print("[v2-explore]: \(error.localizedDescription)")
+                    errorStore.errorMsg = "网络请求异常"
+                    errorStore.isShowError.toggle()
+                }
             }
         }
     }
