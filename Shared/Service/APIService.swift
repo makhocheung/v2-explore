@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import V2EXClient
 
 class APIService {
     static let shared = APIService()

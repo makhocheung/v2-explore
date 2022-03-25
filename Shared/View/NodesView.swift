@@ -7,6 +7,7 @@
 
 import Kingfisher
 import SwiftUI
+import V2EXClient
 
 struct NodesView: View {
     let parentNode: Node

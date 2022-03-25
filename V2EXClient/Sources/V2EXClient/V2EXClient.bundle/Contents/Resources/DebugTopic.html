@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><style type="text/css">.tippy-touch{cursor:pointer!important}.tippy-notransition{transition:none!important}.tippy-popper{max-width:350px;-webkit-perspective:700px;perspective:700px;z-index:9999;outline:0;transition-timing-function:cubic-bezier(.165,.84,.44,1);pointer-events:none}.tippy-popper[data-html]{max-width:96%;max-width:calc(100% - 20px)}.tippy-popper[x-placement^=top] .tippy-backdrop{border-radius:40% 40% 0 0}.tippy-popper[x-placement^=top] .tippy-roundarrow{width:23px;height:23px;fill:#333;bottom:-15px;margin:0 6px}.tippy-popper[x-placement^=top] .tippy-roundarrow svg{-webkit-transform:rotate(180deg);transform:rotate(180deg)}.tippy-popper[x-placement^=top] .tippy-arrow{border-top:7px solid #333;border-right:7px solid transparent;border-left:7px solid transparent;bottom:-7px;margin:0 7px}.tippy-popper[x-placement^=top] .tippy-backdrop{-webkit-transform-origin:0 100%;transform-origin:0 100%}.tippy-popper[x-placement^=top] .tippy-backdrop[data-state=visible]{-webkit-transform:scale(5.5) translate(-50%,25%);transform:scale(5.5) translate(-50%,25%);opacity:1}.tippy-popper[x-placement^=top] .tippy-backdrop[data-state=hidden]{-webkit-transform:scale(1) translate(-50%,25%);transform:scale(1) translate(-50%,25%);opacity:0}.tippy-popper[x-placement^=top] [data-animation=shift-toward][data-state=visible]{opacity:1;-webkit-transform:translateY(-10px);transform:translateY(-10px)}.tippy-popper[x-placement^=top] [data-animation=shift-toward][data-state=hidden]{opacity:0;-webkit-transform:translateY(-20px);transform:translateY(-20px)}.tippy-popper[x-placement^=top] [data-animation=perspective]{-webkit-transform-origin:bottom;transform-origin:bottom}.tippy-popper[x-placement^=top] [data-animation=perspective][data-state=visible]{opacity:1;-webkit-transform:translateY(-10px) rotateX(0);transform:translateY(-10px) rotateX(0)}.tippy-popper[x-placement^=top] [data-animation=perspective][data-state=hidden]{opacity:0;-webkit-transform:translateY(0) rotateX(90deg);transform:translateY(0) rotateX(90deg)}.tippy-popper[x-placement^=top] [data-animation=fade][data-state=visible]{opacity:1;-webkit-transform:translateY(-10px);transform:translateY(-10px)}.tippy-popper[x-placement^=top] [data-animation=fade][data-state=hidden]{opacity:0;-webkit-transform:translateY(-10px);transform:translateY(-10px)}.tippy-popper[x-placement^=top] [data-animation=shift-away][data-state=visible]{opacity:1;-webkit-transform:translateY(-10px);transform:translateY(-10px)}.tippy-popper[x-placement^=top] [data-animation=shift-away][data-state=hidden]{opacity:0;-webkit-transform:translateY(0);transform:translateY(0)}.tippy-popper[x-placement^=top] [data-animation=scale][data-state=visible]{opacity:1;-webkit-transform:translateY(-10px) scale(1);transform:translateY(-10px) scale(1)}.tippy-popper[x-placement^=top] [data-animation=scale][data-state=hidden]{opacity:0;-webkit-transform:translateY(0) scale(0);transform:translateY(0) scale(0)}.tippy-popper[x-placement^=bottom] .tippy-backdrop{border-radius:0 0 30% 30%}.tippy-popper[x-placement^=bottom] .tippy-roundarrow{width:23px;height:23px;fill:#333;top:-15px;margin:0 6px}.tippy-popper[x-placement^=bottom] .tippy-roundarrow svg{-webkit-transform:rotate(0);transform:rotate(0)}.tippy-popper[x-placement^=bottom] .tippy-arrow{border-bottom:7px solid #333;border-right:7px solid transparent;border-left:7px solid transparent;top:-7px;margin:0 7px}.tippy-popper[x-placement^=bottom] .tippy-backdrop{-webkit-transform-origin:0 -100%;transform-origin:0 -100%}.tippy-popper[x-placement^=bottom] .tippy-backdrop[data-state=visible]{-webkit-transform:scale(5.5) translate(-50%,-125%);transform:scale(5.5) translate(-50%,-125%);opacity:1}.tippy-popper[x-placement^=bottom] .tippy-backdrop[data-state=hidden]{-webkit-transform:scale(1) translate(-50%,-125%);transform:scale(1) translate(-50%,-125%);opacity:0}.tippy-popper[x-placement^=bottom] [data-animation=shift-toward][data-state=visible]{opacity:1;-webkit-transform:translateY(10px);transform:translateY(10px)}.tippy-popper[x-placement^=bottom] [data-animation=shift-toward][data-state=hidden]{opacity:0;-webkit-transform:translateY(20px);transform:translateY(20px)}.tippy-popper[x-placement^=bottom] [data-animation=perspective]{-webkit-transform-origin:top;transform-origin:top}.tippy-popper[x-placement^=bottom] [data-animation=perspective][data-state=visible]{opacity:1;-webkit-transform:translateY(10px) rotateX(0);transform:translateY(10px) rotateX(0)}.tippy-popper[x-placement^=bottom] [data-animation=perspective][data-state=hidden]{opacity:0;-webkit-transform:translateY(0) rotateX(-90deg);transform:translateY(0) rotateX(-90deg)}.tippy-popper[x-placement^=bottom] [data-animation=fade][data-state=visible]{opacity:1;-webkit-transform:translateY(10px);transform:translateY(10px)}.tippy-popper[x-placement^=bottom] [data-animation=fade][data-state=hidden]{opacity:0;-webkit-transform:translateY(10px);transform:translateY(10px)}.tippy-popper[x-placement^=bottom] [data-animation=shift-away][data-state=visible]{opacity:1;-webkit-transform:translateY(10px);transform:translateY(10px)}.tippy-popper[x-placement^=bottom] [data-animation=shift-away][data-state=hidden]{opacity:0;-webkit-transform:translateY(0);transform:translateY(0)}.tippy-popper[x-placement^=bottom] [data-animation=scale][data-state=visible]{opacity:1;-webkit-transform:translateY(10px) scale(1);transform:translateY(10px) scale(1)}.tippy-popper[x-placement^=bottom] [data-animation=scale][data-state=hidden]{opacity:0;-webkit-transform:translateY(0) scale(0);transform:translateY(0) scale(0)}.tippy-popper[x-placement^=left] .tippy-backdrop{border-radius:30% 0 0 30%}.tippy-popper[x-placement^=left] .tippy-roundarrow{width:23px;height:23px;fill:#333;right:-15px;margin:4px 0}.tippy-popper[x-placement^=left] .tippy-roundarrow svg{-webkit-transform:rotate(90deg);transform:rotate(90deg)}.tippy-popper[x-placement^=left] .tippy-arrow{border-left:7px solid #333;border-top:7px solid transparent;border-bottom:7px solid transparent;right:-7px;margin:4px 0}.tippy-popper[x-placement^=left] .tippy-backdrop{-webkit-transform-origin:100% 0;transform-origin:100% 0}.tippy-popper[x-placement^=left] .tippy-backdrop[data-state=visible]{-webkit-transform:scale(5.5) translate(33%,-50%);transform:scale(5.5) translate(33%,-50%);opacity:1}.tippy-popper[x-placement^=left] .tippy-backdrop[data-state=hidden]{-webkit-transform:scale(1.5) translate(33%,-50%);transform:scale(1.5) translate(33%,-50%);opacity:0}.tippy-popper[x-placement^=left] [data-animation=shift-toward][data-state=visible]{opacity:1;-webkit-transform:translateX(-10px);transform:translateX(-10px)}.tippy-popper[x-placement^=left] [data-animation=shift-toward][data-state=hidden]{opacity:0;-webkit-transform:translateX(-20px);transform:translateX(-20px)}.tippy-popper[x-placement^=left] [data-animation=perspective]{-webkit-transform-origin:right;transform-origin:right}.tippy-popper[x-placement^=left] [data-animation=perspective][data-state=visible]{opacity:1;-webkit-transform:translateX(-10px) rotateY(0);transform:translateX(-10px) rotateY(0)}.tippy-popper[x-placement^=left] [data-animation=perspective][data-state=hidden]{opacity:0;-webkit-transform:translateX(0) rotateY(-90deg);transform:translateX(0) rotateY(-90deg)}.tippy-popper[x-placement^=left] [data-animation=fade][data-state=visible]{opacity:1;-webkit-transform:translateX(-10px);transform:translateX(-10px)}.tippy-popper[x-placement^=left] [data-animation=fade][data-state=hidden]{opacity:0;-webkit-transform:translateX(-10px);transform:translateX(-10px)}.tippy-popper[x-placement^=left] [data-animation=shift-away][data-state=visible]{opacity:1;-webkit-transform:translateX(-10px);transform:translateX(-10px)}.tippy-popper[x-placement^=left] [data-animation=shift-away][data-state=hidden]{opacity:0;-webkit-transform:translateX(0);transform:translateX(0)}.tippy-popper[x-placement^=left] [data-animation=scale][data-state=visible]{opacity:1;-webkit-transform:translateX(-10px) scale(1);transform:translateX(-10px) scale(1)}.tippy-popper[x-placement^=left] [data-animation=scale][data-state=hidden]{opacity:0;-webkit-transform:translateX(0) scale(0);transform:translateX(0) scale(0)}.tippy-popper[x-placement^=right] .tippy-backdrop{border-radius:0 30% 30% 0}.tippy-popper[x-placement^=right] .tippy-roundarrow{width:23px;height:23px;fill:#333;left:-15px;margin:4px 0}.tippy-popper[x-placement^=right] .tippy-roundarrow svg{-webkit-transform:rotate(-90deg);transform:rotate(-90deg)}.tippy-popper[x-placement^=right] .tippy-arrow{border-right:7px solid #333;border-top:7px solid transparent;border-bottom:7px solid transparent;left:-7px;margin:4px 0}.tippy-popper[x-placement^=right] .tippy-backdrop{-webkit-transform-origin:-100% 0;transform-origin:-100% 0}.tippy-popper[x-placement^=right] .tippy-backdrop[data-state=visible]{-webkit-transform:scale(5.5) translate(-133%,-50%);transform:scale(5.5) translate(-133%,-50%);opacity:1}.tippy-popper[x-placement^=right] .tippy-backdrop[data-state=hidden]{-webkit-transform:scale(1.5) translate(-133%,-50%);transform:scale(1.5) translate(-133%,-50%);opacity:0}.tippy-popper[x-placement^=right] [data-animation=shift-toward][data-state=visible]{opacity:1;-webkit-transform:translateX(10px);transform:translateX(10px)}.tippy-popper[x-placement^=right] [data-animation=shift-toward][data-state=hidden]{opacity:0;-webkit-transform:translateX(20px);transform:translateX(20px)}.tippy-popper[x-placement^=right] [data-animation=perspective]{-webkit-transform-origin:left;transform-origin:left}.tippy-popper[x-placement^=right] [data-animation=perspective][data-state=visible]{opacity:1;-webkit-transform:translateX(10px) rotateY(0);transform:translateX(10px) rotateY(0)}.tippy-popper[x-placement^=right] [data-animation=perspective][data-state=hidden]{opacity:0;-webkit-transform:translateX(0) rotateY(90deg);transform:translateX(0) rotateY(90deg)}.tippy-popper[x-placement^=right] [data-animation=fade][data-state=visible]{opacity:1;-webkit-transform:translateX(10px);transform:translateX(10px)}.tippy-popper[x-placement^=right] [data-animation=fade][data-state=hidden]{opacity:0;-webkit-transform:translateX(10px);transform:translateX(10px)}.tippy-popper[x-placement^=right] [data-animation=shift-away][data-state=visible]{opacity:1;-webkit-transform:translateX(10px);transform:translateX(10px)}.tippy-popper[x-placement^=right] [data-animation=shift-away][data-state=hidden]{opacity:0;-webkit-transform:translateX(0);transform:translateX(0)}.tippy-popper[x-placement^=right] [data-animation=scale][data-state=visible]{opacity:1;-webkit-transform:translateX(10px) scale(1);transform:translateX(10px) scale(1)}.tippy-popper[x-placement^=right] [data-animation=scale][data-state=hidden]{opacity:0;-webkit-transform:translateX(0) scale(0);transform:translateX(0) scale(0)}.tippy-tooltip{position:relative;color:#fff;border-radius:4px;font-size:.9rem;padding:.3rem .6rem;text-align:center;will-change:transform;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;background-color:#333}.tippy-tooltip[data-size=small]{padding:.2rem .4rem;font-size:.75rem}.tippy-tooltip[data-size=large]{padding:.4rem .8rem;font-size:1rem}.tippy-tooltip[data-animatefill]{overflow:hidden;background-color:transparent}.tippy-tooltip[data-animatefill] .tippy-content{transition:-webkit-clip-path cubic-bezier(.46,.1,.52,.98);transition:clip-path cubic-bezier(.46,.1,.52,.98);transition:clip-path cubic-bezier(.46,.1,.52,.98),-webkit-clip-path cubic-bezier(.46,.1,.52,.98)}.tippy-tooltip[data-interactive]{pointer-events:auto}.tippy-tooltip[data-inertia][data-state=visible]{transition-timing-function:cubic-bezier(.53,2,.36,.85)}.tippy-tooltip[data-inertia][data-state=hidden]{transition-timing-function:ease}.tippy-arrow,.tippy-roundarrow{position:absolute;width:0;height:0}.tippy-roundarrow{pointer-events:none}.tippy-roundarrow path{pointer-events:auto}.tippy-backdrop{position:absolute;will-change:transform;background-color:#333;border-radius:50%;width:26%;left:50%;top:50%;z-index:-1;transition:all cubic-bezier(.46,.1,.52,.98);-webkit-backface-visibility:hidden;backface-visibility:hidden}.tippy-backdrop:after{content:"";float:left;padding-top:100%}body:not(.tippy-touch) .tippy-tooltip[data-animatefill][data-state=visible] .tippy-content{-webkit-clip-path:ellipse(100% 100% at 50% 50%);clip-path:ellipse(100% 100% at 50% 50%)}body:not(.tippy-touch) .tippy-tooltip[data-animatefill][data-state=hidden] .tippy-content{-webkit-clip-path:ellipse(5% 50% at 50% 50%);clip-path:ellipse(5% 50% at 50% 50%)}body:not(.tippy-touch) .tippy-popper[x-placement=right] .tippy-tooltip[data-animatefill][data-state=visible] .tippy-content{-webkit-clip-path:ellipse(135% 100% at 0 50%);clip-path:ellipse(135% 100% at 0 50%)}body:not(.tippy-touch) .tippy-popper[x-placement=right] .tippy-tooltip[data-animatefill][data-state=hidden] .tippy-content{-webkit-clip-path:ellipse(25% 100% at 0 50%);clip-path:ellipse(25% 100% at 0 50%)}body:not(.tippy-touch) .tippy-popper[x-placement=left] .tippy-tooltip[data-animatefill][data-state=visible] .tippy-content{-webkit-clip-path:ellipse(135% 100% at 100% 50%);clip-path:ellipse(135% 100% at 100% 50%)}body:not(.tippy-touch) .tippy-popper[x-placement=left] .tippy-tooltip[data-animatefill][data-state=hidden] .tippy-content{-webkit-clip-path:ellipse(25% 100% at 100% 50%);clip-path:ellipse(25% 100% at 100% 50%)}@media (max-width:360px){.tippy-popper{max-width:96%;max-width:calc(100% - 20px)}}</style>
+    <meta name="Content-Type" content="text/html;charset=utf-8">
+    <meta name="Referrer" content="unsafe-url">
+    <meta content="True" name="HandheldFriendly">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="detectify-verification" content="d0264f228155c7a1f72c3d91c17ce8fb">
+    <meta name="p:domain_verify" content="b87e3b55b409494aab88c1610b05a5f0">
+    <meta name="alexaVerifyID" content="OFc8dmwZo7ttU4UCnDh1rKDtLlY">
+    <meta name="baidu-site-verification" content="D00WizvYyr">
+    <meta name="msvalidate.01" content="D9B08FEA08E3DA402BF07ABAB61D77DE">
+    <meta property="wb:webmaster" content="f2f4cb229bda06a4">
+    <meta name="google-site-verification" content="LM_cJR94XJIqcYJeOCscGVMWdaRUvmyz6cVOqkFplaU">
+    <meta name="wwads-cn-verify" content="c8ffe9a587b126f152ed3d89a146b445">
+    <script src="https://partner.googleadservices.com/gampad/cookie.js?domain=v2ex.com&amp;callback=_gfp_s_&amp;client=ca-pub-5060390720525238&amp;cookie=ID%3Dcae5b7365934e18a-227ae82e70d10068%3AT%3D1648740113%3ART%3D1648740113%3AS%3DALNI_MYsInUIDwDPbZsDxIY1V_5xOwjXRg"></script><script async="" src="//www.google-analytics.com/analytics.js"></script><script src="https://pagead2.googlesyndication.com/pagead/managed/js/adsense/m202203300101/show_ads_impl_fy2019.js" id="google_shimpl"></script><script type="text/javascript" src="https://cdn.wwads.cn/js/makemoney.js" async=""></script>
+    <script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5060390720525238" crossorigin="anonymous" data-checked-head="true"></script>
+    <title>想业余时间写一个 Java 项目，用上 spring cloud、es、rabbitmq、docker、k8s 等技术，写什么项目比较好？ - V2EX</title>
+    <link rel="dns-prefetch" href="https://static.v2ex.com/">
+    <link rel="dns-prefetch" href="https://cdn.v2ex.com/">
+    <link rel="dns-prefetch" href="https://i.v2ex.co/">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com/">
+    <style>
+        body {
+            min-width: 820px;
+            font-family: "Helvetica Neue", "Luxi Sans", "Segoe UI", "Hiragino Sans GB", "Microsoft Yahei", sans-serif, "Apple Logo";
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" media="screen" href="/assets/be0081056e3636abed7041261ac6aab21852c50f-combo.css">
+    <script>
+        const SITE_NIGHT = 0;
+    </script>
+    <link rel="stylesheet" href="/static/css/vendor/tomorrow.css?v=3c006808236080a5d98ba4e64b8f323f" type="text/css">
+    <link rel="icon" sizes="192x192" href="/static/icon-192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon-180.png?v=91e795b8b5d9e2cbf2d886c3d4b7d63c">
+    <link rel="shortcut icon" href="/static/favicon.ico" type="image/png">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <script>
+        const LANG = 'zhcn';
+        const FEATURES = ['search', 'favorite-nodes-sort'];
+    </script>
+    <script src="/assets/ad64c164f9c6f240aa3940ff6ace27be7981f830-combo.js" defer=""></script>
+    <meta name="description" content="Kubernetes - @itechnology - 如题，主要是学习+实践技术，因为工作中不一定会用到所有技术">
+    <link rel="canonical" href="https://www.v2ex.com/t/845141">
+    <meta property="og:locale" content="zh_CN">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="想业余时间写一个 Java 项目，用上 spring cloud、es、rabbitmq、docker、k8s 等技术，写什么项目比较好？ - V2EX">
+    <meta property="og:description" content="Kubernetes - @itechnology - 如题，主要是学习+实践技术，因为工作中不一定会用到所有技术">
+    <meta property="og:url" content="https://www.v2ex.com/t/845141">
+    <meta property="og:site_name" content="V2EX">
+    <meta property="article:tag" content="k8s">
+    <meta property="article:section" content="Kubernetes">
+    <meta property="article:published_time" content="2022-04-06T01:55:25Z">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:description" content="Kubernetes - @itechnology - 如题，主要是学习+实践技术，因为工作中不一定会用到所有技术">
+    <meta name="twitter:title" content="想业余时间写一个 Java 项目，用上 spring cloud、es、rabbitmq、docker、k8s 等技术，写什么项目比较好？ - V2EX">
+    <meta name="twitter:image" content="https://cdn.v2ex.com/avatar/ceca/7efb/555634_large.png?m=1648864285">
+    <meta name="twitter:site" content="@V2EX">
+    <meta name="twitter:creator" content="@V2EX">
+    <link rel="top" title="回到顶部" href="#">
+    <link rel="amphtml" href="https://www.v2ex.com/amp/t/845141">
+    <script>
+        const topicId = 845141;
+        var once = "18194";
+
+        document.addEventListener("DOMContentLoaded", () => {
+            protectTraffic();
+
+            const observer = new IntersectionObserver(
+                ([e]) => e.target.toggleAttribute('stuck', e.intersectionRatio < 1),
+                {threshold: [1]}
+            );
+
+            observer.observe(document.getElementById('reply-box'));
+
+
+            hljs.initHighlightingOnLoad();
+
+
+            $('#Main').on('click', '.no, .ago', function () {
+                location.hash = $(this).parents('.cell').prop('id');
+            });
+
+
+
+            autosize($('#reply_content'));
+
+            $("#reply_content").textcomplete([{
+                match: /(^|\s)@(\w*)$/,
+                search: function (term, callback) {
+                    term = term.toLowerCase();
+                    var words = ['37Y37', 'Borden', 'CaptainD', 'Chad0000', 'Mirage09', 'Suddoo', 'angryfish', 'bung', 'coolair', 'guxingke', 'isSamle', 'itechnology', 'janus77', 'limyel', 'locoz', 'oneisall8955', 'pengtdyd', 'seagull7558', 'sss15', 'wolfie', 'zhangsanR'];
+                    callback($.map(words, function (word) {
+                        return word.toLowerCase().indexOf(term) === 0 ? word : null;
+                    }));
+                },
+                replace: function (value) {
+                    return '$1@' + value + ' ';;
+                }
+            }]);
+
+
+
+
+
+
+
+            loadReplyDraft(845141, 388566);
+
+            $("#reply_content").on('input', function(e) {
+                saveReplyDraft(845141, 388566);
+            });
+
+            var keyPressed = 0;
+
+            $("#reply_content").keydown(function(e) {
+                keyPressed = keyPressed + 1;
+
+                if ((e.ctrlKey || e.metaKey) && e.which === 13) {
+                    e.preventDefault();
+                    $("#reply_content").parent().submit();
+                }
+            });
+
+
+
+            // refresh once
+            document.addEventListener('visibilitychange', e => {
+                if (document.visibilityState === 'visible') {
+                    fetchOnce().then(once => {
+                        $('#once').val(once);
+                    });
+                }
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        function format(tpl) {
+            var index = 1, items = arguments;
+            return (tpl || '').replace(/{(\w*)}/g, function(match, p1) {
+                return items[index++] || p1 || match;
+            });
+        }
+        function loadCSS(url, callback) {
+            return $('<link type="text/css" rel="stylesheet"/>')
+                .attr({ href: url })
+                .on('load', callback)
+                .appendTo(document.head);
+        }
+        function lazyGist(element) {
+            var $btn = $(element);
+            var $self = $(element).parent();
+            var $link = $self.find('a');
+            $btn.prop('disabled', 'disabled').text('Loading...');
+            $.getJSON(format('{}.json?callback=?', $link.prop('href').replace($link.prop('hash'), '')))
+                .done(function(data) {
+                    loadCSS(data.stylesheet, function() {
+                        $self.replaceWith(data.div);
+                        $('.gist .gist-file .gist-meta a').filter(function() { return this.href === $link.prop('href'); }).parents('.gist-file').siblings().remove();
+                    });
+                })
+                .fail(function() { $self.replaceWith($('<a>').attr('href', url).text(url)); });
+        }
+    </script>
+    <meta http-equiv="origin-trial" content="AxujKG9INjsZ8/gUq8+dTruNvk7RjZQ1oFhhgQbcTJKDnZfbzSTE81wvC2Hzaf3TW4avA76LTZEMdiedF1vIbA4AAABueyJvcmlnaW4iOiJodHRwczovL2ltYXNkay5nb29nbGVhcGlzLmNvbTo0NDMiLCJmZWF0dXJlIjoiVHJ1c3RUb2tlbnMiLCJleHBpcnkiOjE2NTI3NzQ0MDAsImlzVGhpcmRQYXJ0eSI6dHJ1ZX0="><meta http-equiv="origin-trial" content="Azuce85ORtSnWe1MZDTv68qpaW3iHyfL9YbLRy0cwcCZwVnePnOmkUJlG8HGikmOwhZU22dElCcfrfX2HhrBPAkAAAB7eyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiVHJ1c3RUb2tlbnMiLCJleHBpcnkiOjE2NTI3NzQ0MDAsImlzU3ViZG9tYWluIjp0cnVlLCJpc1RoaXJkUGFydHkiOnRydWV9"><meta http-equiv="origin-trial" content="A16nvcdeoOAqrJcmjLRpl1I6f3McDD8EfofAYTt/P/H4/AWwB99nxiPp6kA0fXoiZav908Z8etuL16laFPUdfQsAAACBeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXRhZ3NlcnZpY2VzLmNvbTo0NDMiLCJmZWF0dXJlIjoiVHJ1c3RUb2tlbnMiLCJleHBpcnkiOjE2NTI3NzQ0MDAsImlzU3ViZG9tYWluIjp0cnVlLCJpc1RoaXJkUGFydHkiOnRydWV9"><meta http-equiv="origin-trial" content="AxBHdr0J44vFBQtZUqX9sjiqf5yWZ/OcHRcRMN3H9TH+t90V/j3ENW6C8+igBZFXMJ7G3Pr8Dd13632aLng42wgAAACBeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiVHJ1c3RUb2tlbnMiLCJleHBpcnkiOjE2NTI3NzQ0MDAsImlzU3ViZG9tYWluIjp0cnVlLCJpc1RoaXJkUGFydHkiOnRydWV9"><meta http-equiv="origin-trial" content="A88BWHFjcawUfKU3lIejLoryXoyjooBXLgWmGh+hNcqMK44cugvsI5YZbNarYvi3roc1fYbHA1AVbhAtuHZflgEAAAB2eyJvcmlnaW4iOiJodHRwczovL2dvb2dsZS5jb206NDQzIiwiZmVhdHVyZSI6IlRydXN0VG9rZW5zIiwiZXhwaXJ5IjoxNjUyNzc0NDAwLCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><meta http-equiv="origin-trial" content="A8FHS1NmdCwGqD9DwOicnHHY+y27kdWfxKa0YHSGDfv0CSpDKRHTQdQmZVPDUdaFWUsxdgVxlwAd6o+dhJykPA0AAACWeyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiQ29udmVyc2lvbk1lYXN1cmVtZW50IiwiZXhwaXJ5IjoxNjQzMTU1MTk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlLCJ1c2FnZSI6InN1YnNldCJ9"><meta http-equiv="origin-trial" content="A8zdXi6dr1hwXEUjQrYiyYQGlU3557y5QWDnN0Lwgj9ePt66XMEvNkVWOEOWPd7TP9sBQ25X0Q15Lr1Nn4oGFQkAAACceyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiQ29udmVyc2lvbk1lYXN1cmVtZW50IiwiZXhwaXJ5IjoxNjQzMTU1MTk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlLCJ1c2FnZSI6InN1YnNldCJ9"><meta http-equiv="origin-trial" content="A4/Htern2udN9w3yJK9QgWQxQFruxOXsXL7cW60DyCl0EZFGCSme/J33Q/WzF7bBkVvhEWDlcBiUyZaim5CpFQwAAACceyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXRhZ3NlcnZpY2VzLmNvbTo0NDMiLCJmZWF0dXJlIjoiQ29udmVyc2lvbk1lYXN1cmVtZW50IiwiZXhwaXJ5IjoxNjQzMTU1MTk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlLCJ1c2FnZSI6InN1YnNldCJ9"><link rel="preload" href="https://adservice.google.com/adsid/integrator.js?domain=v2ex.com" as="script"><script type="text/javascript" src="https://adservice.google.com/adsid/integrator.js?domain=v2ex.com"></script></head>
+<body>
+<div id="Top">
+    <div class="content">
+        <div class="site-nav">
+            <a href="/" name="top" title="way to explore"><div id="Logo"></div></a>
+            <div id="search-container">
+                <input id="search" type="text" maxlength="128" autocomplete="off" tabindex="1">
+                <div id="search-result" class="box"></div>
+            </div>
+            <div class="tools">
+                <a href="/" class="top">首页</a>
+                <a href="/member/MakHoCheung" class="top">MakHoCheung</a>
+                <a href="/notes" class="top">记事本</a>
+                <a href="/t" class="top">时间轴</a>
+                <a href="/settings" class="top">设置</a>
+                <a href="#;" onclick="if (confirm('确定要从 V2EX 登出？')) { location.href= '/signout?once=18194'; }" class="top">登出</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="Wrapper">
+    <div class="content">
+        <div id="Leftbar"></div>
+        <div id="Rightbar">
+            <div class="sep20"></div>
+            <div class="box">
+                <div class="cell">
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tbody><tr>
+                            <td width="48" valign="top"><a href="/member/MakHoCheung"><img src="https://cdn.v2ex.com/avatar/266e/b63b/388566_large.png?m=1634986632" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="MakHoCheung"></a></td>
+                            <td width="10" valign="top"></td>
+                            <td width="auto" align="left"><div class="fr"><a href="/settings/night/toggle?once=18194" class="light-toggle"><img src="/static/img/toggle-light.png" align="absmiddle" height="10" alt="Light"></a></div><span class="bigger"><a href="/member/MakHoCheung">MakHoCheung</a></span>
+                            </td>
+                        </tr>
+                        </tbody></table>
+                    <div class="sep10"></div>
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tbody><tr>
+                            <td width="33%" align="center"><a href="/my/nodes" class="dark" style="display: block;"><span class="bigger">1</span><div class="sep3"></div><span class="fade">节点收藏</span></a></td>
+                            <td width="34%" style="border-left: 1px solid rgba(100, 100, 100, 0.4); border-right: 1px solid rgba(100, 100, 100, 0.4);" align="center"><a href="/my/topics" class="dark" style="display: block;"><span class="bigger">36</span><div class="sep3"></div><span class="fade">主题收藏</span></a></td>
+                            <td width="33%" align="center"><a href="/my/following" class="dark" style="display: block;"><span class="bigger">0</span><div class="sep3"></div><span class="fade">特别关注</span></a></td>
+                        </tr>
+                        </tbody></table>
+                </div>
+                <div class="cell" id="member-activity">
+                    <div class="member-activity-bar">
+                        <div class="member-activity-fourth" style="width: 100%;"></div>
+                    </div>
+                </div>
+                <div class="cell" style="padding: 8px; line-height: 100%;">
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tbody><tr>
+                            <td width="28"><a href="/write"><img src="/static/img/essentials/compose.png?v=b9e1f045f4ad639733bf9f6dbc62ed4c" width="28" border="0" style="vertical-align: bottom;"></a></td>
+                            <td width="10"></td>
+                            <td width="auto" valign="middle" align="left"><a href="/write">创作新主题</a></td>
+                        </tr>
+                        </tbody></table>
+                </div>
+                <div class="cell flex-one-row" style="padding: 7px 10px;">
+                    <a href="/notifications" class="fade">0 条未读提醒</a>
+                    <div id="money"><a href="/balance" class="balance_area" style="">59 <img src="/static/img/silver@2x.png" height="16" alt="S" border="0"> 71 <img src="/static/img/bronze@2x.png" height="16" alt="B" border="0"></a></div>
+                </div>
+            </div>
+            <div class="sep20"></div>
+            <div class="box">
+                <div class="inner">
+                    <div class="sidebar_units">
+                    </div>
+                </div>
+                <div class="sidebar_compliance"><a href="/advertise" target="_blank">广告</a></div>
+            </div>
+            <div class="sep20"></div>
+            <div style="box-sizing: border-box"><div class="wwads-cn wwads-vertical" data-id="98" style="max-width: 100%; padding-top: 20px; margin-top: 0px; text-align: left; box-shadow: 0 2px 3px rgb(0 0 0 / 10%); border-bottom: 1px solid var(--box-border-color); background-color: var(--box-background-color); color: var(--box-foreground-color);" id="wwads-cn-98"><style type="text/css">.wwads-horizontal,.wwads-vertical{background-color:#f4f8fa;padding:5px;min-height:120px;margin-top:20px;box-sizing:border-box;border-radius:3px;font-family:sans-serif;display:flex;min-width:150px;position:relative;overflow:hidden;}.wwads-horizontal{flex-wrap:wrap;justify-content:center}.wwads-vertical{flex-direction:column;align-items:center;padding-bottom:32px}.wwads-horizontal a,.wwads-vertical a{text-decoration:none}.wwads-horizontal .wwads-img,.wwads-vertical .wwads-img{margin:5px}.wwads-horizontal .wwads-content,.wwads-vertical .wwads-content{margin:5px}.wwads-horizontal .wwads-content{flex:130px;text-align:left}.wwads-vertical .wwads-content{margin-top:10px;text-align:left}.wwads-horizontal .wwads-text,.wwads-content .wwads-text{font-size:14px;line-height:1.4;color:#0e1011;-webkit-font-smoothing:antialiased}.wwads-horizontal .wwads-poweredby,.wwads-vertical .wwads-poweredby{display:block;font-size:11px;color:#a6b7bf;margin-top:1em}.wwads-vertical .wwads-poweredby{position:absolute;left:10px;bottom:10px}.wwads-horizontal .wwads-poweredby span,.wwads-vertical .wwads-poweredby span{transition:all 0.2s ease-in-out;margin-left:-1em}.wwads-horizontal .wwads-poweredby span:first-child,.wwads-vertical .wwads-poweredby span:first-child{opacity:0}.wwads-horizontal:hover .wwads-poweredby span,.wwads-vertical:hover .wwads-poweredby span{opacity:1;margin-left:0}.wwads-horizontal .wwads-hide,.wwads-vertical .wwads-hide{position:absolute;right:-23px;bottom:-23px;width:46px;height:46px;border-radius:23px;transition:all 0.3s ease-in-out;cursor:pointer;}.wwads-horizontal .wwads-hide:hover,.wwads-vertical .wwads-hide:hover{background:rgb(0 0 0 /0.05)}.wwads-horizontal .wwads-hide svg,.wwads-vertical .wwads-hide svg{position:absolute;left:10px;top:10px;fill:#a6b7bf}.wwads-horizontal .wwads-hide:hover svg,.wwads-vertical .wwads-hide:hover svg{fill:#3E4546}</style><a href="https://wwads.cn/click/bait" target="_blank" rel="sponsored noopener" referrerpolicy="no-referrer-when-downgrade" style="display:none !important;"></a><a href="https://wwads.cn/click/bundle?code=R8HosiDW3LldcFtmSc3oSt31qGvO3Q" class="wwads-img" target="_blank" rel="sponsored noopener" referrerpolicy="no-referrer-when-downgrade"><img src="https://cdn.wwads.cn/creatives/XnjpjBxPwkzwpBRUixqNzuT4AB78j5sOh5EJrvHt.png" width="130" alt="万维广告联盟"></a><div class="wwads-content"><a href="https://wwads.cn/click/bundle?code=R8HosiDW3LldcFtmSc3oSt31qGvO3Q" class="wwads-text" target="_blank" rel="sponsored noopener" referrerpolicy="no-referrer-when-downgrade"><b>V2EX👨‍💻开发者都在用的浏览器插件</b> 聚合前端、安卓、iOS、后端、产品、设计类内容</a><a href="https://wwads.cn/?utm_source=property-124&amp;utm_medium=footer" class="wwads-poweredby" title="点击了解万维广告联盟" target="_blank"><span>万维</span><span>广告</span></a></div><a class="wwads-hide" onclick="parentNode.remove()" title="隐藏广告"><svg xmlns="http://www.w3.org/2000/svg" width="6" height="7"><path d="M.879.672L3 2.793 5.121.672a.5.5 0 11.707.707L3.708 3.5l2.12 2.121a.5.5 0 11-.707.707l-2.12-2.12-2.122 2.12a.5.5 0 11-.707-.707l2.121-2.12L.172 1.378A.5.5 0 01.879.672z"></path></svg></a></div></div>
+            <style type="text/css">.wwads-text { color: var(--link-color) !important; }</style>
+            <div class="sep20"></div>
+        </div>
+        <div id="Main">
+            <div class="sep20"></div>
+            <div class="box" style="border-bottom: 0px;">
+                <div class="header"><div class="fr"><a href="/member/itechnology"><img src="https://cdn.v2ex.com/avatar/ceca/7efb/555634_large.png?m=1648864285" class="avatar" border="0" align="default" alt="itechnology"></a></div>
+                    <a href="/">V2EX</a> <span class="chevron">&nbsp;›&nbsp;</span> <a href="/go/k8s">Kubernetes</a>
+                    <div class="sep10"></div>
+                    <h1>想业余时间写一个 Java 项目，用上 spring cloud、es、rabbitmq、docker、k8s 等技术，写什么项目比较好？</h1>
+                    <div id="topic_845141_votes" class="votes">
+                        <a href="javascript:" onclick="upVoteTopic(845141);" class="vote"><li class="fa fa-chevron-up"></li> &nbsp;1</a> &nbsp;<a href="javascript:" onclick="downVoteTopic(845141);" class="vote"><li class="fa fa-chevron-down"></li></a></div> &nbsp; <small class="gray"><a href="/member/itechnology">itechnology</a> · <span title="2022-04-06 09:55:25 +08:00">10 小时 42 分钟前</span> · 1909 次点击 &nbsp; </small>
+                </div>
+                <div class="cell">
+                    <div class="topic_content"><div class="markdown_body"><p>如题，主要是学习+实践技术，因为工作中不一定会用到所有技术</p>
+                    </div></div>
+                </div>
+                <div class="subtle">
+                    <span class="fade">第 1 条附言 &nbsp;·&nbsp; <span title="2022-04-06 14:57:50 +08:00">5 小时 40 分钟前</span></span>
+                    <div class="sep5"></div>
+                    <div class="topic_content">各位说的有道理，那就试着做做电商项目</div>
+                </div>
+                <div class="topic_buttons"><div class="fr topic_stats" style="padding-top: 4px;">1909 次点击 &nbsp;∙&nbsp; 17 人收藏 &nbsp; </div><a href="/favorite/topic/845141?once=18194" class="tb">加入收藏</a> &nbsp;<a href="#;" onclick="window.open('https://twitter.com/share?url=https://www.v2ex.com/t/845141?r=MakHoCheung&amp;related=v2ex&amp;hashtags=k8s&amp;text=想业余时间写一个 Java 项目，用上 spring cloud、es、rabbitmq、docker、k8s 等技术，写什么项目比较好？', '_blank', 'width=550,height=370'); recordOutboundLink(this, 'Share', 'twitter.com');" class="tb">Tweet</a> &nbsp;<a href="#;" onclick="if (confirm('确定不想再看到这个主题？')) { location.href = '/ignore/topic/845141?once=18194'; }" class="tb">忽略主题</a> &nbsp;<div id="topic_thank"><a href="#;" onclick="if (confirm('你确定要向本主题创建者发送谢意？')) { thankTopic(845141, '18194'); }" class="tb">感谢</a></div></div>
+            </div>
+            <div class="sep20"></div>
+            <div class="box">
+                <div class="cell"><div class="fr" style="margin: -3px -5px 0px 0px;"><a href="/tag/k8s" class="tag"><li class="fa fa-tag"></li> k8s</a><a href="/tag/rabbitmq" class="tag"><li class="fa fa-tag"></li> rabbitmq</a><a href="/tag/Docker" class="tag"><li class="fa fa-tag"></li> Docker</a><a href="/tag/spring" class="tag"><li class="fa fa-tag"></li> spring</a></div><span class="gray">21 条回复 &nbsp;<strong class="snow">•</strong> &nbsp;2022-04-06 15:07:36 +08:00</span>
+                </div>
+                <div id="r_11537499" class="cell">
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tbody><tr>
+                            <td width="48" valign="top" align="center"><img src="https://cdn.v2ex.com/gravatar/13a637f77926ca1358928bd207c40d59?s=48&amp;d=retro" class="avatar" border="0" align="default" alt="CaptainD"></td>
+                            <td width="10" valign="top"></td>
+                            <td width="auto" valign="top" align="left"><div class="fr"><div id="thank_area_11537499" class="thank_area"><a href="#;" onclick="if (confirm('确认要不再显示来自 @CaptainD 的这条回复？')) { ignoreReply(11537499, '18194'); }" class="thank" style="color: #ccc;">隐藏</a> &nbsp; &nbsp; <a href="#;" onclick="if (confirm('确认花费 10 个铜币向 @CaptainD 的这条回复发送感谢？')) { thankReply(11537499); }" class="thank">感谢回复者</a></div> &nbsp; <a href="#;" onclick="replyOne('CaptainD');"><img src="/static/img/reply_neue.png" align="absmiddle" border="0" alt="Reply" width="20"></a> &nbsp;&nbsp; <span class="no">1</span></div>
+                                <div class="sep3"></div>
+                                <strong><a href="/member/CaptainD" class="dark">CaptainD</a></strong> &nbsp; <div class="badges"></div>&nbsp; &nbsp;<span class="ago" title="2022-04-06 10:03:30 +08:00">10 小时 34 分钟前</span> &nbsp; <span class="small fade"><img src="/static/img/heart_neue_red.png?v=16ec2dd0a880be6edda1e4a2e35754b3" width="14" align="absmiddle" alt="❤️"> 2</span>
+                                <div class="sep5"></div>
+                                <div class="reply_content">考虑下爬虫 - 队列 - 数据处理管道 - 数据库 - 前后端显示？然后再用上 k8s 管理资源呗</div>
+                            </td>
+                        </tr>
+                        </tbody></table>
+                </div>
+                <div id="r_11537588" class="cell">
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tbody><tr>
+                            <td width="48" valign="top" align="center"><img src="https://cdn.v2ex.com/gravatar/d55824f160ab3644c4d3820678c489ee?s=48&amp;d=retro" class="avatar" border="0" align="default" alt="guxingke"></td>
+                            <td width="10" valign="top"></td>
+                            <td width="auto" valign="top" align="left"><div class="fr"><div id="thank_area_11537588" class="thank_area"><a href="#;" onclick="if (confirm('确认要不再显示来自 @guxingke 的这条回复？')) { ignoreReply(11537588, '18194'); }" class="thank" style="color: #ccc;">隐藏</a> &nbsp; &nbsp; <a href="#;" onclick="if (confirm('确认花费 10 个铜币向 @guxingke 的这条回复发送感谢？')) { thankReply(11537588); }" class="thank">感谢回复者</a></div> &nbsp; <a href="#;" onclick="replyOne('guxingke');"><img src="/static/img/reply_neue.png" align="absmiddle" border="0" alt="Reply" width="20"></a> &nbsp;&nbsp; <span class="no">2</span></div>
+                                <div class="sep3"></div>
+                                <strong><a href="/member/guxingke" class="dark">guxingke</a></strong> &nbsp; <div class="badges"></div>&nbsp; &nbsp;<span class="ago" title="2022-04-06 10:20:08 +08:00">10 小时 18 分钟前</span>
+                                <div class="sep5"></div>
+                                <div class="reply_content">写个 v 站吧</div>
+                            </td>
+                        </tr>
+                        </tbody></table>
+                </div>
+                <div id="r_11537644" class="cell">
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tbody><tr>
+                            <td width="48" valign="top" align="center"><img src="https://cdn.v2ex.com/avatar/60dc/c401/355824_normal.png?m=1632818428" class="avatar" border="0" align="default" alt="oneisall8955"></td>
+                            <td width="10" valign="top"></td>
+                            <td width="auto" valign="top" align="left"><div class="fr"><div id="thank_area_11537644" class="thank_area"><a href="#;" onclick="if (confirm('确认要不再显示来自 @oneisall8955 的这条回复？')) { ignoreReply(11537644, '18194'); }" class="thank" style="color: #ccc;">隐藏</a> &nbsp; &nbsp; <a href="#;" onclick="if (confirm('确认花费 10 个铜币向 @oneisall8955 的这条回复发送感谢？')) { thankReply(11537644); }" class="thank">感谢回复者</a></div> &nbsp; <a href="#;" onclick="replyOne('oneisall8955');"><img src="/static/img/reply_neue.png" align="absmiddle" border="0" alt="Reply" width="20"></a> &nbsp;&nbsp; <span class="no">3</span></div>
+                                <div class="sep3"></div>
+                                <strong><a href="/member/oneisall8955" class="dark">oneisall8955</a></strong> &nbsp; <div class="badges"></div>&nbsp; &nbsp;<span class="ago" title="2022-04-06 10:29:22 +08:00">10 小时 9 分钟前</span>
+                                <div class="sep5"></div>
+                                <div class="reply_content">培训机构通常用电商项目为例子</div>
+                            </td>
+                        </tr>
+                        </tbody></table>
+                </div>
+                <div id="r_11537649" class="cell">
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tbody><tr>
+                            <td width="48" valign="top" align="center"><img src="https://cdn.v2ex.com/avatar/c4fe/52ac/36118_normal.png?m=1642386161" class="avatar" border="0" align="default" alt="coolair"></td>
+                            <td width="10" valign="top"></td>
+                            <td width="auto" valign="top" align="left"><div class="fr"><div id="thank_area_11537649" class="thank_area"><a href="#;" onclick="if (confirm('确认要不再显示来自 @coolair 的这条回复？')) { ignoreReply(11537649, '18194'); }" class="thank" style="color: #ccc;">隐藏</a> &nbsp; &nbsp; <a href="#;" onclick="if (confirm('确认花费 10 个铜币向 @coolair 的这条回复发送感谢？')) { thankReply(11537649); }" class="thank">感谢回复者</a></div> &nbsp; <a href="#;" onclick="replyOne('coolair');"><img src="/static/img/reply_neue.png" align="absmiddle" border="0" alt="Reply" width="20"></a> &nbsp;&nbsp; <span class="no">4</span></div>
+                                <div class="sep3"></div>
+                                <strong><a href="/member/coolair" class="dark">coolair</a></strong> &nbsp; <div class="badges"></div>&nbsp; &nbsp;<span class="ago" title="2022-04-06 10:30:11 +08:00">10 小时 8 分钟前</span>
+                                <div class="sep5"></div>
+                                <div class="reply_content">天眼</div>
+                            </td>
+                        </tr>
+                        </tbody></table>
+                </div>
+                <div id="r_11537690" class="cell">
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tbody><tr>
+                            <td width="48" valign="top" align="center"><img src="https://cdn.v2ex.com/avatar/4902/9ff3/461151_normal.png?m=1649231407" class="avatar" border="0" align="default" alt="seagull7558"></td>
+                            <td width="10" valign="top"></td>
+                            <td width="auto" valign="top" align="left"><div class="fr"><div id="thank_area_11537690" class="thank_area"><a href="#;" onclick="if (confirm('确认要不再显示来自 @seagull7558 的这条回复？')) { ignoreReply(11537690, '18194'); }" class="thank" style="color: #ccc;">隐藏</a> &nbsp; &nbsp; <a href="#;" onclick="if (confirm('确认花费 10 个铜币向 @seagull7558 的这条回复发送感谢？')) { thankReply(11537690); }" class="thank">感谢回复者</a></div> &nbsp; <a href="#;" onclick="replyOne('seagull7558');"><img src="/static/img/reply_neue.png" align="absmiddle" border="0" alt="Reply" width="20"></a> &nbsp;&nbsp; <span class="no">5</span></div>
+                                <div class="sep3"></div>
+                                <strong><a href="/member/seagull7558" class="dark">seagull7558</a></strong> &nbsp; <div class="badges"></div>&nbsp; &nbsp;<span class="ago" title="2022-04-06 10:36:32 +08:00">10 小时 1 分钟前</span>
+                                <div class="sep5"></div>
+                                <div class="reply_content">很简单呀 <br><br><a target="_blank" href="http://K8S.ES" rel="nofollow noopener">K8S.ES</a> 集群收集 SpringCloud 日志<br>K8S.服务发现集群 /Nacos 会简单些<br>K8S.部属个 Kafka 替换 rabbitmq,用于 ES 日志收集缓冲<br>K8S.部署俩服务,一个 Consumer 一个 Provider,实现下服务间通信就行,然后 Dockerfile 打成镜像部署到 K8S 完事</div>
+                            </td>
+                        </tr>
+                        </tbody></table>
+                </div>
+                <div id="r_11537693" class="cell">
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tbody><tr>
+                            <td width="48" valign="top" align="center"><img src="https://cdn.v2ex.com/gravatar/4cd6cb6565c518503eae1f03a76e524f?s=48&amp;d=retro" class="avatar" border="0" align="default" alt="bung"></td>
+                            <td width="10" valign="top"></td>
+                            <td width="auto" valign="top" align="left"><div class="fr"><div id="thank_area_11537693" class="thank_area"><a href="#;" onclick="if (confirm('确认要不再显示来自 @bung 的这条回复？')) { ignoreReply(11537693, '18194'); }" class="thank" style="color: #ccc;">隐藏</a> &nbsp; &nbsp; <a href="#;" onclick="if (confirm('确认花费 10 个铜币向 @bung 的这条回复发送感谢？')) { thankReply(11537693); }" class="thank">感谢回复者</a></div> &nbsp; <a href="#;" onclick="replyOne('bung');"><img src="/static/img/reply_neue.png" align="absmiddle" border="0" alt="Reply" width="20"></a> &nbsp;&nbsp; <span class="no">6</span></div>
+                                <div class="sep3"></div>
+                                <strong><a href="/member/bung" class="dark">bung</a></strong> &nbsp; <div class="badges"></div>&nbsp; &nbsp;<span class="ago" title="2022-04-06 10:36:54 +08:00">10 小时 1 分钟前</span>
+                                <div class="sep5"></div>
+                                <div class="reply_content">写个 echo server 吧</div>
+                            </td>
+                        </tr>
+                        </tbody></table>
+                </div>
+                <div id="r_11537711" class="cell">
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tbody><tr>
+                            <td width="48" valign="top" align="center"><img src="https://cdn.v2ex.com/avatar/8d90/194e/538559_normal.png?m=1647077414" class="avatar" border="0" align="default" alt="Chad0000"></td>
+                            <td width="10" valign="top"></td>
+                            <td width="auto" valign="top" align="left"><div class="fr"><div id="thank_area_11537711" class="thank_area"><a href="#;" onclick="if (confirm('确认要不再显示来自 @Chad0000 的这条回复？')) { ignoreReply(11537711, '18194'); }" class="thank" style="color: #ccc;">隐藏</a> &nbsp; &nbsp; <a href="#;" onclick="if (confirm('确认花费 10 个铜币向 @Chad0000 的这条回复发送感谢？')) { thankReply(11537711); }" class="thank">感谢回复者</a></div> &nbsp; <a href="#;" onclick="replyOne('Chad0000');"><img src="/static/img/reply_neue.png" align="absmiddle" border="0" alt="Reply" width="20"></a> &nbsp;&nbsp; <span class="no">7</span></div>
+                                <div class="sep3"></div>
+                                <strong><a href="/member/Chad0000" class="dark">Chad0000</a></strong> &nbsp; <div class="badges"></div>&nbsp; &nbsp;<span class="ago" title="2022-04-06 10:39:18 +08:00">9 小时 59 分钟前 via iPhone</span>
+                                <div class="sep5"></div>
+                                <div class="reply_content">@<a href="/member/oneisall8955">oneisall8955</a> 电商项目确实适合。</div>
+                            </td>
+                        </tr>
+                        </tbody></table>
+                </div>
+                <div id="r_11537764" class="cell">
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tbody><tr>
+                            <td width="48" valign="top" align="center"><img src="https://cdn.v2ex.com/avatar/2a0c/7668/111892_normal.png?m=1635546322" class="avatar" border="0" align="default" alt="Mirage09"></td>
+                            <td width="10" valign="top"></td>
+                            <td width="auto" valign="top" align="left"><div class="fr"><div id="thank_area_11537764" class="thank_area"><a href="#;" onclick="if (confirm('确认要不再显示来自 @Mirage09 的这条回复？')) { ignoreReply(11537764, '18194'); }" class="thank" style="color: #ccc;">隐藏</a> &nbsp; &nbsp; <a href="#;" onclick="if (confirm('确认花费 10 个铜币向 @Mirage09 的这条回复发送感谢？')) { thankReply(11537764); }" class="thank">感谢回复者</a></div> &nbsp; <a href="#;" onclick="replyOne('Mirage09');"><img src="/static/img/reply_neue.png" align="absmiddle" border="0" alt="Reply" width="20"></a> &nbsp;&nbsp; <span class="no">8</span></div>
+                                <div class="sep3"></div>
+                                <strong><a href="/member/Mirage09" class="dark">Mirage09</a></strong> &nbsp; <div class="badges"></div>&nbsp; &nbsp;<span class="ago" title="2022-04-06 10:48:53 +08:00">9 小时 49 分钟前</span>
+                                <div class="sep5"></div>
+                                <div class="reply_content">这一套看着就像 data ingestion<br>问题是你就算写了一套出来没有实际应用实际 data 不也还是 toy project</div>
+                            </td>
+                        </tr>
+                        </tbody></table>
+                </div>
+                <div id="r_11538048" class="cell">
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tbody><tr>
+                            <td width="48" valign="top" align="center"><img src="https://cdn.v2ex.com/gravatar/e80130f0e891c74c0757e084e2854259?s=48&amp;d=retro" class="avatar" border="0" align="default" alt="37Y37"></td>
+                            <td width="10" valign="top"></td>
+                            <td width="auto" valign="top" align="left"><div class="fr"><div id="thank_area_11538048" class="thank_area"><a href="#;" onclick="if (confirm('确认要不再显示来自 @37Y37 的这条回复？')) { ignoreReply(11538048, '18194'); }" class="thank" style="color: #ccc;">隐藏</a> &nbsp; &nbsp; <a href="#;" onclick="if (confirm('确认花费 10 个铜币向 @37Y37 的这条回复发送感谢？')) { thankReply(11538048); }" class="thank">感谢回复者</a></div> &nbsp; <a href="#;" onclick="replyOne('37Y37');"><img src="/static/img/reply_neue.png" align="absmiddle" border="0" alt="Reply" width="20"></a> &nbsp;&nbsp; <span class="no">9</span></div>
+                                <div class="sep3"></div>
+                                <strong><a href="/member/37Y37" class="dark">37Y37</a></strong> &nbsp; <div class="badges"></div>&nbsp; &nbsp;<span class="ago" title="2022-04-06 11:34:17 +08:00">9 小时 4 分钟前</span>
+                                <div class="sep5"></div>
+                                <div class="reply_content">博客</div>
+                            </td>
+                        </tr>
+                        </tbody></table>
+                </div>
+                <div id="r_11538058" class="cell">
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tbody><tr>
+                            <td width="48" valign="top" align="center"><img src="https://cdn.v2ex.com/gravatar/8ae33a92aede7e80cfa1971d6e724974?s=48&amp;d=retro" class="avatar" border="0" align="default" alt="Suddoo"></td>
+                            <td width="10" valign="top"></td>
+                            <td width="auto" valign="top" align="left"><div class="fr"><div id="thank_area_11538058" class="thank_area"><a href="#;" onclick="if (confirm('确认要不再显示来自 @Suddoo 的这条回复？')) { ignoreReply(11538058, '18194'); }" class="thank" style="color: #ccc;">隐藏</a> &nbsp; &nbsp; <a href="#;" onclick="if (confirm('确认花费 10 个铜币向 @Suddoo 的这条回复发送感谢？')) { thankReply(11538058); }" class="thank">感谢回复者</a></div> &nbsp; <a href="#;" onclick="replyOne('Suddoo');"><img src="/static/img/reply_neue.png" align="absmiddle" border="0" alt="Reply" width="20"></a> &nbsp;&nbsp; <span class="no">10</span></div>
+                                <div class="sep3"></div>
+                                <strong><a href="/member/Suddoo" class="dark">Suddoo</a></strong> &nbsp; <div class="badges"></div>&nbsp; &nbsp;<span class="ago" title="2022-04-06 11:36:18 +08:00">9 小时 2 分钟前 via iPhone</span>
+                                <div class="sep5"></div>
+                                <div class="reply_content">为了用而用，没意义的</div>
+                            </td>
+                        </tr>
+                        </tbody></table>
+                </div>
+                <div id="r_11538075" class="cell">
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tbody><tr>
+                            <td width="48" valign="top" align="center"><img src="https://cdn.v2ex.com/gravatar/65c27dd582ade26b3a3c37588357416c?s=48&amp;d=retro" class="avatar" border="0" align="default" alt="zhangsanR"></td>
+                            <td width="10" valign="top"></td>
+                            <td width="auto" valign="top" align="left"><div class="fr"><div id="thank_area_11538075" class="thank_area"><a href="#;" onclick="if (confirm('确认要不再显示来自 @zhangsanR 的这条回复？')) { ignoreReply(11538075, '18194'); }" class="thank" style="color: #ccc;">隐藏</a> &nbsp; &nbsp; <a href="#;" onclick="if (confirm('确认花费 10 个铜币向 @zhangsanR 的这条回复发送感谢？')) { thankReply(11538075); }" class="thank">感谢回复者</a></div> &nbsp; <a href="#;" onclick="replyOne('zhangsanR');"><img src="/static/img/reply_neue.png" align="absmiddle" border="0" alt="Reply" width="20"></a> &nbsp;&nbsp; <span class="no">11</span></div>
+                                <div class="sep3"></div>
+                                <strong><a href="/member/zhangsanR" class="dark">zhangsanR</a></strong> &nbsp; <div class="badges"></div>&nbsp; &nbsp;<span class="ago" title="2022-04-06 11:39:04 +08:00">8 小时 59 分钟前</span>
+                                <div class="sep5"></div>
+                                <div class="reply_content">先找到合适的场景吧，为了用而用没意义、也用不深</div>
+                            </td>
+                        </tr>
+                        </tbody></table>
+                </div>
+                <div id="r_11538231" class="cell">
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tbody><tr>
+                            <td width="48" valign="top" align="center"><img src="https://cdn.v2ex.com/avatar/ceca/7efb/555634_normal.png?m=1648864285" class="avatar" border="0" align="default" alt="itechnology"></td>
+                            <td width="10" valign="top"></td>
+                            <td width="auto" valign="top" align="left"><div class="fr"><div id="thank_area_11538231" class="thank_area"><a href="#;" onclick="if (confirm('确认要不再显示来自 @itechnology 的这条回复？')) { ignoreReply(11538231, '18194'); }" class="thank" style="color: #ccc;">隐藏</a> &nbsp; &nbsp; <a href="#;" onclick="if (confirm('确认花费 10 个铜币向 @itechnology 的这条回复发送感谢？')) { thankReply(11538231); }" class="thank">感谢回复者</a></div> &nbsp; <a href="#;" onclick="replyOne('itechnology');"><img src="/static/img/reply_neue.png" align="absmiddle" border="0" alt="Reply" width="20"></a> &nbsp;&nbsp; <span class="no">12</span></div>
+                                <div class="sep3"></div>
+                                <strong><a href="/member/itechnology" class="dark">itechnology</a></strong> &nbsp; <div class="badges"><div class="badge op">OP</div></div>&nbsp; &nbsp;<span class="ago" title="2022-04-06 12:05:45 +08:00">8 小时 32 分钟前</span>
+                                <div class="sep5"></div>
+                                <div class="reply_content">@<a href="/member/Suddoo">Suddoo</a> <br>@<a href="/member/zhangsanR">zhangsanR</a> 所以我这不是在请教各位有什么适合这些技术的项目吗？</div>
+                            </td>
+                        </tr>
+                        </tbody></table>
+                </div>
+                <div id="r_11538355" class="cell">
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tbody><tr>
+                            <td width="48" valign="top" align="center"><img src="https://cdn.v2ex.com/avatar/e131/5e5e/96842_normal.png?m=1646282663" class="avatar" border="0" align="default" alt="Borden"></td>
+                            <td width="10" valign="top"></td>
+                            <td width="auto" valign="top" align="left"><div class="fr"><div id="thank_area_11538355" class="thank_area"><a href="#;" onclick="if (confirm('确认要不再显示来自 @Borden 的这条回复？')) { ignoreReply(11538355, '18194'); }" class="thank" style="color: #ccc;">隐藏</a> &nbsp; &nbsp; <a href="#;" onclick="if (confirm('确认花费 10 个铜币向 @Borden 的这条回复发送感谢？')) { thankReply(11538355); }" class="thank">感谢回复者</a></div> &nbsp; <a href="#;" onclick="replyOne('Borden');"><img src="/static/img/reply_neue.png" align="absmiddle" border="0" alt="Reply" width="20"></a> &nbsp;&nbsp; <span class="no">13</span></div>
+                                <div class="sep3"></div>
+                                <strong><a href="/member/Borden" class="dark">Borden</a></strong> &nbsp; <div class="badges"></div>&nbsp; &nbsp;<span class="ago" title="2022-04-06 12:34:29 +08:00">8 小时 3 分钟前</span>
+                                <div class="sep5"></div>
+                                <div class="reply_content">面向技术栈编程～～～有点新颖呀</div>
+                            </td>
+                        </tr>
+                        </tbody></table>
+                </div>
+                <div id="r_11538606" class="cell">
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tbody><tr>
+                            <td width="48" valign="top" align="center"><img src="https://cdn.v2ex.com/avatar/eed5/484b/152333_normal.png?m=1569565643" class="avatar" border="0" align="default" alt="janus77"></td>
+                            <td width="10" valign="top"></td>
+                            <td width="auto" valign="top" align="left"><div class="fr"><div id="thank_area_11538606" class="thank_area"><a href="#;" onclick="if (confirm('确认要不再显示来自 @janus77 的这条回复？')) { ignoreReply(11538606, '18194'); }" class="thank" style="color: #ccc;">隐藏</a> &nbsp; &nbsp; <a href="#;" onclick="if (confirm('确认花费 10 个铜币向 @janus77 的这条回复发送感谢？')) { thankReply(11538606); }" class="thank">感谢回复者</a></div> &nbsp; <a href="#;" onclick="replyOne('janus77');"><img src="/static/img/reply_neue.png" align="absmiddle" border="0" alt="Reply" width="20"></a> &nbsp;&nbsp; <span class="no">14</span></div>
+                                <div class="sep3"></div>
+                                <strong><a href="/member/janus77" class="dark">janus77</a></strong> &nbsp; <div class="badges"></div>&nbsp; &nbsp;<span class="ago" title="2022-04-06 13:33:18 +08:00">7 小时 5 分钟前</span>
+                                <div class="sep5"></div>
+                                <div class="reply_content">论坛，商城，IM 即时聊天</div>
+                            </td>
+                        </tr>
+                        </tbody></table>
+                </div>
+                <div id="r_11538701" class="cell">
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tbody><tr>
+                            <td width="48" valign="top" align="center"><img src="https://cdn.v2ex.com/avatar/7536/78ff/298064_normal.png?m=1562649751" class="avatar" border="0" align="default" alt="wolfie"></td>
+                            <td width="10" valign="top"></td>
+                            <td width="auto" valign="top" align="left"><div class="fr"><div id="thank_area_11538701" class="thank_area"><a href="#;" onclick="if (confirm('确认要不再显示来自 @wolfie 的这条回复？')) { ignoreReply(11538701, '18194'); }" class="thank" style="color: #ccc;">隐藏</a> &nbsp; &nbsp; <a href="#;" onclick="if (confirm('确认花费 10 个铜币向 @wolfie 的这条回复发送感谢？')) { thankReply(11538701); }" class="thank">感谢回复者</a></div> &nbsp; <a href="#;" onclick="replyOne('wolfie');"><img src="/static/img/reply_neue.png" align="absmiddle" border="0" alt="Reply" width="20"></a> &nbsp;&nbsp; <span class="no">15</span></div>
+                                <div class="sep3"></div>
+                                <strong><a href="/member/wolfie" class="dark">wolfie</a></strong> &nbsp; <div class="badges"></div>&nbsp; &nbsp;<span class="ago" title="2022-04-06 13:53:35 +08:00">6 小时 44 分钟前</span>
+                                <div class="sep5"></div>
+                                <div class="reply_content">电商，什么功能都能往上套。</div>
+                            </td>
+                        </tr>
+                        </tbody></table>
+                </div>
+                <div id="r_11538754" class="cell">
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tbody><tr>
+                            <td width="48" valign="top" align="center"><img src="https://cdn.v2ex.com/gravatar/f1ba6b1f9ba2b1f338eccd41113328c9?s=48&amp;d=retro" class="avatar" border="0" align="default" alt="limyel"></td>
+                            <td width="10" valign="top"></td>
+                            <td width="auto" valign="top" align="left"><div class="fr"><div id="thank_area_11538754" class="thank_area"><a href="#;" onclick="if (confirm('确认要不再显示来自 @limyel 的这条回复？')) { ignoreReply(11538754, '18194'); }" class="thank" style="color: #ccc;">隐藏</a> &nbsp; &nbsp; <a href="#;" onclick="if (confirm('确认花费 10 个铜币向 @limyel 的这条回复发送感谢？')) { thankReply(11538754); }" class="thank">感谢回复者</a></div> &nbsp; <a href="#;" onclick="replyOne('limyel');"><img src="/static/img/reply_neue.png" align="absmiddle" border="0" alt="Reply" width="20"></a> &nbsp;&nbsp; <span class="no">16</span></div>
+                                <div class="sep3"></div>
+                                <strong><a href="/member/limyel" class="dark">limyel</a></strong> &nbsp; <div class="badges"></div>&nbsp; &nbsp;<span class="ago" title="2022-04-06 14:04:17 +08:00">6 小时 34 分钟前</span>
+                                <div class="sep5"></div>
+                                <div class="reply_content">电商确实，想完整做一个电商项目还是挺复杂的</div>
+                            </td>
+                        </tr>
+                        </tbody></table>
+                </div>
+                <div id="r_11538841" class="cell">
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tbody><tr>
+                            <td width="48" valign="top" align="center"><img src="https://cdn.v2ex.com/avatar/d66a/dd5b/224012_normal.png?m=1638942260" class="avatar" border="0" align="default" alt="locoz"></td>
+                            <td width="10" valign="top"></td>
+                            <td width="auto" valign="top" align="left"><div class="fr"><div id="thank_area_11538841" class="thank_area"><a href="#;" onclick="if (confirm('确认要不再显示来自 @locoz 的这条回复？')) { ignoreReply(11538841, '18194'); }" class="thank" style="color: #ccc;">隐藏</a> &nbsp; &nbsp; <a href="#;" onclick="if (confirm('确认花费 10 个铜币向 @locoz 的这条回复发送感谢？')) { thankReply(11538841); }" class="thank">感谢回复者</a></div> &nbsp; <a href="#;" onclick="replyOne('locoz');"><img src="/static/img/reply_neue.png" align="absmiddle" border="0" alt="Reply" width="20"></a> &nbsp;&nbsp; <span class="no">17</span></div>
+                                <div class="sep3"></div>
+                                <strong><a href="/member/locoz" class="dark">locoz</a></strong> &nbsp; <div class="badges"></div>&nbsp; &nbsp;<span class="ago" title="2022-04-06 14:19:22 +08:00">6 小时 19 分钟前 via Android</span>
+                                <div class="sep5"></div>
+                                <div class="reply_content">这不就经典电商技术栈吗？</div>
+                            </td>
+                        </tr>
+                        </tbody></table>
+                </div>
+                <div id="r_11538951" class="cell">
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tbody><tr>
+                            <td width="48" valign="top" align="center"><img src="https://cdn.v2ex.com/avatar/5449/404a/550114_normal.png?m=1627901766" class="avatar" border="0" align="default" alt="pengtdyd"></td>
+                            <td width="10" valign="top"></td>
+                            <td width="auto" valign="top" align="left"><div class="fr"><div id="thank_area_11538951" class="thank_area"><a href="#;" onclick="if (confirm('确认要不再显示来自 @pengtdyd 的这条回复？')) { ignoreReply(11538951, '18194'); }" class="thank" style="color: #ccc;">隐藏</a> &nbsp; &nbsp; <a href="#;" onclick="if (confirm('确认花费 10 个铜币向 @pengtdyd 的这条回复发送感谢？')) { thankReply(11538951); }" class="thank">感谢回复者</a></div> &nbsp; <a href="#;" onclick="replyOne('pengtdyd');"><img src="/static/img/reply_neue.png" align="absmiddle" border="0" alt="Reply" width="20"></a> &nbsp;&nbsp; <span class="no">18</span></div>
+                                <div class="sep3"></div>
+                                <strong><a href="/member/pengtdyd" class="dark">pengtdyd</a></strong> &nbsp; <div class="badges"></div>&nbsp; &nbsp;<span class="ago" title="2022-04-06 14:38:13 +08:00">6 小时 0 分钟前</span>
+                                <div class="sep5"></div>
+                                <div class="reply_content">只有电商需要这么强的技术栈</div>
+                            </td>
+                        </tr>
+                        </tbody></table>
+                </div>
+                <div id="r_11538975" class="cell">
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tbody><tr>
+                            <td width="48" valign="top" align="center"><img src="https://cdn.v2ex.com/gravatar/c9742569aa4e70945dd3d49370adf2c9?s=48&amp;d=retro" class="avatar" border="0" align="default" alt="sss15"></td>
+                            <td width="10" valign="top"></td>
+                            <td width="auto" valign="top" align="left"><div class="fr"><div id="thank_area_11538975" class="thank_area"><a href="#;" onclick="if (confirm('确认要不再显示来自 @sss15 的这条回复？')) { ignoreReply(11538975, '18194'); }" class="thank" style="color: #ccc;">隐藏</a> &nbsp; &nbsp; <a href="#;" onclick="if (confirm('确认花费 10 个铜币向 @sss15 的这条回复发送感谢？')) { thankReply(11538975); }" class="thank">感谢回复者</a></div> &nbsp; <a href="#;" onclick="replyOne('sss15');"><img src="/static/img/reply_neue.png" align="absmiddle" border="0" alt="Reply" width="20"></a> &nbsp;&nbsp; <span class="no">19</span></div>
+                                <div class="sep3"></div>
+                                <strong><a href="/member/sss15" class="dark">sss15</a></strong> &nbsp; <div class="badges"></div>&nbsp; &nbsp;<span class="ago" title="2022-04-06 14:43:43 +08:00">5 小时 54 分钟前</span>
+                                <div class="sep5"></div>
+                                <div class="reply_content">做个问卷星把，问卷星这么多年，界面都不优化的</div>
+                            </td>
+                        </tr>
+                        </tbody></table>
+                </div>
+                <div id="r_11539074" class="cell">
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tbody><tr>
+                            <td width="48" valign="top" align="center"><img src="https://cdn.v2ex.com/avatar/9846/15bf/527523_normal.png?m=1610411826" class="avatar" border="0" align="default" alt="isSamle"></td>
+                            <td width="10" valign="top"></td>
+                            <td width="auto" valign="top" align="left"><div class="fr"><div id="thank_area_11539074" class="thank_area"><a href="#;" onclick="if (confirm('确认要不再显示来自 @isSamle 的这条回复？')) { ignoreReply(11539074, '18194'); }" class="thank" style="color: #ccc;">隐藏</a> &nbsp; &nbsp; <a href="#;" onclick="if (confirm('确认花费 10 个铜币向 @isSamle 的这条回复发送感谢？')) { thankReply(11539074); }" class="thank">感谢回复者</a></div> &nbsp; <a href="#;" onclick="replyOne('isSamle');"><img src="/static/img/reply_neue.png" align="absmiddle" border="0" alt="Reply" width="20"></a> &nbsp;&nbsp; <span class="no">20</span></div>
+                                <div class="sep3"></div>
+                                <strong><a href="/member/isSamle" class="dark">isSamle</a></strong> &nbsp; <div class="badges"></div>&nbsp; &nbsp;<span class="ago" title="2022-04-06 15:00:53 +08:00">5 小时 37 分钟前</span> &nbsp; <span class="small fade"><img src="/static/img/heart_neue_red.png?v=16ec2dd0a880be6edda1e4a2e35754b3" width="14" align="absmiddle" alt="❤️"> 1</span>
+                                <div class="sep5"></div>
+                                <div class="reply_content">做个‘佣兵工会’吧，开放式任务发布劳动力雇佣平台</div>
+                            </td>
+                        </tr>
+                        </tbody></table>
+                </div>
+                <div id="r_11539102" class="cell">
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tbody><tr>
+                            <td width="48" valign="top" align="center"><img src="https://cdn.v2ex.com/gravatar/f8c9d67d4c9c784b8ef637ec2d217f5c?s=48&amp;d=retro" class="avatar" border="0" align="default" alt="angryfish"></td>
+                            <td width="10" valign="top"></td>
+                            <td width="auto" valign="top" align="left"><div class="fr"><div id="thank_area_11539102" class="thank_area"><a href="#;" onclick="if (confirm('确认要不再显示来自 @angryfish 的这条回复？')) { ignoreReply(11539102, '18194'); }" class="thank" style="color: #ccc;">隐藏</a> &nbsp; &nbsp; <a href="#;" onclick="if (confirm('确认花费 10 个铜币向 @angryfish 的这条回复发送感谢？')) { thankReply(11539102); }" class="thank">感谢回复者</a></div> &nbsp; <a href="#;" onclick="replyOne('angryfish');"><img src="/static/img/reply_neue.png" align="absmiddle" border="0" alt="Reply" width="20"></a> &nbsp;&nbsp; <span class="no">21</span></div>
+                                <div class="sep3"></div>
+                                <strong><a href="/member/angryfish" class="dark">angryfish</a></strong> &nbsp; <div class="badges"></div>&nbsp; &nbsp;<span class="ago" title="2022-04-06 15:07:36 +08:00">5 小时 30 分钟前</span>
+                                <div class="sep5"></div>
+                                <div class="reply_content">做个天眼查吧。受不了查啥都要买会员了。</div>
+                            </td>
+                        </tr>
+                        </tbody></table>
+                </div>
+            </div>
+            <div class="sep20"></div>
+            <div class="box" id="reply-box" stuck="">
+                <div class="cell flex-one-row">
+                    <div>添加一条新回复</div>
+                    <div><a href="javascript:undockReplyBox();" id="undock-button">取消回复框停靠</a> &nbsp; &nbsp; <a href="#" onclick="goTop()">回到顶部</a></div>
+                </div>
+                <div class="cell"><form method="post" action="/t/845141">
+                    <textarea name="content" maxlength="10000" class="mll" id="reply_content" onfocus="setReplyBoxSticky();" style="overflow: hidden; word-wrap: break-word; resize: none; height: 112px;"></textarea>
+                    <div class="flex-one-row" style="margin-top: 10px;">
+                        <input type="submit" value="回复" class="super normal button">
+                        <input type="hidden" value="18194" id="once" name="once">
+                        <span class="gray">请尽量让自己的回复能够对别人有帮助</span>
+                    </div>
+                </form></div>
+                <div class="cell flex-row-end">
+                    <a href="/">← V2EX</a>
+                </div>
+            </div>
+            <div class="sep20"></div>
+            <div class="box">
+                <div class="inner">
+                    <div class="fr">
+                    </div>
+                    <a href="#;" onclick="if (confirm('你确认需要报告这个主题？')) { location.href = '/report/topic/845141?once=18194'; }">报告这个主题</a>
+                    &nbsp;
+                </div></div>
+        </div>
+    </div>
+    <div class="c"></div>
+    <div class="sep20"></div>
+</div>
+<div id="Bottom">
+    <div class="content">
+        <div class="inner">
+            <div class="sep10"></div>
+            <div class="fr">
+                <a href="https://www.digitalocean.com/?refcode=1b51f1a7651d" target="_blank"><div id="DigitalOcean"></div></a>
+            </div>
+            <strong><a href="/about" class="dark" target="_self">关于</a> &nbsp; <span class="snow">·</span> &nbsp; <a href="/help" class="dark" target="_self">帮助文档</a> &nbsp; <span class="snow">·</span> &nbsp; <a href="/help/api" class="dark" target="_self">API</a> &nbsp; <span class="snow">·</span> &nbsp; <a href="/faq" class="dark" target="_self">FAQ</a> &nbsp; <span class="snow">·</span> &nbsp; <a href="/mission" class="dark" target="_self">我们的愿景</a> &nbsp; <span class="snow">·</span> &nbsp; <a href="/advertise" class="dark" target="_self">广告投放</a> &nbsp; <span class="snow">·</span> &nbsp; <a href="/advertise/2019.html" class="dark" target="_self">感谢</a> &nbsp; <span class="snow">·</span> &nbsp; <a href="/tools" class="dark" target="_self">实用小工具</a> &nbsp; <span class="snow">·</span> &nbsp; 2900 人在线</strong> &nbsp; <span class="fade">最高记录 5497</span> &nbsp; <span class="snow">·</span> &nbsp; <a href="/select/language" class="f11"><img src="/static/img/language.png?v=6a5cfa731dc71a3769f6daace6784739" width="16" align="absmiddle" id="ico-select-language"> &nbsp; Select Language</a>
+            <div class="sep20"></div>
+            创意工作者们的社区
+            <div class="sep5"></div>
+            World is powered by solitude
+            <div class="sep20"></div>
+            <span class="small fade">VERSION: 3.9.8.5 · 41ms · <a href="/worldclock#utc">UTC 12:38</a> · <a href="/worldclock#pvg">PVG 20:38</a> · <a href="/worldclock#lax">LAX 05:38</a> · <a href="/worldclock#jfk">JFK 08:38</a><br>Developed with <a href="https://cl.v2ex.pro/" target="_blank">CodeLauncher</a><br>♥ Do have faith in what you're doing.</span>
+            <div class="sep10"></div>
+        </div>
+    </div>
+</div>
+<script src="/b/i/RE6Qe4Z5Wh87MqMVcyWGhUQjgSIgcQ65yt8LhEGuJcIXBUAde86kmgJjfebUojQVvHupDZ2Vepl4pvn7IG3ipDmFvtXG8F4VhP5zIQ_KaYnTooquyEgAlZJweE5YrLS-eEw1IBLcZw4TikKq44hHLcdnLCtfjhEzZUJIAoCCHyZTT2ahvHcQDZ_Vj3SlNDPW"></script><ins class="adsbygoogle adsbygoogle-noablate" data-adsbygoogle-status="done" style="display: none !important;" data-ad-status="unfilled"><ins id="aswift_0_expand" tabindex="0" title="Advertisement" aria-label="Advertisement" style="border: none; height: 0px; width: 0px; margin: 0px; padding: 0px; position: relative; visibility: visible; background-color: transparent; display: inline-table;"><ins id="aswift_0_anchor" style="border: none; height: 0px; width: 0px; margin: 0px; padding: 0px; position: relative; visibility: visible; background-color: transparent; display: block;"><iframe id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;border:0;width:undefinedpx;height:undefinedpx" sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" src="https://googleads.g.doubleclick.net/pagead/ads?client=ca-pub-5060390720525238&amp;output=html&amp;adk=1812271804&amp;adf=3025194257&amp;lmt=1649248705&amp;plat=1%3A1024%2C2%3A1024%2C9%3A32904%2C16%3A8388608%2C17%3A32%2C24%3A32%2C25%3A32%2C30%3A1081344%2C32%3A32&amp;format=0x0&amp;url=https%3A%2F%2Fv2ex.com%2Ft%2F845141%23reply21&amp;ea=0&amp;pra=5&amp;wgl=1&amp;dt=1649248704872&amp;bpp=2&amp;bdt=168&amp;idt=184&amp;shv=r20220404&amp;mjsv=m202203300101&amp;ptt=9&amp;saldr=aa&amp;abxe=1&amp;cookie=ID%3Dcae5b7365934e18a-227ae82e70d10068%3AT%3D1648740113%3ART%3D1648740113%3AS%3DALNI_MYsInUIDwDPbZsDxIY1V_5xOwjXRg&amp;nras=1&amp;correlator=125195394646&amp;frm=20&amp;pv=2&amp;ga_vid=1320396856.1631777304&amp;ga_sid=1649248705&amp;ga_hid=1230858084&amp;ga_fc=1&amp;u_tz=480&amp;u_his=4&amp;u_h=1080&amp;u_w=1920&amp;u_ah=1080&amp;u_aw=1920&amp;u_cd=24&amp;u_sd=2&amp;adx=-12245933&amp;ady=-12245933&amp;biw=1664&amp;bih=578&amp;scr_x=0&amp;scr_y=0&amp;eid=44759876%2C44759927%2C44759842%2C44760912%2C31062931&amp;oid=2&amp;pvsid=4100729745251938&amp;pem=300&amp;tmod=1722661445&amp;nvt=1&amp;ref=https%3A%2F%2Fv2ex.com%2F%3Ftab%3Dhot&amp;eae=2&amp;fc=1920&amp;brdim=0%2C0%2C0%2C0%2C1920%2C0%2C1920%2C1080%2C1679%2C578&amp;vis=1&amp;rsz=%7C%7Cs%7C&amp;abl=NS&amp;fu=32768&amp;bc=31&amp;ifi=1&amp;uci=a!1&amp;fsb=1&amp;dtd=195" data-google-container-id="a!1" data-load-complete="true"></iframe></ins></ins></ins>
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-11940834-2', 'v2ex.com');
+    ga('send', 'pageview');
+
+
+    ga('send', 'event', 'Node', 'topic', 'k8s');
+
+
+
+</script>
+
+<iframe src="https://www.google.com/recaptcha/api2/aframe" width="0" height="0" style="display: none;"></iframe></body><iframe id="google_esf" name="google_esf" src="https://googleads.g.doubleclick.net/pagead/html/r20220404/r20190131/zrt_lookup.html" style="display: none;"></iframe></html>

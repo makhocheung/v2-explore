@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import V2EXClient
 
 class TopicsAction {
     private let topicsState: TopicsState

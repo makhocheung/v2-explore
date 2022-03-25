@@ -7,6 +7,7 @@
 
 import Kingfisher
 import SwiftUI
+import V2EXClient
 
 struct GlanceView: View {
     let hierarchyNodes = ["apple", "fe", "programming", "dev", "ml", "games", "life", "internet", "cn"]
