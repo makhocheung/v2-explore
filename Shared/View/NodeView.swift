@@ -7,6 +7,7 @@
 
 import Kingfisher
 import SwiftUI
+import V2EXClient
 
 struct NodeView: View {
     let node: Node
@@ -16,7 +17,7 @@ struct NodeView: View {
     var body: some View {
         List {
             VStack(spacing: 10) {
-                KFImage(URL(string: node.avatarLarge))
+                KFImage(URL(string: node))
                     .placeholder({ _ in
                         Image(systemName: "photo")
                             .resizable()
@@ -26,7 +27,7 @@ struct NodeView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 100, height: 100)
-                Text(node.header ?? "")
+                Text(node.title ?? "")
                     .fixedSize(horizontal: false, vertical: true)
                 HStack {
                     Text("\(node.topics) 个主题")

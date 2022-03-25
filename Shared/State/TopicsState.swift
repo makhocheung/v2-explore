@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import V2EXClient
 
 class TopicsState: ObservableObject {
     @Published var topics: [Topic] = []

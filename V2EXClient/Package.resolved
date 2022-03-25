@@ -1,15 +1,6 @@
 {
   "pins" : [
     {
-      "identity" : "kingfisher",
-      "kind" : "remoteSourceControl",
-      "location" : "https://gitee.com/MakHoCheung/Kingfisher.git",
-      "state" : {
-        "branch" : "master",
-        "revision" : "a2c961496934a4d03975139cb21fe05d4aa6ef18"
-      }
-    },
-    {
       "identity" : "swiftsoup",
       "kind" : "remoteSourceControl",
       "location" : "https://gitee.com/MakHoCheung/SwiftSoup.git",

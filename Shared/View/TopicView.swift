@@ -8,6 +8,7 @@
 import Kingfisher
 import SwiftUI
 import WebKit
+import V2EXClient
 
 struct TopicView: View {
     @Environment(\.colorScheme) var colorScheme

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import V2EXClient
 
 struct NavigationLinkView: View {
     @State var isActive = false
@@ -13,7 +14,7 @@ struct NavigationLinkView: View {
 
     var body: some View {
         VStack {
-            BriefTopicView(briefTopic: topic)
+            SimpleTopicView(briefTopic: topic)
             Divider()
         }
         .padding(.top, 10)
