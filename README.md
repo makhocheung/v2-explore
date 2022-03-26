@@ -2,7 +2,7 @@
 
 ## 介绍
 
-V2 Explore 是一个基于 SwiftUI 开发的跨多个苹果平台的第三方 [V2EX](https://v2ex.com) 客户端，支持 iOS、ipadOS 和即将到来的 macOS。本开源项目是作者学习 Swift 和 SwiftUI 的实践项目，同时也供有兴趣的开发者学习与交流。
+V2 Explore 是一个基于 SwiftUI 开发的跨多个苹果平台的第三方 [V2EX](https://v2ex.com) 客户端，支持 iOS、iPadOS 和即将到来的 macOS。本开源项目是作者学习 Swift 和 SwiftUI 的实践项目，同时也供有兴趣的开发者学习与交流。
 
 ## 下载链接
 
@@ -13,7 +13,7 @@ V2 Explore 是一个基于 SwiftUI 开发的跨多个苹果平台的第三方 [V
 ### iOS
 ![1](./screenshot/1.png)
 
-### ipadOS
+### iPadOS
 ![2](./screenshot/2.png)
 
 ## 第三方库
