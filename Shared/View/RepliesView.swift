@@ -18,7 +18,7 @@ struct RepliesView: View {
                 ForEach(replies.indices) { floor in
                     let reply = replies[floor]
                     VStack {
-                        ReplyView(reply: reply, isOP: topic.member.id == reply.memberId, floor: floor + 1)
+                        ReplyView(reply: reply, isOP: topic.member.name == reply.member.name, floor: floor + 1)
                         Divider()
                     }
                     .padding(.top, 10)
@@ -34,15 +34,15 @@ struct RepliesView: View {
             #if DEBUG
                 replies = debugReplies
             #else
-                do {
-                    replies = try await APIService.shared.getRepliesByTopic(topicId: topic.id)
-                } catch {
-                    if error.localizedDescription != "cancelled" {
-                        print("[v2-explore]: \(error.localizedDescription)")
-                        appAction.updateErrorMsg(errorMsg: "网络请求异常")
-                        appAction.toggleIsShowErrorMsg()
-                    }
-                }
+//                do {
+//                    replies = try await APIService.shared.getRepliesByTopic(topicId: topic.id)
+//                } catch {
+//                    if error.localizedDescription != "cancelled" {
+//                        print("[v2-explore]: \(error.localizedDescription)")
+//                        appAction.updateErrorMsg(errorMsg: "网络请求异常")
+//                        appAction.toggleIsShowErrorMsg()
+//                    }
+//                }
             #endif
         }
     }

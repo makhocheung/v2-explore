@@ -1,15 +1,21 @@
+import SwiftyJSON
 @testable import V2EXClient
 import XCTest
 
 @available(macOS 12, *)
 final class V2EXClientTests: XCTestCase {
+
     func testExample() async throws {
-//        let tabAll = try! String(contentsOfFile: "/Users/makho-cheung/Library/Application Support/JetBrains/IntelliJIdea2021.3/scratches/scratch.html")
-//        let doc: Document = try! SwiftSoup.parse(tabAll)
-//        let mainEle = try! doc.select("#Main > .box")[0]
-//        let item = try mainEle.getElementsByClass("item")[0]
-//        let topic = try V2EXClient().parse2BriefTopic(ele: item)
-//        print(topic)
-        print(try await V2EXClient.shared.getHtmlTopic().1)
+        let v2exBundleUrl = Bundle.module.resourceURL!.appendingPathComponent("V2EXClient", conformingTo: .bundle).appendingPathExtension("bundle")
+        let v2exBundle = Bundle(url: v2exBundleUrl)!
+        let htmlUrl = v2exBundle.resourceURL!.appendingPathComponent("DebugNodeTopics", conformingTo: .html)
+        let data = try! String(contentsOf: htmlUrl)
+        let parser = Parser()
+        do {
+            let (node,topics) = try parser.parse2SimpleTopicsForNode(html: data, node: Node(title: "Java", url: "java", name: "Java"))
+            print(node.desc)
+        } catch {
+            print(error)
+        }
     }
 }

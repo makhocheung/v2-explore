@@ -20,7 +20,7 @@ struct NavigationLinkView: View {
         .padding(.top, 10)
         .overlay {
             NavigationLink(isActive: $isActive) {
-                TopicView(topic: topic)
+                TopicView(topicId: topic.id)
             } label: {
                 EmptyView()
             }

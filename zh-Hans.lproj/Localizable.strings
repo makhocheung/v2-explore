@@ -1,0 +1,18 @@
+/* 
+  Localizable.strings
+  V2 Explore
+
+  Created by Mak Ho-Cheung on 2022/9/1.
+  
+*/
+
+"glance.all"="全部";
+"glance.tech"="技术";
+"glance.creative"="创意";
+"glance.play"="好玩";
+"glance.apple"="苹果";
+"glance.jobs"="酷工作";
+"glance.deals"="交易";
+"glance.city"="城市";
+"glance.qna"="问答";
+"glance.nodes"="节点";

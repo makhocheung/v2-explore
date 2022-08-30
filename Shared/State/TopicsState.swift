@@ -8,9 +8,9 @@ import V2EXClient
 class TopicsState: ObservableObject {
     @Published var topics: [Topic] = []
 
-    let listType: ExploreTopicListType
+    let listType: ExploreTopicType
 
-    init(_ listType: ExploreTopicListType) {
+    init(_ listType: ExploreTopicType) {
         self.listType = listType
     }
 }

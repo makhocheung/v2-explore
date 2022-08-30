@@ -10,100 +10,80 @@ import SwiftSoup
 import SwiftyJSON
 
 class Parser {
+
     func parse2SimpleTopics(html: String) throws -> [Topic] {
-        func parse2GetIdTitleUrl(ele: Element) throws -> (String, String, String) {
-            let title = try ele.text()
-            let url = try ele.getElementsByTag("a").first()!.attr("href")
-            let start = url.index(after: url.lastIndex(of: "/")!)
-            let end = url.firstIndex(of: "#")!
-            let id = String(url[start..<end])
-            return (id, title, url)
-        }
-
-        func parse2GetNodeLastTouchedLastReplyBy(ele: Element) throws -> (Node, String, Member?) {
-            let aEles = try ele.getElementsByTag("a")
-            let aEle = aEles[0]
-            let nodeTitle = try aEle.text()
-            let nodeUrl = try aEle.attr("href")
-            let nodeName = String(nodeUrl.suffix(from: nodeUrl.index(after: nodeUrl.lastIndex(of: "/")!)))
-            let node = Node(title: nodeTitle, url: nodeUrl, name: nodeName)
-            let lastTouched = try ele.getElementsByTag("span").first()!.text()
-            .split(separator: "•")[2].trimmingCharacters(in: .whitespaces)
-
-            var lastReplyBy: Member?
-
-            if aEles.size() == 3 {
-                let aEle1 = aEles[2]
-                lastReplyBy = Member(url: try aEle1.attr("href"), name: try aEle1.text(), avatar: nil)
-            }
-            return (node, lastTouched, lastReplyBy)
-        }
-
-        func parse2GetMember(ele: Element) throws -> Member {
-            let imageEle = try ele.getElementsByTag("img").first()!
-            let url = try ele.attr("href")
-            let name = try imageEle.attr("alt")
-            let avatar = try imageEle.attr("src")
-            return Member(url: url, name: name, avatar: avatar)
-        }
-
         var topics: [Topic] = []
         let doc = try SwiftSoup.parse(html)
-        let itemEles = try doc.select("#Main .item")
-        for itemEle in itemEles {
-            let (id, title, url) = try parse2GetIdTitleUrl(ele: try itemEle.getElementsByClass("item_title").first()!)
-            let member = try parse2GetMember(ele: try itemEle.getElementsByTag("a").first()!)
-            let (node, lastTouched, lastReplyBy) = try parse2GetNodeLastTouchedLastReplyBy(ele: try itemEle.getElementsByClass("topic_info").first()!)
-            let replyCount = Int(try itemEle.getElementsByClass("count_livid").first()?.text() ?? "0") ?? 0
+        let itemElements = try doc.select("#Main .item")
+        for itemElement in itemElements {
+            let (id, title, url) = try parse2GetIdTitleUrl(element: try itemElement.getElementsByClass("item_title").first()!)
+            let member = try parse2GetMember(ele: try itemElement.getElementsByTag("a").first()!)
+            let (node, createTime, lastTouched, lastReplyBy) = try parse2GetNodeCreateTimeLastTouchedLastReplyBy(element: try itemElement.getElementsByClass("topic_info").first()!)
+            let replyCount = Int(try itemElement.getElementsByClass("count_livid").first()?.text() ?? "0") ?? 0
             topics.append(Topic(id: id, node: node, member: member, title: title, content: nil,
-                    url: url, replyCount: replyCount, createTime: nil, lastReplyBy: lastReplyBy, lastTouched: lastTouched, pageCount: nil))
+                    url: url, replyCount: replyCount, createTime: createTime, lastReplyBy: lastReplyBy, lastTouched: lastTouched, pageCount: nil))
         }
         return topics
+    }
+
+    func parseJson2SimpleTopics(json: String) throws -> [Topic] {
+        let JsonArray = JSON(parseJSON: json)
+        var topics: [Topic] = []
+        for (_, jsonObj) in JsonArray {
+            let nodeJsonObj = jsonObj["node"]
+            let node = Node(title: nodeJsonObj["title"].stringValue, url: nodeJsonObj["url"].stringValue, name: nodeJsonObj["name"].stringValue)
+            let memberObj = jsonObj["member"]
+            let member = Member(name: memberObj["username"].stringValue, url: memberObj["url"].stringValue, avatar: memberObj["avatar_large"].stringValue)
+            var lastReplyBy: Member?
+            if let username = jsonObj["last_reply_by"].string, !username.isEmpty {
+                lastReplyBy = Member(name: username)
+            }
+            let lastTouched = timestamp2Date(timestamp: jsonObj["last_touched"].int64Value)
+            let createTime = timestamp2Date(timestamp: jsonObj["created"].int64Value)
+            let title = jsonObj["title"].stringValue
+            let url = jsonObj["url"].stringValue
+            let replyCount = jsonObj["replies"].intValue
+            let id = jsonObj["id"].stringValue
+            topics.append(Topic(id: id, node: node, member: member, title: title, content: nil, url: url, replyCount: replyCount,
+                    createTime: createTime, lastReplyBy: lastReplyBy, lastTouched: lastTouched, pageCount: nil))
+        }
+        return topics
+    }
+
+    func parse2SimpleTopicsForNode(html: String, node: Node) throws -> (Node, [Topic]) {
+        var topics: [Topic] = []
+        let doc = try SwiftSoup.parse(html)
+        let nodeHeaderElement = try doc.select("#Main .node-header").first()!
+        let avatar = try nodeHeaderElement.getElementsByTag("img").first()!.attr("src")
+        let count = try nodeHeaderElement.getElementsByClass("topic-count").first()!.getElementsByTag("strong").first()!.text()
+        let desc = try nodeHeaderElement.getElementsByClass("intro").first()?.text()
+        let cellElements = try doc.select("#TopicsNode .cell")
+        for cellElement in cellElements {
+            let (id, title, url) = try parse2GetIdTitleUrl(element: try cellElement.getElementsByClass("item_title").first()!)
+            let member = try parse2GetMember(ele: try cellElement.getElementsByTag("a").first()!)
+            let (createTime, lastTouched, lastReplyBy) = try parse2GetCreateTimeLastTouchedLastReplyBy(element: try cellElement.getElementsByClass("topic_info").first()!)
+            let replyCount = Int(try cellElement.getElementsByClass("count_livid").first()?.text() ?? "0") ?? 0
+            topics.append(Topic(id: id, node: node, member: member, title: title, content: nil,
+                    url: url, replyCount: replyCount, createTime: createTime, lastReplyBy: lastReplyBy, lastTouched: lastTouched, pageCount: nil))
+        }
+        return (Node(title: node.title, url: node.url, name: node.name, parentNodeName: node.parentNodeName, avatar: avatar, desc: desc, count: Int(count)), topics)
     }
 
     func parse2TopicReplies(html: String, id: String) throws -> (Topic, [Reply]) {
         let doc = try SwiftSoup.parse(html)
-        let mainEle = try doc.getElementById("Main")!
-        let contentEle = try mainEle.getElementsByClass("box").first()!
-        let header = try contentEle.getElementsByClass("header").first()!
-
-        let nodeAEle = try header.getElementsByTag("a")[2]
-        let node = Node(title: try nodeAEle.text(), url: try nodeAEle.attr("href"), name: "")
-
-        let title = try header.getElementsByTag("h1").first()!.text()
-        let memberAEle = try header.select("small > a").first()!
-        let memeber = Member(url: try memberAEle.attr("href"), name: try memberAEle.text(), avatar: nil)
-        let createTime = try header.select("small > span").text()
-
-        let content = try contentEle.getElementsByClass("topic_content").first()!.outerHtml()
-
-        let pageCount = Int(try mainEle.getElementsByClass("page_input").first()?.attr("max") ?? "0")!
-
-        return (Topic(id: id, node: node, member: memeber, title: title, content: content, url: nil, replyCount: nil, createTime: createTime,
+        let mainElement = try doc.getElementById("Main")!
+        let boxElement = try mainElement.getElementsByClass("box").first()!
+        let headerElement = try boxElement.getElementsByClass("header").first()!
+        let nodeElement = try headerElement.getElementsByTag("a")[2]
+        let node = Node(title: try nodeElement.text(), url: try nodeElement.attr("href"), name: "")
+        let title = try headerElement.getElementsByTag("h1").first()!.text()
+        let memberElement = try headerElement.select("small > a").first()!
+        let member = Member(name: try memberElement.text(), url: try memberElement.attr("href"), avatar: try headerElement.getElementsByTag("img").first()!.attr("src"))
+        let createTime = try headerElement.select("small > span").text()
+        let content = try boxElement.getElementsByClass("topic_content").first()?.outerHtml()
+        let pageCount = Int(try mainElement.getElementsByClass("page_input").first()?.attr("max") ?? "0")!
+        return (Topic(id: id, node: node, member: member, title: title, content: content, url: nil, replyCount: nil, createTime: createTime,
                 lastReplyBy: nil, lastTouched: nil, pageCount: pageCount), try parse2Replies(doc: doc))
-    }
-
-    func parseJson2SimpleTopics(json: String) throws -> [Topic] {
-        let array = JSON(parseJSON: json)
-        var topics: [Topic] = []
-        for (_, obj) in array {
-            let nodeObj = obj["node"]
-            let node = Node(title: nodeObj["title"].stringValue, url: nodeObj["url"].stringValue, name: nodeObj["name"].stringValue)
-            let memberObj = obj["member"]
-            let member = Member(url: memberObj["url"].stringValue, name: memberObj["username"].stringValue, avatar: memberObj["avatar_large"].stringValue)
-            var lastReplyBy: Member?
-            if let username = obj["last_reply_by"].string, !username.isEmpty {
-                lastReplyBy = Member(name: username)
-            }
-            let lastTouched = timestamp2Date(timestamp: obj["last_touched"].int64Value)
-            let title = obj["title"].stringValue
-            let url = obj["url"].stringValue
-            let replyCount = obj["replies"].intValue
-            let id = obj["id"].stringValue
-            topics.append(Topic(id: id, node: node, member: member, title: title, content: nil, url: url, replyCount: replyCount,
-                    createTime: nil, lastReplyBy: lastReplyBy, lastTouched: lastTouched, pageCount: nil))
-        }
-        return topics
     }
 
     func parse2Replies(html: String) throws -> [Reply] {
@@ -112,45 +92,49 @@ class Parser {
     }
 
     func parse2Replies(doc: Document) throws -> [Reply] {
-        let count = try doc.select("#Main > .box").count
-        let cellEles = try doc.select("#Main > .box")[1].getElementsByClass("cell")
         var replies: [Reply] = []
-        for cellEle in cellEles {
-            if cellEle.hasAttr("id") {
-                let idStr = try cellEle.attr("id")
-                let id = String(idStr.suffix(from: idStr.index(idStr.startIndex, offsetBy: 2)))
-                let imgEle = try cellEle.select("table > tbody > tr > td:nth-child(1) > img").first()!
-                let avatar = try imgEle.attr("src")
-                let aEle = try cellEle.select("table > tbody > tr > td:nth-child(3) > strong > a").first()!
-                let name = try aEle.text()
-                let url = try aEle.attr("href")
-                let member = Member(url: url, name: name, avatar: avatar)
-                let createTime = try cellEle.select(".ago").first()!.text()
-                let content = try cellEle.select(".reply_content").first()!.outerHtml()
-                let thankCount = try cellEle.select(".fade").first()?.text() ?? ""
-                let floor = try cellEle.select(".no").first()!.text()
-                let reply = Reply(member: member, creatTime: createTime, content: content, id: id)
+        let boxElements = try doc.select("#Main > .box")
+        guard boxElements.size() > 1 else {
+            return replies
+        }
+        let count = boxElements.count
+        let cellElements = try boxElements[1].getElementsByClass("cell")
+        for cellElement in cellElements {
+            if cellElement.hasAttr("id") {
+                let originalId = try cellElement.attr("id")
+                let id = String(originalId.suffix(from: originalId.index(originalId.startIndex, offsetBy: 2)))
+                let imgElement = try cellElement.select("table > tbody > tr > td:nth-child(1) > img").first()!
+                let avatar = try imgElement.attr("src")
+                let memberElement = try cellElement.select("table > tbody > tr > td:nth-child(3) > strong > a").first()!
+                let name = try memberElement.text()
+                let url = try memberElement.attr("href")
+                let member = Member(name: name, url: url, avatar: avatar)
+                let createTime = try cellElement.select(".ago").first()!.text()
+                let content = try cellElement.select(".reply_content").first()!.text()
+                //let thankCount = try cellElement.select(".fade").first()?.text() ?? ""
+                //let floor = try cellElement.select(".no").first()!.text()
+                let reply = Reply(id: id, content: content, member: member, creatTime: createTime)
                 replies.append(reply)
             }
         }
         return replies
     }
 
-    func parse2NodeMap(doc: Document) throws -> [String: [Node]] {
-        let eles = try doc.select("table")
+    func parse2Nodes(doc: Document) throws -> [String: [Node]] {
+        let tableElements = try doc.select("table")
         var map: [String: [Node]] = [:]
-        for ele in eles {
-            let navNode = try ele.select("tbody > tr > td:nth-child(1)").text()
-            let aEles = try ele.select("tbody > tr > td:nth-child(2) > a")
+        for tableElement in tableElements {
+            let nodesTitle = try tableElement.select("tbody > tr > td:nth-child(1)").text()
+            let nodesElements = try tableElement.select("tbody > tr > td:nth-child(2) > a")
             var nodes: [Node] = []
-            for aEle in aEles {
-                let url = try aEle.attr("href")
+            for nodeElement in nodesElements {
+                let url = try nodeElement.attr("href")
                 let name = String(url.suffix(from: url.index(after: url.lastIndex(of: "/")!)))
-                let title = try aEle.text()
+                let title = try nodeElement.text()
                 let node = Node(title: title, url: url, name: name)
                 nodes.append(node)
             }
-            map[navNode] = nodes
+            map[nodesTitle] = nodes
         }
         return map
     }
@@ -175,5 +159,77 @@ class Parser {
             timeStr = formatter.string(from: Date(timeIntervalSince1970: Double(timestamp)))
         }
         return timeStr
+    }
+
+    // ===
+
+    private func parse2GetIdTitleUrl(element: Element) throws -> (String, String, String) {
+        let title = try element.text()
+        let url = try element.getElementsByTag("a").first()!.attr("href")
+        let start = url.index(after: url.lastIndex(of: "/")!)
+        let end = url.firstIndex(of: "#")!
+        let id = String(url[start..<end])
+        return (id, title, url)
+    }
+
+    /**
+     <span class="topic_info">
+        <div class="votes"></div>
+        <a class="node" href="/go/k8s">Kubernetes</a> &nbsp;•&nbsp;
+        <strong><a href="/member/balabalaguguji">balabalaguguji</a></strong> &nbsp;•&nbsp;
+        <span title="2022-04-06 19:33:51 +08:00">1 小时 3 分钟前</span> &nbsp;•&nbsp; 最后回复来自
+        <strong><a href="/member/suisetai">suisetai</a></strong>
+     </span>
+     */
+    private func parse2GetNodeCreateTimeLastTouchedLastReplyBy(element: Element) throws -> (Node, String?, String?, Member?) {
+        let aElements = try element.getElementsByTag("a")
+        let nodeElement = aElements[0]
+        let nodeTitle = try nodeElement.text()
+        let nodeUrl = try nodeElement.attr("href")
+        let nodeName = String(nodeUrl.suffix(from: nodeUrl.index(after: nodeUrl.lastIndex(of: "/")!)))
+        let node = Node(title: nodeTitle, url: nodeUrl, name: nodeName)
+        let time = try element.getElementsByTag("span").first()!.text()
+                .split(separator: "•")[2].trimmingCharacters(in: .whitespaces)
+        var lastReplyBy: Member?
+        var createTime: String?
+        var lastTouched: String?
+        if aElements.size() == 3 {
+            let memberElement = aElements[2]
+            lastReplyBy = Member(name: try memberElement.text(), url: try memberElement.attr("href"), avatar: nil)
+            lastTouched = time
+        } else {
+            createTime = time
+        }
+        return (node, createTime, lastTouched, lastReplyBy)
+    }
+
+    /**
+     <span class="topic_info"><strong><a href="/member/yanhomlin">yanhomlin</a></strong> &nbsp;•&nbsp; <span
+                                            title="2022-08-30 07:36:53 +08:00">6 小时 37 分钟前</span> &nbsp;•&nbsp; 最后回复来自 <strong><a
+                                            href="/member/wm5d8b">wm5d8b</a></strong></span>
+     */
+    private func parse2GetCreateTimeLastTouchedLastReplyBy(element: Element) throws -> (String?, String?, Member?) {
+        let time = try element.getElementsByTag("span").first()!.text()
+                .split(separator: "•")[1].trimmingCharacters(in: .whitespaces)
+        var createTime: String?
+        var lastTouched: String?
+        var lastReplyBy: Member?
+        let aElements = try element.getElementsByTag("a")
+        if aElements.count > 1 {
+            let memberElement = aElements[1]
+            lastReplyBy = Member(name: try memberElement.text(), url: try memberElement.attr("href"), avatar: nil)
+            lastTouched = time
+        } else {
+            createTime = time
+        }
+        return (createTime, lastTouched, lastReplyBy)
+    }
+
+    private func parse2GetMember(ele: Element) throws -> Member {
+        let imgElement = try ele.getElementsByTag("img").first()!
+        let url = try ele.attr("href")
+        let name = try imgElement.attr("alt")
+        let avatar = try imgElement.attr("src")
+        return Member(name: name, url: url, avatar: avatar)
     }
 }

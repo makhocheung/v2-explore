@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-public struct Topic: Identifiable {
+public struct Topic: Decodable, Identifiable {
     public let id: String
     public let node: Node
     public let member: Member
@@ -22,23 +22,29 @@ public struct Topic: Identifiable {
     public let pageCount: Int?
 }
 
-public struct Member {
-    public var url: String?
+public struct Member: Decodable {
     public var name: String
+    public var url: String?
     public var avatar: String?
 }
 
-public struct Node {
+public struct Node: Decodable, Identifiable {
+    public var id = UUID()
     public var title: String
     public var url: String
     public var name: String
     public var parentNodeName: String?
+    public var avatar: String?
+    public var desc: String?
+    public var count: Int?
+    
+    public static let mock = Node(title: "Java", url:"https://www.v2ex.com/go/java", name: "Java",avatar: "https://cdn.v2ex.com/navatar/03af/dbd6/63_xlarge.png?m=1644490200",desc: "Sun 公司发明，被广泛使用的一门编程语言。",count: 5103)
+
 }
 
-public struct Reply: Identifiable {
+public struct Reply: Decodable {
+    public var id: String
+    public var content: String
     public var member: Member
     public var creatTime: String
-    // public var topicId: String
-    public var content: String
-    public var id: String
 }

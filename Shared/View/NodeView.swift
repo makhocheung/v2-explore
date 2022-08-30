@@ -12,43 +12,42 @@ import V2EXClient
 struct NodeView: View {
     let node: Node
     @State var topics: [Topic] = []
+    @State var currentNode: Node?
     var appAction = AppContext.shared.appAction
 
     var body: some View {
         List {
-            VStack(spacing: 10) {
-                KFImage(URL(string: node))
-                    .placeholder({ _ in
-                        Image(systemName: "photo")
-                            .resizable()
-                            .scaledToFit()
-                    })
-                    .fade(duration: 0.25)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 100, height: 100)
-                Text(node.title ?? "")
-                    .fixedSize(horizontal: false, vertical: true)
-                HStack {
-                    Text("\(node.topics) 个主题")
-                        .padding(5)
-                        .background(Color("TagColor"))
-                        .cornerRadius(5)
-                    Spacer()
-                    Text("\(node.stars) 个收藏")
-                        .padding(5)
-                        .background(Color("TagColor"))
-                        .cornerRadius(5)
+            if let currentNode = currentNode {
+                VStack(spacing: 10) {
+                    KFImage(URL(string: currentNode.avatar!))
+                        .placeholder({ _ in
+                            Image(systemName: "photo")
+                                .resizable()
+                                .scaledToFit()
+                        })
+                        .fade(duration: 0.25)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 100, height: 100)
+                    Text(currentNode.title)
+                        .fixedSize(horizontal: false, vertical: true)
+                    HStack {
+                        Spacer()
+                        Text("\(currentNode.count!) 个主题")
+                            .padding(5)
+                            .background(Color("TagColor"))
+                            .cornerRadius(5)
+                    }
                 }
-            }
-            .listRowSeparator(.hidden)
-            Section {
-                ForEach(topics) {
-                    NavigationLinkView(topic: $0)
+                .listRowSeparator(.hidden)
+                Section {
+                    ForEach(topics) {
+                        NavigationLinkView(topic: $0)
+                    }
                 }
+                .listRowSeparator(.hidden)
+                .listRowInsets(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
             }
-            .listRowSeparator(.hidden)
-            .listRowInsets(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
         }
         .background(bgView)
         .listStyle(.plain)
@@ -57,8 +56,11 @@ struct NodeView: View {
             do {
                 #if DEBUG
                     topics = debugTopics
+                    currentNode = Node.mock
                 #else
-                    topics = try await APIService.shared.getTopicsByNode(nodeName: node.name)
+                    let (node, topics) = try await V2EXClient.shared.getNodeTopics(node: node)
+                    self.topics = topics
+                    currentNode = node
                 #endif
             } catch {
                 if error.localizedDescription != "cancelled" {
@@ -77,11 +79,11 @@ struct NodeView: View {
 }
 
 #if DEBUG
-struct NodeView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            NodeView(node: nodes[3])
+    struct NodeView_Previews: PreviewProvider {
+        static var previews: some View {
+            NavigationView {
+                NodeView(node: Node.mock)
+            }
         }
     }
-}
 #endif

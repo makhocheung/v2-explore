@@ -26,9 +26,9 @@ class TopicsAction {
     func refreshGetTopics() async throws -> [Topic] {
         switch topicsState.listType {
         case .latest:
-            return try await APIService.shared.getLatestTopics()
+            return try await V2EXClient.shared.getLatestTopics()
         case .hottest:
-            return try await APIService.shared.getHottestTopics()
+            return try await V2EXClient.shared.getHottestTopics()
         }
     }
 }

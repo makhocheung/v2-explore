@@ -4,7 +4,7 @@
 
 import Foundation
 
-enum ExploreTopicListType {
+enum ExploreTopicType {
     case latest
     case hottest
 }
