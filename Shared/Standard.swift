@@ -8,13 +8,12 @@
 import SwiftUI
 import V2EXClient
 
-let HOTTEST_NODES = ["programmer", "create", "share", "apple", "jobs", "all4all", "guangzhou", "qna"]
 let jsonEncoder = JSONEncoder()
 let jsonDecoder = JSONDecoder()
 let htmlTemplate = try! String(contentsOf: Bundle.main.url(forResource: "index", withExtension: "html", subdirectory: "Data")!)
 let htmlDarkTemplate = try! String(contentsOf: Bundle.main.url(forResource: "index_dark", withExtension: "html", subdirectory: "Data")!)
-let nodesJson = try! String(contentsOf: Bundle.main.url(forResource: "nodes", withExtension: "json", subdirectory: "Data")!)
-let nodes = try! jsonDecoder.decode([Node].self, from: nodesJson.data(using: .utf8)!)
+//let nodesJson = try! String(contentsOf: Bundle.main.url(forResource: "nodes", withExtension: "json", subdirectory: "Data")!)
+//let nodes = try! jsonDecoder.decode([Node].self, from: nodesJson.data(using: .utf8)!)
 
 // debugData
 #if DEBUG

@@ -1,0 +1,20 @@
+/* 
+  Localizable.strings
+  V2 Explore
+
+  Created by Mak Ho-Cheung on 2022/9/1.
+  
+*/
+
+// all, tech, creative, play, apple, jobs, deals, city, qna, nodes
+
+"glance.all"="";
+"glance.tech"="";
+"glance.creative"="";
+"glance.play"="";
+"glance.apple"="";
+"glance.jobs"="";
+"glance.deals"="";
+"glance.city"="";
+"glance.qna"="";
+"glance.nodes"="";

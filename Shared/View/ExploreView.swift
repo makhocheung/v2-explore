@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ExploreView: View {
-    @State var listType = ExploreTopicListType.latest
+    @State var listType = ExploreTopicType.latest
     @StateObject var latestTopicState = AppContext.shared.latestTopicsState
     @StateObject var hottestTopicState = AppContext.shared.hottestTopicsState
     var appAction = AppContext.shared.appAction
@@ -80,9 +80,9 @@ struct ExploreView: View {
             ToolbarItem {
                 Picker("类型", selection: $listType) {
                     Text("最新")
-                        .tag(ExploreTopicListType.latest)
+                        .tag(ExploreTopicType.latest)
                     Text("热门")
-                        .tag(ExploreTopicListType.hottest)
+                        .tag(ExploreTopicType.hottest)
                 }
                 .pickerStyle(.segmented)
                 .onChange(of: listType) { _ in

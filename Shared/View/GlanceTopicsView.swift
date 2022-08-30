@@ -9,15 +9,9 @@ import SwiftUI
 import V2EXClient
 
 struct GlanceTopicsView: View {
-    let node: String
-    let title: String
+    let topicType: GlanceTopicType
     @State var topics: [Topic] = []
     var appAction = AppContext.shared.appAction
-
-    init(node: String, title: String) {
-        self.node = node
-        self.title = title
-    }
 
     var body: some View {
         List {
@@ -30,13 +24,13 @@ struct GlanceTopicsView: View {
             .listRowSeparator(.hidden)
         }
         .listStyle(.plain)
-        .navigationTitle(title)
+        .navigationTitle(LocalizedStringKey("glance." + topicType.rawValue))
         .task {
             #if DEBUG
                 topics = debugTopics
             #else
                 do {
-                    topics = try await APIService.shared.getTopicsByNode(nodeName: node)
+                    topics = try await V2EXClient.shared.getTopicsByTab(tab: topicType.rawValue)
                 } catch {
                     if error.localizedDescription != "cancelled" {
                         print("[v2-explore]: \(error.localizedDescription)")
@@ -56,11 +50,11 @@ struct GlanceTopicsView: View {
 }
 
 #if DEBUG
-struct LatestTopicsView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            GlanceTopicsView(node: "qna", title: "问与答")
+    struct LatestTopicsView_Previews: PreviewProvider {
+        static var previews: some View {
+            NavigationView {
+                GlanceTopicsView(topicType: GlanceTopicType.qna)
+            }
         }
     }
-}
 #endif

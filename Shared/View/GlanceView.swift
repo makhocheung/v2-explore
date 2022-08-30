@@ -8,72 +8,55 @@
 import Kingfisher
 import SwiftUI
 import V2EXClient
+import Foundation
 
 struct GlanceView: View {
-    let hierarchyNodes = ["apple", "fe", "programming", "dev", "ml", "games", "life", "internet", "cn"]
-
+    @State var navNodes: [String: [Node]]?
     var body: some View {
         List {
-            ForEach(HOTTEST_NODES, id: \.self) { it in
+            ForEach(GlanceTopicType.allCases, id: \.self) { it in
                 NavigationLink {
-                    let node = parentNodes[it]!
-                    GlanceTopicsView(node: node.name, title: node.title)
+                    GlanceTopicsView(topicType: it)
                 } label: {
                     HStack {
-                        KFImage(URL(string: parentNodes[it]!.avatarNormal))
-                            .placeholder({ _ in
-                                Image(systemName: "photo")
-                                    .resizable()
-                                    .scaledToFit()
-                            })
-                            .fade(duration: 0.25)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 30, height: 30)
-                        Text(parentNodes[it]!.title)
+                        Text(LocalizedStringKey("glance." + it.rawValue))
                     }
                 }
             }
-            Section {
-                ForEach(hierarchyNodes, id: \.self) { it in
-                    NavigationLink {
-                        NodesView(parentNode: parentNodes[it]!)
-                    } label: {
-                        HStack {
-                            KFImage(URL(string: parentNodes[it]!.avatarNormal))
-                                .placeholder({ _ in
-                                    Image(systemName: "photo")
-                                        .resizable()
-                                        .scaledToFit()
-                                })
-                                .fade(duration: 0.25)
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 30, height: 30)
-                            Text(parentNodes[it]!.title)
+            if let navNodes = navNodes {
+                ForEach(Array(navNodes.keys.enumerated()), id: \.element) { _, key in
+                    Section {
+                        ForEach(navNodes[key]!) { node in
+                            NavigationLink {
+                                NodeView(node: node)
+                            } label: {
+                                Text(node.title)
+                            }
                         }
+                    } header: {
+                        Text("\(key)")
+                            .font(.title3)
                     }
                 }
-            } header: {
-                Text("导航")
-                    .font(.title3)
             }
         }
-        .listStyle(.grouped)
-    }
-
-    var parentNodes: [String: Node] {
-        return Dictionary(uniqueKeysWithValues: nodes.map { ($0.name, $0) })
+        .task {
+            do {
+                navNodes = try await V2EXClient.shared.getNavNodeMap()
+            } catch {
+                print(error)
+            }
+        }
     }
 }
 
 #if DEBUG
-struct NodesView_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            GlanceView()
-            GlanceView().preferredColorScheme(.dark)
+    struct NodesView_Previews: PreviewProvider {
+        static var previews: some View {
+            Group {
+                GlanceView()
+                GlanceView().preferredColorScheme(.dark)
+            }
         }
     }
-}
 #endif
