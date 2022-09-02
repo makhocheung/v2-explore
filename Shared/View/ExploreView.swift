@@ -6,65 +6,30 @@
 //
 
 import SwiftUI
+import V2EXClient
 
 struct ExploreView: View {
     @State var listType = ExploreTopicType.latest
-    @StateObject var latestTopicState = AppContext.shared.latestTopicsState
-    @StateObject var hottestTopicState = AppContext.shared.hottestTopicsState
+    @State var latestTopics: [Topic] = []
+    @State var hottestTopics: [Topic] = []
     var appAction = AppContext.shared.appAction
-    var latestTopicsAction = AppContext.shared.latestTopicsAction
-    var hottestTopicsAction = AppContext.shared.hottestTopicsAction
-
+    #if os(macOS)
+    @EnvironmentObject var navigationSelectionState: NavigationSelectionState
+    #endif
     var body: some View {
-        ScrollView {
-            VStack {
-                switch listType {
-                case .latest:
-                    ForEach(latestTopicState.topics) {
-                        NavigationLinkView(topic: $0)
-                    }
-                case .hottest:
-                    ForEach(hottestTopicState.topics) {
-                        NavigationLinkView(topic: $0)
-                    }
-                }
+        ZStack {
+            listView
+            if showLoading {
+                bgView
             }
-            .frame(maxHeight: .infinity)
-        }
-        .background(bgView)
-        .task {
-            #if DEBUG
-                switch listType {
-                case .latest:
-                    latestTopicsAction.updateTopics(topics: debugTopics)
-                case .hottest:
-                    hottestTopicsAction.updateTopics(topics: debugTopics)
-                }
-            #else
-                do {
-                    switch listType {
-                    case .latest:
-                        latestTopicsAction.updateTopics(topics: try await latestTopicsAction.getTopics())
-                    case .hottest:
-                        hottestTopicsAction.updateTopics(topics: try await hottestTopicsAction.getTopics())
-                    }
-
-                } catch {
-                    if error.localizedDescription != "cancelled" {
-                        print("[v2-explore]: \(error.localizedDescription)")
-                        appAction.updateErrorMsg(errorMsg: "网络请求异常")
-                        appAction.toggleIsShowErrorMsg()
-                    }
-                }
-            #endif
         }
         .refreshable {
             do {
                 switch listType {
                 case .latest:
-                    latestTopicsAction.updateTopics(topics: try await latestTopicsAction.refreshGetTopics())
+                    latestTopics = try await V2EXClient.shared.getLatestTopics()
                 case .hottest:
-                    hottestTopicsAction.updateTopics(topics: try await hottestTopicsAction.refreshGetTopics())
+                    hottestTopics = try await V2EXClient.shared.getHottestTopics()
                 }
             } catch {
                 if error.localizedDescription != "cancelled" {
@@ -84,13 +49,16 @@ struct ExploreView: View {
                 }
                 .pickerStyle(.segmented)
                 .onChange(of: listType) { _ in
+                    #if os(macOS)
+                    navigationSelectionState.topicSelection = nil
+                    #endif
                     Task {
                         do {
                             switch listType {
                             case .latest:
-                                latestTopicsAction.updateTopics(topics: try await latestTopicsAction.getTopics())
+                                latestTopics = try await V2EXClient.shared.getLatestTopics()
                             case .hottest:
-                                hottestTopicsAction.updateTopics(topics: try await hottestTopicsAction.getTopics())
+                                hottestTopics = try await V2EXClient.shared.getHottestTopics()
                             }
                         } catch {
                             if error.localizedDescription != "cancelled" {
@@ -109,21 +77,110 @@ struct ExploreView: View {
         showLoading ? AnyView(ProgressView()
             .frame(maxWidth: .infinity, maxHeight: .infinity)) : AnyView(EmptyView())
     }
-    
+
     var showLoading: Bool {
         switch listType {
         case .latest:
-            return !latestTopicsAction.hasTopics
+            return latestTopics.isEmpty
         case .hottest:
-            return !hottestTopicsAction.hasTopics
+            return hottestTopics.isEmpty
         }
     }
+    
+    #if os(macOS)
+    var listView: some View {
+        List(selection: $navigationSelectionState.topicSelection) {
+            switch listType {
+            case .latest:
+                ForEach(latestTopics) {
+                    SimpleTopicNavigationLinkView(topic: $0)
+                }
+            case .hottest:
+                ForEach(hottestTopics) {
+                    SimpleTopicNavigationLinkView(topic: $0)
+                }
+            }
+        }
+        .listStyle(.sidebar)
+        .task(id: navigationSelectionState.sidebarSelection) {
+            guard navigationSelectionState.sidebarSelection == .main else {
+                return
+            }
+            latestTopics.removeAll()
+            hottestTopics.removeAll()
+            #if DEBUG
+                switch listType {
+                case .latest:
+                    latestTopics = debugTopics
+                case .hottest:
+                    hottestTopics = debugTopics
+                }
+            #else
+                do {
+                    switch listType {
+                    case .latest:
+                        latestTopics = try await V2EXClient.shared.getLatestTopics()
+                    case .hottest:
+                        hottestTopics = try await V2EXClient.shared.getHottestTopics()
+                    }
+                } catch {
+                    if error.localizedDescription != "cancelled" {
+                        print("[v2-explore]: \(error.localizedDescription)")
+                        appAction.updateErrorMsg(errorMsg: "网络请求异常")
+                        appAction.toggleIsShowErrorMsg()
+                    }
+                }
+            #endif
+        }
+    }
+    #else
+    var listView: some View {
+        List {
+            switch listType {
+            case .latest:
+                ForEach(latestTopics) {
+                    SimpleTopicNavigationLinkView(topic: $0)
+                }
+            case .hottest:
+                ForEach(hottestTopics) {
+                    SimpleTopicNavigationLinkView(topic: $0)
+                }
+            }
+        }
+        .listStyle(.plain)
+        .task {
+            #if DEBUG
+                switch listType {
+                case .latest:
+                    latestTopics = debugTopics
+                case .hottest:
+                    hottestTopics = debugTopics
+                }
+            #else
+                do {
+                    switch listType {
+                    case .latest:
+                        latestTopics = try await V2EXClient.shared.getLatestTopics()
+                    case .hottest:
+                        hottestTopics = try await V2EXClient.shared.getHottestTopics()
+                    }
+                } catch {
+                    if error.localizedDescription != "cancelled" {
+                        print("[v2-explore]: \(error.localizedDescription)")
+                        appAction.updateErrorMsg(errorMsg: "网络请求异常")
+                        appAction.toggleIsShowErrorMsg()
+                    }
+                }
+            #endif
+        }
+    }
+    #endif
 }
 
-#if DEBUG
-    struct HomeView_Previews: PreviewProvider {
-        static var previews: some View {
-            ExploreView()
-        }
-    }
-#endif
+// #if DEBUG
+//    struct HomeView_Previews: PreviewProvider {
+//        static var previews: some View {
+//            ExploreView()
+//        }
+//    }
+// #endif

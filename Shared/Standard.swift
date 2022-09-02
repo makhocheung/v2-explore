@@ -7,6 +7,7 @@
 
 import SwiftUI
 import V2EXClient
+import Combine
 
 let jsonEncoder = JSONEncoder()
 let jsonDecoder = JSONDecoder()

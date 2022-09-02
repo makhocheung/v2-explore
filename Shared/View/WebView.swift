@@ -8,24 +8,47 @@
 import SwiftUI
 import WebKit
 
-struct WebView: UIViewRepresentable {
-    static let webview = WKWebView()
+#if os(macOS)
+    typealias ViewRespresentable = NSViewRepresentable
+#else
+    typealias ViewRespresentable = UIViewRepresentable
+#endif
+
+struct WebView: ViewRespresentable {
+    static let webview = V2EXWebView()
     @Binding var webViewHeight: CGFloat
     var content: String
 
+    #if os(macOS)
+    func makeNSView(context: Context) -> WKWebView {
+        //WebView.webview.scrollView.bounces = false
+        WebView.webview.setValue(false, forKey: "drawsBackground")
+        WebView.webview.navigationDelegate = context.coordinator
+        WebView.webview.loadHTMLString(content, baseURL: URL(string: "https://v2ex.com"))
+        return WebView.webview
+    }
+    func updateNSView(_ webView: WKWebView, context: Context) {
+        webView.loadHTMLString(content, baseURL: URL(string: "https://v2ex.com"))
+    }
+    #else
     func makeUIView(context: Context) -> WKWebView {
         WebView.webview.scrollView.bounces = false
         WebView.webview.navigationDelegate = context.coordinator
         WebView.webview.loadHTMLString(content, baseURL: URL(string: "https://v2ex.com"))
         return WebView.webview
     }
+    func updateUIView(_ webView: WKWebView, context: Context) {
+        WebView.webview.loadHTMLString(content, baseURL: URL(string: "https://v2ex.com"))
+
+    }
+    #endif
+    
 
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
     }
 
-    func updateUIView(_ webView: WKWebView, context: Context) {
-    }
+
 
     class Coordinator: NSObject, WKNavigationDelegate {
         var parent: WebView
@@ -42,4 +65,12 @@ struct WebView: UIViewRepresentable {
             })
         }
     }
+}
+
+class V2EXWebView: WKWebView {
+    #if os(macOS)
+    override func scrollWheel(with event: NSEvent) {
+        nextResponder?.scrollWheel(with: event)
+    }
+    #endif
 }

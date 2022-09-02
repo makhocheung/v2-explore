@@ -80,7 +80,15 @@ class Parser {
         let memberElement = try headerElement.select("small > a").first()!
         let member = Member(name: try memberElement.text(), url: try memberElement.attr("href"), avatar: try headerElement.getElementsByTag("img").first()!.attr("src"))
         let createTime = try headerElement.select("small > span").text()
-        let content = try boxElement.getElementsByClass("topic_content").first()?.outerHtml()
+        let contentElement = try boxElement.getElementsByClass("topic_content").first()
+        var content: String?
+        if let contentElement {
+            let contentImgElements = try contentElement.getElementsByTag("img")
+            contentImgElements.forEach { imgElement in
+                try? imgElement.removeAttr("loading")
+            }
+            try content = contentElement.outerHtml()
+        }
         let pageCount = Int(try mainElement.getElementsByClass("page_input").first()?.attr("max") ?? "0")!
         return (Topic(id: id, node: node, member: member, title: title, content: content, url: nil, replyCount: nil, createTime: createTime,
                 lastReplyBy: nil, lastTouched: nil, pageCount: pageCount), try parse2Replies(doc: doc))

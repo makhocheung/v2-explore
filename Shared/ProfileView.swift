@@ -8,11 +8,6 @@
 import Kingfisher
 import SwiftUI
 
-#if os(macOS)
-typealias PasteBoard = NSPasteboard
-#elseif os(iOS)
-typealias PasteBoard = UIPasteboard
-#endif
 struct ProfileView: View {
     @State var cacheSize = "计算中"
 
@@ -41,7 +36,7 @@ struct ProfileView: View {
                     .font(.title)
             }
             .frame(maxWidth: .infinity)
-            //.listRowSeparator(.hidden)
+            .listRowSeparator(.hidden)
             Button {
                 isShowCleanCacheAlert.toggle()
             } label: {
@@ -66,7 +61,7 @@ struct ProfileView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
             Button {
-//                PasteBoard.general.url = URL(string: "https://testflight.apple.com/join/SdCh3Wbb")
+                UIPasteboard.general.url = URL(string: "https://testflight.apple.com/join/SdCh3Wbb")
                 isShowShareAlert.toggle()
             } label: {
                 Label("分享", systemImage: "square.and.arrow.up.fill")
@@ -79,10 +74,6 @@ struct ProfileView: View {
                 .font(.footnote)
                 .padding()
                 .frame(maxWidth: .infinity)
-            Text("Copyright © 2022 Mak Ho Cheung. All Rights Reserved.")
-                .font(.footnote)
-                .frame(maxWidth: .infinity)
-                //.listRowSeparator(.hidden)
         }
         .listStyle(.plain)
         .onAppear {
@@ -98,13 +89,11 @@ struct ProfileView: View {
     }
 }
 
-#if DEBUG
-    struct ProfileView_Previews: PreviewProvider {
-        static var previews: some View {
-            NavigationView {
-                ProfileView()
-                    .navigationTitle("我的")
-            }
+struct ProfileView_Previews: PreviewProvider {
+    static var previews: some View {
+        NavigationView {
+            ProfileView()
+                .navigationTitle("我的")
         }
     }
-#endif
+}

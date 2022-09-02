@@ -6,54 +6,51 @@
 //
 
 import Kingfisher
-import V2EXClient
 import SwiftUI
+import V2EXClient
 
 struct SimpleTopicView: View {
     @Environment(\.colorScheme) var colorScheme
-    let briefTopic: Topic
+    let topic: Topic
     var body: some View {
         VStack(spacing: 5) {
             HStack {
-                KFImage(URL(string: briefTopic.member.avatar!))
-                .placeholder({ _ in
-                    Image(systemName: "photo")
+                KFImage(URL(string: topic.member.avatar!))
+                    .placeholder({ _ in
+                        Image(systemName: "photo")
+                            .resizable()
+                            .scaledToFit()
+                    })
+                    .fade(duration: 0.25)
                     .resizable()
                     .scaledToFit()
-                })
-                .fade(duration: 0.25)
-                .resizable()
-                .scaledToFit()
-                .frame(width: 40, height: 40)
-                .cornerRadius(4)
+                    .frame(width: 40, height: 40)
+                    .cornerRadius(4)
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(briefTopic.member.name)
-                    if let lastReplyBy = briefTopic.lastReplyBy {
+                    Text(topic.member.name)
+                        .foregroundColor(.primary)
+                    if let lastReplyBy = topic.lastReplyBy {
                         HStack {
-                            Text(briefTopic.lastTouched!)
+                            Text(topic.lastTouched!)
                             Dot()
                             Text(lastReplyBy.name)
                         }
-                        .foregroundColor(.secondary)
                     } else {
-                        Text(briefTopic.createTime!)
-                        .foregroundColor(.secondary)
+                        Text(topic.createTime!)
                     }
                 }
                 Spacer()
-                Text(briefTopic.node.title)
-                .padding(5)
-                .background(Color("TagColor"))
-                .cornerRadius(4)
+                Text("#\(topic.node.title)")
             }
-            Text(briefTopic.title)
-            .multilineTextAlignment(.leading)
-            .font(.body)
-            .frame(maxWidth: .infinity, alignment: .leading)
+            .foregroundColor(.secondary)
+            Text(topic.title)
+                .multilineTextAlignment(.leading)
+                .font(.body)
+                .frame(maxWidth: .infinity, alignment: .leading)
             HStack(spacing: 0) {
                 Spacer()
                 Image(systemName: "bubble.right")
-                Text(String(briefTopic.replyCount!))
+                Text(String(topic.replyCount!))
             }
         }
         .font(.caption)
@@ -64,23 +61,23 @@ struct SimpleTopicView: View {
 struct Dot: View {
     var body: some View {
         Circle()
-        .foregroundColor(.gray)
-        .frame(width: 5, height: 5)
+            .foregroundColor(.secondary)
+            .frame(width: 5, height: 5)
     }
 }
 
 #if DEBUG
-struct TopicItemView_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            SimpleTopicView(briefTopic: debugTopic)
-            .previewLayout(.fixed(width: 400, height: 120))
-            .padding()
-            SimpleTopicView(briefTopic: debugTopic)
-            .preferredColorScheme(.dark)
-            .previewLayout(.fixed(width: 400, height: 120))
-            .padding()
+    struct TopicItemView_Previews: PreviewProvider {
+        static var previews: some View {
+            Group {
+                SimpleTopicView(topic: debugTopic)
+                    .previewLayout(.fixed(width: 400, height: 120))
+                    .padding()
+                SimpleTopicView(topic: debugTopic)
+                    .preferredColorScheme(.dark)
+                    .previewLayout(.fixed(width: 400, height: 120))
+                    .padding()
+            }
         }
     }
-}
 #endif

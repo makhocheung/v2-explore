@@ -11,20 +11,20 @@ import V2EXClient
 import Foundation
 
 struct GlanceView: View {
-    @State var navNodes: [String: [Node]]?
+    @State var navigationNodes: [String: [Node]]?
     var body: some View {
         List {
-            ForEach(GlanceTopicType.allCases, id: \.self) { it in
+            ForEach(GlanceType.allCases, id: \.self) { it in
                 NavigationLink {
-                    GlanceTopicsView(topicType: it)
+                    GlanceTopicsView(glanceType: it)
                 } label: {
                     HStack {
                         Text(LocalizedStringKey("glance." + it.rawValue))
                     }
                 }
             }
-            if let navNodes = navNodes {
-                ForEach(Array(navNodes.keys.enumerated()), id: \.element) { _, key in
+            if let navNodes = navigationNodes {
+                ForEach(Array(navNodes.keys.sorted().enumerated()), id: \.element) { _, key in
                     Section {
                         ForEach(navNodes[key]!) { node in
                             NavigationLink {
@@ -42,7 +42,7 @@ struct GlanceView: View {
         }
         .task {
             do {
-                navNodes = try await V2EXClient.shared.getNavNodeMap()
+                navigationNodes = try await V2EXClient.shared.getNavigatinNodes()
             } catch {
                 print(error)
             }
