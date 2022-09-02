@@ -52,7 +52,7 @@ public class V2EXClient {
     }
 
     // 获取节点导航数据
-    public func getNavNodeMap() async throws -> [String: [Node]] {
+    public func getNavigatinNodes() async throws -> [String: [Node]] {
         let doc = try SwiftSoup.parse(nodesHtml)
         return try parser.parse2Nodes(doc: doc)
     }

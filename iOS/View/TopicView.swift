@@ -40,10 +40,8 @@ struct TopicView: View {
                                 .foregroundColor(.secondary)
                         }
                         Spacer()
-                        Text(topic.node.title)
+                        Text("#\(topic.node.title)")
                             .padding(3)
-                            .background(Color("TagColor"))
-                            .cornerRadius(4)
                     }
                     Text(topic.title)
                         .bold()
@@ -61,7 +59,6 @@ struct TopicView: View {
                                 ReplyView(reply: reply, isOP: topic.member.name == reply.member.name, floor: floor + 1)
                                 Divider()
                             }
-                            
                         }
                     } else {
                         ProgressView()
