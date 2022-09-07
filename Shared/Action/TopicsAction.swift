@@ -31,4 +31,8 @@ class TopicsAction {
             return try await V2EXClient.shared.getHottestTopics()
         }
     }
+    
+    var hasTopics: Bool {
+        return !topicsState.topics.isEmpty
+    }
 }

@@ -47,8 +47,8 @@ struct SimpleTopicView: View {
                 .cornerRadius(4)
             }
             Text(briefTopic.title)
+            .multilineTextAlignment(.leading)
             .font(.body)
-            .fixedSize(horizontal: false, vertical: true)
             .frame(maxWidth: .infinity, alignment: .leading)
             HStack(spacing: 0) {
                 Spacer()
@@ -57,6 +57,7 @@ struct SimpleTopicView: View {
             }
         }
         .font(.caption)
+        .foregroundColor(.primary)
     }
 }
 

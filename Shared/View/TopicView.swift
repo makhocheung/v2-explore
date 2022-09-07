@@ -19,49 +19,58 @@ struct TopicView: View {
     @State var webViewHeight = CGFloat.zero
 
     var body: some View {
-        List {
-            if let topic = topic {
-                HStack {
-                    KFImage(URL(string: topic.member.avatar!))
-                        .placeholder({ _ in
-                            Image(systemName: "photo")
-                                .resizable()
-                                .scaledToFit()
-                        })
-                        .fade(duration: 0.25)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 50, height: 50)
-                        .cornerRadius(4)
-                    VStack(alignment: .leading, spacing: 5) {
-                        Text(topic.member.name)
-                        Text(topic.createTime!)
-                            .foregroundColor(.secondary)
+        ScrollView {
+            VStack {
+                if let topic = topic {
+                    HStack {
+                        KFImage(URL(string: topic.member.avatar!))
+                            .placeholder({ _ in
+                                Image(systemName: "photo")
+                                    .resizable()
+                                    .scaledToFit()
+                            })
+                            .fade(duration: 0.25)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 50, height: 50)
+                            .cornerRadius(4)
+                        VStack(alignment: .leading, spacing: 5) {
+                            Text(topic.member.name)
+                            Text(topic.createTime!)
+                                .foregroundColor(.secondary)
+                        }
+                        Spacer()
+                        Text(topic.node.title)
+                            .padding(3)
+                            .background(Color("TagColor"))
+                            .cornerRadius(4)
                     }
-                    Spacer()
-                    Text(topic.node.title)
-                        .padding(3)
-                        .background(Color("TagColor"))
-                        .cornerRadius(4)
-                }
-                .listRowSeparator(.hidden)
-                Text(topic.title)
-                    .bold()
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .listRowSeparator(.hidden)
+                    Text(topic.title)
+                        .bold()
+                        .frame(maxWidth: .infinity, alignment: .leading)
 
-                if topic.content != nil {
-                    VStack {
+                    if topic.content != nil {
                         WebView(webViewHeight: $webViewHeight, content: webContent)
                             .frame(height: webViewHeight)
                         Divider()
                     }
-                    .listRowSeparator(.hidden)
+                    if let replies = replies {
+                        ForEach(replies.indices) { floor in
+                            let reply = replies[floor]
+                            VStack {
+                                ReplyView(reply: reply, isOP: topic.member.name == reply.member.name, floor: floor + 1)
+                                Divider()
+                            }
+                            
+                        }
+                    } else {
+                        ProgressView()
+                            .frame(maxWidth: .infinity)
+                    }
                 }
-                RepliesView(topic: topic,replies: replies)
             }
+            .padding(.horizontal)
         }
-        .listStyle(.plain)
         .navigationBarTitleDisplayMode(.inline)
         .task {
             do {

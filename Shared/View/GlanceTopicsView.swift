@@ -14,16 +14,11 @@ struct GlanceTopicsView: View {
     var appAction = AppContext.shared.appAction
 
     var body: some View {
-        List {
-            Section {
-                ForEach(topics) {
-                    NavigationLinkView(topic: $0)
-                }
+        ScrollView {
+            ForEach(topics) {
+                NavigationLinkView(topic: $0)
             }
-            .listRowInsets(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
-            .listRowSeparator(.hidden)
         }
-        .listStyle(.plain)
         .navigationTitle(LocalizedStringKey("glance." + topicType.rawValue))
         .task {
             #if DEBUG
@@ -44,8 +39,8 @@ struct GlanceTopicsView: View {
     }
 
     var bgView: some View {
-        ProgressView()
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        topics.isEmpty ? AnyView(ProgressView()
+            .frame(maxWidth: .infinity, maxHeight: .infinity)) : AnyView(EmptyView())
     }
 }
 

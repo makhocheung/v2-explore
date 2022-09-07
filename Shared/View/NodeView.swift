@@ -16,7 +16,7 @@ struct NodeView: View {
     var appAction = AppContext.shared.appAction
 
     var body: some View {
-        List {
+        ScrollView {
             if let currentNode = currentNode {
                 VStack(spacing: 10) {
                     KFImage(URL(string: currentNode.avatar!))
@@ -39,14 +39,9 @@ struct NodeView: View {
                             .cornerRadius(5)
                     }
                 }
-                .listRowSeparator(.hidden)
-                Section {
-                    ForEach(topics) {
-                        NavigationLinkView(topic: $0)
-                    }
+                ForEach(topics) {
+                    NavigationLinkView(topic: $0)
                 }
-                .listRowSeparator(.hidden)
-                .listRowInsets(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
             }
         }
         .background(bgView)
@@ -73,8 +68,8 @@ struct NodeView: View {
     }
 
     var bgView: some View {
-        ProgressView()
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        topics.isEmpty ? AnyView(ProgressView()
+            .frame(maxWidth: .infinity, maxHeight: .infinity)) : AnyView(EmptyView())
     }
 }
 

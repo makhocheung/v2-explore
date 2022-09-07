@@ -16,8 +16,8 @@ struct ExploreView: View {
     var hottestTopicsAction = AppContext.shared.hottestTopicsAction
 
     var body: some View {
-        List {
-            Section {
+        ScrollView {
+            VStack {
                 switch listType {
                 case .latest:
                     ForEach(latestTopicState.topics) {
@@ -29,14 +29,11 @@ struct ExploreView: View {
                     }
                 }
             }
-            .listRowSeparator(.hidden)
-            .listRowInsets(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
+            .frame(maxHeight: .infinity)
         }
         .background(bgView)
-        .listStyle(.plain)
         .task {
             #if DEBUG
-
                 switch listType {
                 case .latest:
                     latestTopicsAction.updateTopics(topics: debugTopics)
@@ -51,6 +48,7 @@ struct ExploreView: View {
                     case .hottest:
                         hottestTopicsAction.updateTopics(topics: try await hottestTopicsAction.getTopics())
                     }
+
                 } catch {
                     if error.localizedDescription != "cancelled" {
                         print("[v2-explore]: \(error.localizedDescription)")
@@ -108,15 +106,24 @@ struct ExploreView: View {
     }
 
     var bgView: some View {
-        ProgressView()
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        showLoading ? AnyView(ProgressView()
+            .frame(maxWidth: .infinity, maxHeight: .infinity)) : AnyView(EmptyView())
+    }
+    
+    var showLoading: Bool {
+        switch listType {
+        case .latest:
+            return !latestTopicsAction.hasTopics
+        case .hottest:
+            return !hottestTopicsAction.hasTopics
+        }
     }
 }
 
 #if DEBUG
-struct HomeView_Previews: PreviewProvider {
-    static var previews: some View {
-        ExploreView()
+    struct HomeView_Previews: PreviewProvider {
+        static var previews: some View {
+            ExploreView()
+        }
     }
-}
 #endif
