@@ -14,6 +14,7 @@ struct TopicView: View {
     @State var topic: Topic?
     @State var replies: [Reply]?
     @State var webViewHeight = CGFloat.zero
+    @State var isShoading = false
     @EnvironmentObject var navigationSelectionState: NavigationSelectionState
 
     var body: some View {
@@ -62,6 +63,8 @@ struct TopicView: View {
                     .padding(.top)
                     .padding(.horizontal)
                 }
+            } else if isShoading {
+                ProgressView()
             } else {
                 Text("No content")
             }
@@ -71,11 +74,13 @@ struct TopicView: View {
             self.replies = nil
             self.webViewHeight = CGFloat.zero
             if let topicId {
+                self.isShoading = true
                 Task {
                     do {
                         let (topic, replies) = try await V2EXClient.shared.getTopicReplies(id: topicId)
                         self.topic = topic
                         self.replies = replies
+                        self.isShoading = false
                     } catch {
                         print(error)
                     }
@@ -88,6 +93,7 @@ struct TopicView: View {
                     let (topic, replies) = try await V2EXClient.shared.getTopicReplies(id: id)
                     self.topic = topic
                     self.replies = replies
+                    self.isShoading = false
                 } catch {
                     print(error)
                 }
