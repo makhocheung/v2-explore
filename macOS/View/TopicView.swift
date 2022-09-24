@@ -17,50 +17,54 @@ struct TopicView: View {
     @EnvironmentObject var navigationSelectionState: NavigationSelectionState
 
     var body: some View {
-        ScrollView {
-            VStack {
-                if let topic {
-                    HStack {
-                        KFImage(URL(string: topic.member.avatar!))
-                            .placeholder({ _ in
-                                Image(systemName: "photo")
-                                    .resizable()
-                                    .scaledToFit()
-                            })
-                            .fade(duration: 0.25)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 50, height: 50)
-                            .cornerRadius(4)
-                        VStack(alignment: .leading, spacing: 5) {
-                            Text(topic.member.name)
-                            Text(topic.createTime!)
-                                .foregroundColor(.secondary)
+        ZStack {
+            if let topic {
+                ScrollView {
+                    VStack {
+                        HStack {
+                            KFImage(URL(string: topic.member.avatar!))
+                                .placeholder({ _ in
+                                    Image(systemName: "photo")
+                                        .resizable()
+                                        .scaledToFit()
+                                })
+                                .fade(duration: 0.25)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 50, height: 50)
+                                .cornerRadius(4)
+                            VStack(alignment: .leading, spacing: 5) {
+                                Text(topic.member.name)
+                                Text(topic.createTime!)
+                                    .foregroundColor(.secondary)
+                            }
+                            Spacer()
+                            Text("#\(topic.node.title)")
+                                .padding(3)
                         }
-                        Spacer()
-                        Text("#\(topic.node.title)")
-                            .padding(3)
-                    }
-                    Text(topic.title)
-                        .bold()
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                        Text(topic.title)
+                            .bold()
+                            .frame(maxWidth: .infinity, alignment: .leading)
 
-                    if topic.content != nil {
-                        WebView(webViewHeight: $webViewHeight, content: webContent)
-                            .frame(height: webViewHeight)
-                        Divider()
-                    }
-                    ForEach(replies!.indices) { index in
-                        let reply = replies![index]
-                        VStack {
-                            ReplyView(reply: reply, isOP: topic.member.name == reply.member.name, floor: index + 1)
+                        if topic.content != nil {
+                            WebView(webViewHeight: $webViewHeight, content: webContent)
+                                .frame(height: webViewHeight)
                             Divider()
                         }
+                        ForEach(replies!.indices) { index in
+                            let reply = replies![index]
+                            VStack {
+                                ReplyView(reply: reply, isOP: topic.member.name == reply.member.name, floor: index + 1)
+                                Divider()
+                            }
+                        }
                     }
+                    .padding(.top)
+                    .padding(.horizontal)
                 }
+            } else {
+                Text("No content")
             }
-            .padding(.top)
-            .padding(.horizontal)
         }
         .onChange(of: navigationSelectionState.topicSelection) { topicId in
             self.topic = nil

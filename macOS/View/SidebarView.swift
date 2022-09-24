@@ -45,6 +45,9 @@ struct SidebarView: View {
                 print(error)
             }
         }
+        .onChange(of: navigationSelectionState.sidebarSelection) { _ in
+            navigationSelectionState.topicSelection = nil
+        }
     }
 }
 
