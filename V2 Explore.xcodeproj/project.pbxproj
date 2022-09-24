@@ -162,6 +162,7 @@
 		70BC2D59274CB664008E2AF1 = {
 			isa = PBXGroup;
 			children = (
+				70D4C0D027FDAEDA0055E95C /* V2EXClient */,
 				703A464028C0549C00A87598 /* Localizable.strings */,
 				703E221627EEFE5C007B0865 /* LICENSE */,
 				703E221727EEFE5C007B0865 /* README.md */,
@@ -171,7 +172,6 @@
 				707A07792764A7AD0047EC33 /* iOS */,
 				70BC2D6D274CB665008E2AF1 /* macOS */,
 				70BC2D67274CB665008E2AF1 /* Products */,
-				70D4C0CF27FDAEDA0055E95C /* Packages */,
 			);
 			sourceTree = "<group>";
 		};
@@ -261,14 +261,6 @@
 				70B5CCA928BDFF3D003F9CF1 /* GlanceType.swift */,
 			);
 			path = Enum;
-			sourceTree = "<group>";
-		};
-		70D4C0CF27FDAEDA0055E95C /* Packages */ = {
-			isa = PBXGroup;
-			children = (
-				70D4C0D027FDAEDA0055E95C /* V2EXClient */,
-			);
-			name = Packages;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

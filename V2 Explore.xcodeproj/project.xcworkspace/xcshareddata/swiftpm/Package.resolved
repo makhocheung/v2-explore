@@ -12,19 +12,19 @@
     {
       "identity" : "swiftsoup",
       "kind" : "remoteSourceControl",
-      "location" : "https://gitee.com/MakHoCheung/SwiftSoup.git",
+      "location" : "https://github.com/scinfu/SwiftSoup.git",
       "state" : {
-        "revision" : "13ba661fd1146967270fca92ce8195b223631436",
-        "version" : "2.3.8"
+        "revision" : "6778575285177365cbad3e5b8a72f2a20583cfec",
+        "version" : "2.4.3"
       }
     },
     {
       "identity" : "swiftyjson",
       "kind" : "remoteSourceControl",
-      "location" : "https://gitee.com/MakHoCheung/SwiftyJSON.git",
+      "location" : "https://github.com/SwiftyJSON/SwiftyJSON.git",
       "state" : {
-        "revision" : "2b6054efa051565954e1d2b9da831680026cd768",
-        "version" : "4.3.0"
+        "revision" : "b3dcd7dbd0d488e1a7077cb33b00f2083e382f07",
+        "version" : "5.0.1"
       }
     }
   ],
