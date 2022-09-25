@@ -3,10 +3,10 @@
     {
       "identity" : "kingfisher",
       "kind" : "remoteSourceControl",
-      "location" : "https://gitee.com/MakHoCheung/Kingfisher.git",
+      "location" : "https://github.com/onevcat/Kingfisher.git",
       "state" : {
-        "branch" : "master",
-        "revision" : "a2c961496934a4d03975139cb21fe05d4aa6ef18"
+        "revision" : "be1a1acb283a702b99b630f586877ba02234b4cb",
+        "version" : "7.3.2"
       }
     },
     {
