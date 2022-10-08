@@ -129,6 +129,9 @@ struct NodeView: View {
                 }
             }
             .listStyle(.plain)
+            .navigationDestination(for: String.self){
+                TopicView(topicId: $0)
+            }
             .task {
                 do {
                     #if DEBUG

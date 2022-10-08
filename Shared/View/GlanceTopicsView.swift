@@ -55,6 +55,9 @@ struct GlanceTopicsView: View {
                 }
             }
             .listStyle(.plain)
+            .navigationDestination(for: String.self) {
+                TopicView(topicId: $0)
+            }
             .task {
                 #if DEBUG
                     topics = debugTopics

@@ -12,27 +12,24 @@ struct MainView: View {
 
     var body: some View {
         TabView {
-            NavigationView {
+            NavigationStack {
                 ExploreView()
                     .navigationTitle("探索")
             }
-            .navigationViewStyle(.stack)
             .tabItem {
                 Label("探索", systemImage: "newspaper.fill")
             }
-            NavigationView {
+            NavigationStack {
                 GlanceView()
                     .navigationTitle("浏览")
             }
-            .navigationViewStyle(.stack)
             .tabItem {
                 Label("浏览", systemImage: "rectangle.stack.fill")
             }
-            NavigationView {
+            NavigationStack {
                 ProfileView()
                     .navigationTitle("我的")
             }
-            .navigationViewStyle(.stack)
             .tabItem {
                 Label("我的", systemImage: "person.circle.fill")
             }

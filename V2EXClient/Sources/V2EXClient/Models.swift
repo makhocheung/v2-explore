@@ -28,7 +28,7 @@ public struct Member: Decodable {
     public var avatar: String?
 }
 
-public struct Node: Decodable, Identifiable, Equatable {
+public struct Node: Decodable, Identifiable, Equatable, Hashable {
     public var id = UUID()
     public var title: String
     public var url: String

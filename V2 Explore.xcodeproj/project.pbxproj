@@ -726,7 +726,7 @@
 			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
 			requirement = {
 				kind = exactVersion;
-				version = 7.3.2;
+				version = 7.4.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

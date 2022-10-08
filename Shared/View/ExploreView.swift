@@ -148,6 +148,9 @@ struct ExploreView: View {
             }
         }
         .listStyle(.plain)
+        .navigationDestination(for: String.self) { topicId in
+            TopicView(topicId: topicId)
+        }
         .task {
             #if DEBUG
                 switch listType {

@@ -26,13 +26,12 @@ struct SimpleTopicNavigationLinkView: View {
         #else
         SimpleTopicView(topic: topic)
             .overlay {
-                NavigationLink {
-                    TopicView(topicId: topic.id)
-                } label: {
+                NavigationLink(value: topic.id) {
                     EmptyView()
                 }
                 .opacity(0)
             }
+        
         #endif
     }
 }

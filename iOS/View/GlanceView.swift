@@ -15,9 +15,7 @@ struct GlanceView: View {
     var body: some View {
         List {
             ForEach(GlanceType.allCases, id: \.self) { it in
-                NavigationLink {
-                    GlanceTopicsView(glanceType: it)
-                } label: {
+                NavigationLink(value: it) {
                     HStack {
                         Text(LocalizedStringKey("glance." + it.rawValue))
                     }
@@ -27,9 +25,7 @@ struct GlanceView: View {
                 ForEach(Array(navNodes.keys.sorted().enumerated()), id: \.element) { _, key in
                     Section {
                         ForEach(navNodes[key]!) { node in
-                            NavigationLink {
-                                NodeView(node: node)
-                            } label: {
+                            NavigationLink(value: node) {
                                 Text(node.title)
                             }
                         }
@@ -39,6 +35,12 @@ struct GlanceView: View {
                     }
                 }
             }
+        }
+        .navigationDestination(for: GlanceType.self) {
+            GlanceTopicsView(glanceType: $0)
+        }
+        .navigationDestination(for: Node.self) {
+            NodeView(node: $0)
         }
         .task {
             do {
