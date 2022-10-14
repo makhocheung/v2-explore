@@ -6,8 +6,8 @@
 //
 
 import Kingfisher
-import V2EXClient
 import SwiftUI
+import V2EXClient
 
 struct ReplyView: View {
     var reply: Reply
@@ -17,49 +17,47 @@ struct ReplyView: View {
         VStack {
             HStack {
                 KFImage(URL(string: reply.member.avatar!))
-                .placeholder({ _ in
-                    Image(systemName: "photo")
+                    .placeholder({ _ in
+                        Image(systemName: "photo")
+                            .resizable()
+                            .scaledToFit()
+                    })
+                    .fade(duration: 0.25)
                     .resizable()
                     .scaledToFit()
-                })
-                .fade(duration: 0.25)
-                .resizable()
-                .scaledToFit()
-                .frame(width: 40, height: 40)
-                .cornerRadius(4)
+                    .frame(width: 40, height: 40)
+                    .cornerRadius(4)
                 VStack(alignment: .leading, spacing: 2) {
                     HStack {
                         Text(reply.member.name)
                         if isOP {
                             Text("OP")
-                            .padding(2)
-                            .foregroundColor(.blue)
-                            .overlay {
-                                RoundedRectangle(cornerRadius: 4)
-                                .stroke(Color.blue, lineWidth: 1)
-                            }
+                                .padding(2)
+                                .foregroundColor(.blue)
+                                .overlay {
+                                    RoundedRectangle(cornerRadius: 4)
+                                        .stroke(Color.blue, lineWidth: 1)
+                                }
                         }
                     }
                     Text(reply.creatTime)
-                    .foregroundColor(.secondary)
+                        .foregroundColor(.secondary)
                 }
                 Spacer()
                 Text("#\(floor)")
-                .foregroundColor(.secondary)
+                    .foregroundColor(.secondary)
             }
-            Text(reply.content)
-            .fixedSize(horizontal: false, vertical: true)
-            .font(.body)
-            .frame(maxWidth: .infinity, alignment: .leading)
+            Text(reply.attributeStringContent)
+                .frame(maxWidth: .infinity, alignment: .leading)
         }
         .font(.caption)
     }
 }
 
 #if DEBUG
-struct ReplyView_Previews: PreviewProvider {
-    static var previews: some View {
-        ReplyView(reply: debugReply, isOP: true)
+    struct ReplyView_Previews: PreviewProvider {
+        static var previews: some View {
+            ReplyView(reply: debugReply, isOP: true)
+        }
     }
-}
 #endif

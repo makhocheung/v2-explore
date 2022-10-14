@@ -46,7 +46,7 @@
 		70CB7A1627E71535009783FF /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70616D2B2764D7DA0007AD6E /* ProfileView.swift */; };
 		70CB7A1727E71535009783FF /* SimpleTopicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BC2D7D274CBC2A008E2AF1 /* SimpleTopicView.swift */; };
 		70D4C0D227FDAF080055E95C /* V2EXClient in Frameworks */ = {isa = PBXBuildFile; productRef = 70D4C0D127FDAF080055E95C /* V2EXClient */; };
-		70D4C0D427FDAF0F0055E95C /* V2EXClient in Frameworks */ = {isa = PBXBuildFile; productRef = 70D4C0D327FDAF0F0055E95C /* V2EXClient */; };
+		70D769C228F97FDE000991BF /* V2EXClient in Frameworks */ = {isa = PBXBuildFile; productRef = 70D769C128F97FDE000991BF /* V2EXClient */; };
 		70DA186328C1E50000F24275 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70DA186228C1E50000F24275 /* MainView.swift */; };
 		70DA186428C1E5CB00F24275 /* Standard.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE64CC7B28244B5FB37BA1E /* Standard.swift */; };
 		DBE640CD0CA9B0BCACDA65B5 /* Standard.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE64CC7B28244B5FB37BA1E /* Standard.swift */; };
@@ -114,8 +114,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				70D769C228F97FDE000991BF /* V2EXClient in Frameworks */,
 				7005F54E28DFFE22003184A6 /* Kingfisher in Frameworks */,
-				70D4C0D427FDAF0F0055E95C /* V2EXClient in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,8 +308,8 @@
 			);
 			name = "V2 Explore (macOS)";
 			packageProductDependencies = (
-				70D4C0D327FDAF0F0055E95C /* V2EXClient */,
 				7005F54D28DFFE22003184A6 /* Kingfisher */,
+				70D769C128F97FDE000991BF /* V2EXClient */,
 			);
 			productName = "V2EX You (macOS)";
 			productReference = 70BC2D6C274CB665008E2AF1 /* V2 Explore.app */;
@@ -746,7 +746,7 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = V2EXClient;
 		};
-		70D4C0D327FDAF0F0055E95C /* V2EXClient */ = {
+		70D769C128F97FDE000991BF /* V2EXClient */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = V2EXClient;
 		};

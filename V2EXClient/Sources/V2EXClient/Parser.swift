@@ -10,7 +10,6 @@ import SwiftSoup
 import SwiftyJSON
 
 class Parser {
-
     func parse2SimpleTopics(html: String) throws -> [Topic] {
         var topics: [Topic] = []
         let doc = try SwiftSoup.parse(html)
@@ -21,7 +20,7 @@ class Parser {
             let (node, createTime, lastTouched, lastReplyBy) = try parse2GetNodeCreateTimeLastTouchedLastReplyBy(element: try itemElement.getElementsByClass("topic_info").first()!)
             let replyCount = Int(try itemElement.getElementsByClass("count_livid").first()?.text() ?? "0") ?? 0
             topics.append(Topic(id: id, node: node, member: member, title: title, content: nil,
-                    url: url, replyCount: replyCount, createTime: createTime, lastReplyBy: lastReplyBy, lastTouched: lastTouched, pageCount: nil))
+                                url: url, replyCount: replyCount, createTime: createTime, lastReplyBy: lastReplyBy, lastTouched: lastTouched, pageCount: nil))
         }
         return topics
     }
@@ -45,7 +44,7 @@ class Parser {
             let replyCount = jsonObj["replies"].intValue
             let id = jsonObj["id"].stringValue
             topics.append(Topic(id: id, node: node, member: member, title: title, content: nil, url: url, replyCount: replyCount,
-                    createTime: createTime, lastReplyBy: lastReplyBy, lastTouched: lastTouched, pageCount: nil))
+                                createTime: createTime, lastReplyBy: lastReplyBy, lastTouched: lastTouched, pageCount: nil))
         }
         return topics
     }
@@ -64,7 +63,7 @@ class Parser {
             let (createTime, lastTouched, lastReplyBy) = try parse2GetCreateTimeLastTouchedLastReplyBy(element: try cellElement.getElementsByClass("topic_info").first()!)
             let replyCount = Int(try cellElement.getElementsByClass("count_livid").first()?.text() ?? "0") ?? 0
             topics.append(Topic(id: id, node: node, member: member, title: title, content: nil,
-                    url: url, replyCount: replyCount, createTime: createTime, lastReplyBy: lastReplyBy, lastTouched: lastTouched, pageCount: nil))
+                                url: url, replyCount: replyCount, createTime: createTime, lastReplyBy: lastReplyBy, lastTouched: lastTouched, pageCount: nil))
         }
         return (Node(title: node.title, url: node.url, name: node.name, parentNodeName: node.parentNodeName, avatar: avatar, desc: desc, count: Int(count)), topics)
     }
@@ -80,18 +79,32 @@ class Parser {
         let memberElement = try headerElement.select("small > a").first()!
         let member = Member(name: try memberElement.text(), url: try memberElement.attr("href"), avatar: try headerElement.getElementsByTag("img").first()!.attr("src"))
         let createTime = try headerElement.select("small > span").text()
-        let contentElement = try boxElement.getElementsByClass("topic_content").first()
-        var content: String?
-        if let contentElement {
-            let contentImgElements = try contentElement.getElementsByTag("img")
-            contentImgElements.forEach { imgElement in
-                try? imgElement.removeAttr("loading")
-            }
-            try content = contentElement.outerHtml()
-        }
         let pageCount = Int(try mainElement.getElementsByClass("page_input").first()?.attr("max") ?? "0")!
+        let markdownBodyElement = try boxElement.getElementsByClass("markdown_body").first()
+        let topicContentElement = try boxElement.getElementsByClass("topic_content").first()
+        var topicContentSections: [ContentSection] = []
+        var content: String?
+        if let markdownBodyElement {
+            content = try markdownBodyElement.outerHtml()
+            for it in markdownBodyElement.children() {
+                let imgElements = try it.getElementsByTag("img")
+                if imgElements.isEmpty() {
+                    topicContentSections.append(ContentSection(type: .literal, content: try parse2AttributeString(string: it.outerHtml())))
+                } else {
+                    for imgElement in imgElements {
+                        // todo 图片是超链接
+                        topicContentSections.append(ContentSection(type: .image, content: try imgElement.attr("src")))
+                    }
+                }
+            }
+            
+        } else if let topicContentElement {
+            content = try topicContentElement.outerHtml()
+            topicContentSections.append(ContentSection(type: .literal, content: try parse2AttributeString(string: content!)))
+        }
+
         return (Topic(id: id, node: node, member: member, title: title, content: content, url: nil, replyCount: nil, createTime: createTime,
-                lastReplyBy: nil, lastTouched: nil, pageCount: pageCount), try parse2Replies(doc: doc))
+                      lastReplyBy: nil, lastTouched: nil, pageCount: pageCount,contentSections: topicContentSections), try parse2Replies(doc: doc))
     }
 
     func parse2Replies(html: String) throws -> [Reply] {
@@ -118,10 +131,10 @@ class Parser {
                 let url = try memberElement.attr("href")
                 let member = Member(name: name, url: url, avatar: avatar)
                 let createTime = try cellElement.select(".ago").first()!.text()
-                let content = try cellElement.select(".reply_content").first()!.text()
-                //let thankCount = try cellElement.select(".fade").first()?.text() ?? ""
-                //let floor = try cellElement.select(".no").first()!.text()
-                let reply = Reply(id: id, content: content, member: member, creatTime: createTime)
+                let content = try cellElement.select(".reply_content").first()!.outerHtml()
+                // let thankCount = try cellElement.select(".fade").first()?.text() ?? ""
+                // let floor = try cellElement.select(".no").first()!.text()
+                let reply = Reply(id: id, content: content, attributeStringContent: try parse2AttributeString(string: content), member: member, creatTime: createTime)
                 replies.append(reply)
             }
         }
@@ -151,16 +164,16 @@ class Parser {
         var timeStr: String = ""
         let duration = Int64(Date.now.timeIntervalSince1970) - timestamp
         switch duration {
-        case 1...10: timeStr = "几秒前"
-        case 11...20: timeStr = "十几秒前"
-        case 21...60: timeStr = "几十秒前"
-        case 61...600: timeStr = "几分钟前"
-        case 601...1200: timeStr = "十几分钟前"
-        case 1201...3600: timeStr = "几十分钟前"
-        case 3601...7200: timeStr = "一个小时前"
-        case 7201...14400: timeStr = "几个小时前"
-        case 14400...43200: timeStr = "十几小时前"
-        case 43201...86400: timeStr = "一天前"
+        case 1 ... 10: timeStr = "几秒前"
+        case 11 ... 20: timeStr = "十几秒前"
+        case 21 ... 60: timeStr = "几十秒前"
+        case 61 ... 600: timeStr = "几分钟前"
+        case 601 ... 1200: timeStr = "十几分钟前"
+        case 1201 ... 3600: timeStr = "几十分钟前"
+        case 3601 ... 7200: timeStr = "一个小时前"
+        case 7201 ... 14400: timeStr = "几个小时前"
+        case 14400 ... 43200: timeStr = "十几小时前"
+        case 43201 ... 86400: timeStr = "一天前"
         default:
             let formatter = DateFormatter()
             formatter.dateFormat = "yyyy-MM-dd"
@@ -176,7 +189,7 @@ class Parser {
         let url = try element.getElementsByTag("a").first()!.attr("href")
         let start = url.index(after: url.lastIndex(of: "/")!)
         let end = url.firstIndex(of: "#")!
-        let id = String(url[start..<end])
+        let id = String(url[start ..< end])
         return (id, title, url)
     }
 
@@ -197,7 +210,7 @@ class Parser {
         let nodeName = String(nodeUrl.suffix(from: nodeUrl.index(after: nodeUrl.lastIndex(of: "/")!)))
         let node = Node(title: nodeTitle, url: nodeUrl, name: nodeName)
         let time = try element.getElementsByTag("span").first()!.text()
-                .split(separator: "•")[2].trimmingCharacters(in: .whitespaces)
+            .split(separator: "•")[2].trimmingCharacters(in: .whitespaces)
         var lastReplyBy: Member?
         var createTime: String?
         var lastTouched: String?
@@ -218,7 +231,7 @@ class Parser {
      */
     private func parse2GetCreateTimeLastTouchedLastReplyBy(element: Element) throws -> (String?, String?, Member?) {
         let time = try element.getElementsByTag("span").first()!.text()
-                .split(separator: "•")[1].trimmingCharacters(in: .whitespaces)
+            .split(separator: "•")[1].trimmingCharacters(in: .whitespaces)
         var createTime: String?
         var lastTouched: String?
         var lastReplyBy: Member?
@@ -239,5 +252,18 @@ class Parser {
         let name = try imgElement.attr("alt")
         let avatar = try imgElement.attr("src")
         return Member(name: name, url: url, avatar: avatar)
+    }
+
+    private func parse2AttributeString(string: String) throws -> AttributedString {
+        let nsAttrString = try NSAttributedString(data: string.data(using: .utf8)!, options: [.documentType: NSAttributedString.DocumentType.html, .characterEncoding: String.Encoding.utf8.rawValue], documentAttributes: nil)
+        var attrString = AttributedString(nsAttrString)
+        attrString.font = .body
+        attrString.foregroundColor = .primary
+        for it in attrString.runs {
+            if let _ = it.link {
+                attrString[it.range].foregroundColor = .blue
+            }
+        }
+        return attrString
     }
 }

@@ -20,6 +20,11 @@ public struct Topic: Decodable, Identifiable {
     public let lastReplyBy: Member?
     public let lastTouched: String?
     public let pageCount: Int?
+    public var contentSections: [ContentSection] = []
+
+    enum CodingKeys: String, CodingKey {
+        case id, node, member, title, content, url, replyCount, createTime, lastReplyBy, lastTouched, pageCount
+    }
 }
 
 public struct Member: Decodable {
@@ -37,14 +42,23 @@ public struct Node: Decodable, Identifiable, Equatable, Hashable {
     public var avatar: String?
     public var desc: String?
     public var count: Int?
-    
-    public static let mock = Node(title: "Java", url:"https://www.v2ex.com/go/java", name: "Java",avatar: "https://cdn.v2ex.com/navatar/03af/dbd6/63_xlarge.png?m=1644490200",desc: "Sun 公司发明，被广泛使用的一门编程语言。",count: 5103)
 
+    public static let mock = Node(title: "Java", url: "https://www.v2ex.com/go/java", name: "Java", avatar: "https://cdn.v2ex.com/navatar/03af/dbd6/63_xlarge.png?m=1644490200", desc: "Sun 公司发明，被广泛使用的一门编程语言。", count: 5103)
 }
 
-public struct Reply: Decodable,Identifiable {
+public struct Reply: Decodable, Identifiable {
     public var id: String
     public var content: String
+    public var attributeStringContent: AttributedString
     public var member: Member
     public var creatTime: String
+}
+
+public struct ContentSection: Identifiable {
+    public enum ContentSectionType {
+        case literal, image, video
+    }
+    public let id = UUID()
+    public var type: ContentSectionType
+    public var content: Any
 }

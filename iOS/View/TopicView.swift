@@ -46,10 +46,21 @@ struct TopicView: View {
                     Text(topic.title)
                         .bold()
                         .frame(maxWidth: .infinity, alignment: .leading)
-
-                    if topic.content != nil {
-                        WebView(webViewHeight: $webViewHeight, content: webContent)
-                            .frame(height: webViewHeight)
+                        .padding(.bottom)
+                    if !topic.contentSections.isEmpty {
+                        ForEach(topic.contentSections) {
+                            switch $0.type {
+                            case .literal:
+                                Text($0.content as! AttributedString)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                            case .image:
+                                KFImage(URL(string: $0.content as! String)!)
+                                    .resizable()
+                                    .scaledToFit()
+                            default:
+                                EmptyView()
+                            }
+                        }
                         Divider()
                     }
                     if let replies = replies {
