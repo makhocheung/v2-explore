@@ -44,6 +44,7 @@ struct TopicView: View {
                                 .padding(3)
                         }
                         Text(topic.title)
+                            .textSelection(.enabled)
                             .bold()
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.bottom)
@@ -53,6 +54,7 @@ struct TopicView: View {
                                 switch $0.type {
                                 case .literal:
                                     Text($0.content as! AttributedString)
+                                        .textSelection(.enabled)
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                 case .image:
                                     KFImage(URL(string: $0.content as! String)!)
