@@ -11,7 +11,7 @@ import V2EXClient
 import Foundation
 
 struct GlanceView: View {
-    @State var navigationNodes: [String: [Node]]?
+    let navNodes = AppContext.shared.appState.navigationNodes
     var body: some View {
         List {
             ForEach(GlanceType.allCases, id: \.self) { it in
@@ -21,18 +21,16 @@ struct GlanceView: View {
                     }
                 }
             }
-            if let navNodes = navigationNodes {
-                ForEach(Array(navNodes.keys.sorted().enumerated()), id: \.element) { _, key in
-                    Section {
-                        ForEach(navNodes[key]!) { node in
-                            NavigationLink(value: node) {
-                                Text(node.title)
-                            }
+            ForEach(Array(navNodes.keys.sorted().enumerated()), id: \.element) { _, key in
+                Section {
+                    ForEach(navNodes[key]!) { node in
+                        NavigationLink(value: node) {
+                            Text(node.title)
                         }
-                    } header: {
-                        Text("\(key)")
-                            .font(.title3)
                     }
+                } header: {
+                    Text("\(key)")
+                        .font(.title3)
                 }
             }
         }
@@ -41,13 +39,6 @@ struct GlanceView: View {
         }
         .navigationDestination(for: Node.self) {
             NodeView(node: $0)
-        }
-        .task {
-            do {
-                navigationNodes = try await V2EXClient.shared.getNavigatinNodes()
-            } catch {
-                print(error)
-            }
         }
     }
 }

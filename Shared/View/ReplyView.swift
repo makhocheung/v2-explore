@@ -55,10 +55,3 @@ struct ReplyView: View {
     }
 }
 
-#if DEBUG
-    struct ReplyView_Previews: PreviewProvider {
-        static var previews: some View {
-            ReplyView(reply: debugReply, isOP: true)
-        }
-    }
-#endif

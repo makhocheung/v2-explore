@@ -14,64 +14,70 @@ public class V2EXClient {
         urlSession = URLSession(configuration: config)
     }
 
-    // DEBUG
-
-    public func getJsonTopics() async throws -> [Topic] {
-        try parser.parseJson2SimpleTopics(json: debugTopicsJson)
-    }
-
-    // DEBUG
-
-    public func getHtmlTopics() async throws -> [Topic] {
-        try parser.parse2SimpleTopics(html: debugTopicsHtml)
-    }
-
-    // DEBUG
-
-    public func getHtmlTopic() async throws -> (Topic, [Reply]) {
-        try parser.parse2TopicReplies(html: debugTopicHtml, id: "845141")
-    }
-
     // ========
 
     // 获取最新话题
     public func getLatestTopics() async throws -> [Topic] {
-        let topicsJson = try await doGetTopicsJson(urlStr: "https://www.v2ex.com/api/topics/latest.json?time=")
-        return try parser.parseJson2SimpleTopics(json: topicsJson)
+        #if DEBUG
+            return try parser.parse2SimpleTopics(html: debugTopicsHtml)
+        #else
+            let topicsJson = try await doGetTopicsJson(urlStr: "https://www.v2ex.com/api/topics/latest.json?time=")
+            return try parser.parseJson2SimpleTopics(json: topicsJson)
+        #endif
     }
 
     // 获取最热话题
     public func getHottestTopics() async throws -> [Topic] {
-        return try await getTopicsByTab(tab: "hot")
+        #if DEBUG
+            return try parser.parse2SimpleTopics(html: debugTopicsHtml)
+        #else
+            return try await getTopicsByTab(tab: "hot")
+        #endif
     }
-    
+
     // 获取对应 Tab 下的话题
-    public func getTopicsByTab(tab: String) async throws -> [Topic] {
-        let html = try await doGetTopicsHtml(url: "https://v2ex.com/?tab=\(tab)")
-        return try parser.parse2SimpleTopics(html: html)
+    public func getTopicsByTab(tab: String?) async throws -> [Topic] {
+        if let tab {
+            let html = try await doGetTopicsHtml(url: "https://v2ex.com/?tab=\(tab)")
+            return try parser.parse2SimpleTopics(html: html)
+        } else {
+            return try parser.parse2SimpleTopics(html: debugTopicsHtml)
+        }
     }
 
     // 获取节点导航数据
-    public func getNavigatinNodes() async throws -> [String: [Node]] {
+    public func getNavigatinNodes() throws -> [String: [Node]] {
         let doc = try SwiftSoup.parse(nodesHtml)
         return try parser.parse2Nodes(doc: doc)
     }
 
     // 获取节点详情和主题
     public func getNodeTopics(node: Node) async throws -> (Node, [Topic]) {
-        let doc = try await doGetNodeHtml(url: "https://v2ex.com\(node.url)")
-        return try parser.parse2SimpleTopicsForNode(html: doc, node: node)
+        #if DEBUG
+            return (Node.mock, try parser.parse2SimpleTopics(html: debugTopicsHtml))
+        #else
+            let doc = try await doGetNodeHtml(url: "https://v2ex.com\(node.url)")
+            return try parser.parse2SimpleTopicsForNode(html: doc, node: node)
+        #endif
     }
 
     // 获取话题详情和第一页评论
     public func getTopicReplies(id: String) async throws -> (Topic, [Reply]) {
-        let html = try await doGetTopicHtml(url: "https://v2ex.com/t/\(id)")
-        return try parser.parse2TopicReplies(html: html, id: id)
+        #if DEBUG
+            return try parser.parse2TopicReplies(html: debugTopicHtml, id: "845141")
+        #else
+            let html = try await doGetTopicHtml(url: "https://v2ex.com/t/\(id)")
+            return try parser.parse2TopicReplies(html: html, id: id)
+        #endif
     }
 
     public func getRepliesByTopic(id: String, p: Int) async throws -> [Reply] {
-        let html = try await doGetTopicHtml(url: "https://v2ex.com/t/\(id)?p=\(p)")
-        return try parser.parse2Replies(html: html)
+        #if DEBUG
+            return try parser.parse2TopicReplies(html: debugTopicHtml, id: "845141").1
+        #else
+            let html = try await doGetTopicHtml(url: "https://v2ex.com/t/\(id)?p=\(p)")
+            return try parser.parse2Replies(html: html)
+        #endif
     }
 
     private func doGetTopicsHtml(url: String) async throws -> String {

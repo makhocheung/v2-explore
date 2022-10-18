@@ -92,22 +92,14 @@ struct TopicView: View {
             }
         }
     }
-
-    var webContent: String {
-        if colorScheme == .dark {
-            return htmlDarkTemplate.replacingOccurrences(of: "$body", with: topic!.content!)
-        } else {
-            return htmlTemplate.replacingOccurrences(of: "$body", with: topic!.content!)
-        }
-    }
 }
 
 #if DEBUG
-//    struct TopicView_Previews: PreviewProvider {
-//        static var previews: some View {
-//            NavigationView {
-//                TopicView(topic: debugTopic)
-//            }
-//        }
-//    }
+    struct TopicView_Previews: PreviewProvider {
+        static var previews: some View {
+            NavigationView {
+                TopicView(topicId: "")
+            }
+        }
+    }
 #endif

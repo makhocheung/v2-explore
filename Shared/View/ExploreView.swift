@@ -14,7 +14,7 @@ struct ExploreView: View {
     @State var hottestTopics: [Topic] = []
     var appAction = AppContext.shared.appAction
     #if os(macOS)
-    @EnvironmentObject var navigationSelectionState: NavigationSelectionState
+        @EnvironmentObject var navigationSelectionState: NavigationSelectionState
     #endif
     var body: some View {
         ZStack {
@@ -50,7 +50,7 @@ struct ExploreView: View {
                 .pickerStyle(.segmented)
                 .onChange(of: listType) { _ in
                     #if os(macOS)
-                    navigationSelectionState.topicSelection = nil
+                        navigationSelectionState.topicSelection = nil
                     #endif
                     Task {
                         do {
@@ -86,36 +86,28 @@ struct ExploreView: View {
             return hottestTopics.isEmpty
         }
     }
-    
+
     #if os(macOS)
-    var listView: some View {
-        List(selection: $navigationSelectionState.topicSelection) {
-            switch listType {
-            case .latest:
-                ForEach(latestTopics) {
-                    SimpleTopicNavigationLinkView(topic: $0)
-                }
-            case .hottest:
-                ForEach(hottestTopics) {
-                    SimpleTopicNavigationLinkView(topic: $0)
-                }
-            }
-        }
-        .listStyle(.sidebar)
-        .task(id: navigationSelectionState.sidebarSelection) {
-            guard navigationSelectionState.sidebarSelection == .main else {
-                return
-            }
-            latestTopics.removeAll()
-            hottestTopics.removeAll()
-            #if DEBUG
+        var listView: some View {
+            List(selection: $navigationSelectionState.topicSelection) {
                 switch listType {
                 case .latest:
-                    latestTopics = debugTopics
+                    ForEach(latestTopics) {
+                        SimpleTopicNavigationLinkView(topic: $0)
+                    }
                 case .hottest:
-                    hottestTopics = debugTopics
+                    ForEach(hottestTopics) {
+                        SimpleTopicNavigationLinkView(topic: $0)
+                    }
                 }
-            #else
+            }
+            .listStyle(.sidebar)
+            .task(id: navigationSelectionState.sidebarSelection) {
+                guard navigationSelectionState.sidebarSelection == .main else {
+                    return
+                }
+                latestTopics.removeAll()
+                hottestTopics.removeAll()
                 do {
                     switch listType {
                     case .latest:
@@ -130,36 +122,27 @@ struct ExploreView: View {
                         appAction.toggleIsShowErrorMsg()
                     }
                 }
-            #endif
+            }
         }
-    }
     #else
-    var listView: some View {
-        List {
-            switch listType {
-            case .latest:
-                ForEach(latestTopics) {
-                    SimpleTopicNavigationLinkView(topic: $0)
-                }
-            case .hottest:
-                ForEach(hottestTopics) {
-                    SimpleTopicNavigationLinkView(topic: $0)
-                }
-            }
-        }
-        .listStyle(.plain)
-        .navigationDestination(for: String.self) { topicId in
-            TopicView(topicId: topicId)
-        }
-        .task {
-            #if DEBUG
+        var listView: some View {
+            List {
                 switch listType {
                 case .latest:
-                    latestTopics = debugTopics
+                    ForEach(latestTopics) {
+                        SimpleTopicNavigationLinkView(topic: $0)
+                    }
                 case .hottest:
-                    hottestTopics = debugTopics
+                    ForEach(hottestTopics) {
+                        SimpleTopicNavigationLinkView(topic: $0)
+                    }
                 }
-            #else
+            }
+            .listStyle(.plain)
+            .navigationDestination(for: String.self) { topicId in
+                TopicView(topicId: topicId)
+            }
+            .task {
                 do {
                     switch listType {
                     case .latest:
@@ -174,16 +157,15 @@ struct ExploreView: View {
                         appAction.toggleIsShowErrorMsg()
                     }
                 }
-            #endif
+            }
         }
-    }
     #endif
 }
 
-// #if DEBUG
-//    struct HomeView_Previews: PreviewProvider {
-//        static var previews: some View {
-//            ExploreView()
-//        }
-//    }
-// #endif
+#if DEBUG
+    struct ExploreView_Previews: PreviewProvider {
+        static var previews: some View {
+            ExploreView()
+        }
+    }
+#endif

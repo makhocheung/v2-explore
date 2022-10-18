@@ -6,9 +6,11 @@
 //
 
 import Foundation
+import V2EXClient
 
 class AppState : ObservableObject {
     
     @Published var isShowErrorMsg = false
     @Published var errorMsg = ""
+    let navigationNodes = try! V2EXClient.shared.getNavigatinNodes()
 }

@@ -31,19 +31,15 @@ struct GlanceTopicsView: View {
             .listStyle(.sidebar)
             .task(id: navigationSelectionState.sidebarSelection) {
                 topics = []
-                #if DEBUG
-                    topics = debugTopics
-                #else
-                    do {
-                        topics = try await V2EXClient.shared.getTopicsByTab(tab: glanceType!.rawValue)
-                    } catch {
-                        if error.localizedDescription != "cancelled" {
-                            print("[v2-explore]: \(error.localizedDescription)")
-                            appAction.updateErrorMsg(errorMsg: "网络请求异常")
-                            appAction.toggleIsShowErrorMsg()
-                        }
+                do {
+                    topics = try await V2EXClient.shared.getTopicsByTab(tab: glanceType!.rawValue)
+                } catch {
+                    if error.localizedDescription != "cancelled" {
+                        print("[v2-explore]: \(error.localizedDescription)")
+                        appAction.updateErrorMsg(errorMsg: "网络请求异常")
+                        appAction.toggleIsShowErrorMsg()
                     }
-                #endif
+                }
             }
         }
     #else
@@ -59,19 +55,15 @@ struct GlanceTopicsView: View {
                 TopicView(topicId: $0)
             }
             .task {
-                #if DEBUG
-                    topics = debugTopics
-                #else
-                    do {
-                        topics = try await V2EXClient.shared.getTopicsByTab(tab: glanceType!.rawValue)
-                    } catch {
-                        if error.localizedDescription != "cancelled" {
-                            print("[v2-explore]: \(error.localizedDescription)")
-                            appAction.updateErrorMsg(errorMsg: "网络请求异常")
-                            appAction.toggleIsShowErrorMsg()
-                        }
+                do {
+                    topics = try await V2EXClient.shared.getTopicsByTab(tab: glanceType?.rawValue)
+                } catch {
+                    if error.localizedDescription != "cancelled" {
+                        print("[v2-explore]: \(error.localizedDescription)")
+                        appAction.updateErrorMsg(errorMsg: "网络请求异常")
+                        appAction.toggleIsShowErrorMsg()
                     }
-                #endif
+                }
             }
         }
     #endif
@@ -95,9 +87,9 @@ struct GlanceTopicsView: View {
 }
 
 #if DEBUG
-    struct LatestTopicsView_Previews: PreviewProvider {
+    struct GlanceTopicsView_Previews: PreviewProvider {
         static var previews: some View {
-            Text("hello")
+            GlanceTopicsView(glanceType: nil)
         }
     }
 #endif

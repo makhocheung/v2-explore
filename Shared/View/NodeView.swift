@@ -80,14 +80,9 @@ struct NodeView: View {
                 self.currentNode = nil
                 self.topics = []
                 do {
-                    #if DEBUG
-                        topics = debugTopics
-                        currentNode = Node.mock
-                    #else
-                        let (node, topics) = try await V2EXClient.shared.getNodeTopics(node: node!)
-                        self.topics = topics
-                        currentNode = node
-                    #endif
+                    let (node, topics) = try await V2EXClient.shared.getNodeTopics(node: node!)
+                    self.topics = topics
+                    currentNode = node
                 } catch {
                     if error.localizedDescription != "cancelled" {
                         print("[v2-explore]: \(error.localizedDescription)")
@@ -129,19 +124,14 @@ struct NodeView: View {
                 }
             }
             .listStyle(.plain)
-            .navigationDestination(for: String.self){
+            .navigationDestination(for: String.self) {
                 TopicView(topicId: $0)
             }
             .task {
                 do {
-                    #if DEBUG
-                        topics = debugTopics
-                        currentNode = Node.mock
-                    #else
-                        let (node, topics) = try await V2EXClient.shared.getNodeTopics(node: node!)
-                        self.topics = topics
-                        currentNode = node
-                    #endif
+                    let (node, topics) = try await V2EXClient.shared.getNodeTopics(node: node!)
+                    self.topics = topics
+                    currentNode = node
                 } catch {
                     if error.localizedDescription != "cancelled" {
                         print("[v2-explore]: \(error.localizedDescription)")
@@ -157,9 +147,7 @@ struct NodeView: View {
 #if DEBUG
     struct NodeView_Previews: PreviewProvider {
         static var previews: some View {
-            NavigationView {
-                Text("test")
-            }
+            NodeView()
         }
     }
 #endif

@@ -65,19 +65,3 @@ struct Dot: View {
             .frame(width: 5, height: 5)
     }
 }
-
-#if DEBUG
-    struct TopicItemView_Previews: PreviewProvider {
-        static var previews: some View {
-            Group {
-                SimpleTopicView(topic: debugTopic)
-                    .previewLayout(.fixed(width: 400, height: 120))
-                    .padding()
-                SimpleTopicView(topic: debugTopic)
-                    .preferredColorScheme(.dark)
-                    .previewLayout(.fixed(width: 400, height: 120))
-                    .padding()
-            }
-        }
-    }
-#endif
