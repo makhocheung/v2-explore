@@ -48,6 +48,7 @@ struct ReplyView: View {
                     .foregroundColor(.secondary)
             }
             Text(reply.attributeStringContent)
+                .textSelection(.enabled)
                 .frame(maxWidth: .infinity, alignment: .leading)
         }
         .font(.caption)
