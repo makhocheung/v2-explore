@@ -15,29 +15,55 @@ let NODE_TAG_PREFIX = "node."
 struct SidebarView: View {
     let navigationNodes = AppContext.shared.appState.navigationNodes
     @EnvironmentObject var navigationSelectionState: NavigationSelectionState
+    @State var searchText = ""
     var body: some View {
         List(selection: $navigationSelectionState.sidebarSelection) {
-            Label("探索", systemImage: "newspaper.fill")
-                .tag(SidebarTag.main)
-            ForEach(GlanceType.allCases, id: \.self) { it in
+            if "探索".contains(searchText) {
+                Label("探索", systemImage: "newspaper.fill")
+                    .tag(SidebarTag.main)
+            }
+            ForEach(filteredGlanceTypes, id: \.self) { it in
                 Label(LocalizedStringKey("glance." + it.rawValue), systemImage: it.icon)
                     .tag(SidebarTag.glance(it))
             }
-            ForEach(Array(navigationNodes.keys.sorted().enumerated()), id: \.element) { _, key in
-                Section {
-                    ForEach(navigationNodes[key]!) { node in
-                        Label(node.title, systemImage: "number.square")
-                            .tag(SidebarTag.node(node))
+            if searchText.isEmpty {
+                ForEach(Array(navigationNodes.keys.sorted().enumerated()), id: \.element) { _, key in
+                    Section {
+                        ForEach(navigationNodes[key]!) { node in
+                            Label(node.title, systemImage: "number.square")
+                                .tag(SidebarTag.node(node))
+                        }
+                    } header: {
+                        Text("\(key)")
+                            .font(.title3)
                     }
-                } header: {
-                    Text("\(key)")
-                        .font(.title3)
+                }
+            } else {
+                ForEach(filteredNavNodes) { node in
+                    Label(node.title, systemImage: "number.square")
+                        .tag(SidebarTag.node(node))
                 }
             }
         }
         .listStyle(.sidebar)
         .onChange(of: navigationSelectionState.sidebarSelection) { _ in
             navigationSelectionState.topicSelection = nil
+        }
+    }
+
+    var filteredGlanceTypes: [GlanceType] {
+        if searchText.isEmpty {
+            return GlanceType.allCases
+        } else {
+            return GlanceType.allCases.filter { it in
+                String(localized: LocalizedStringResource(stringLiteral: "glance." + it.rawValue)).contains(searchText)
+            }
+        }
+    }
+
+    var filteredNavNodes: [Node] {
+        navigationNodes.flatMap { $1 }.filter { it in
+            it.title.contains(searchText)
         }
     }
 }
