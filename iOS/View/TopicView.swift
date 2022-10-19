@@ -19,67 +19,71 @@ struct TopicView: View {
     @State var webViewHeight = CGFloat.zero
 
     var body: some View {
-        ScrollView {
-            VStack {
-                if let topic = topic {
-                    HStack {
-                        KFImage(URL(string: topic.member.avatar!))
-                            .placeholder({ _ in
-                                Image(systemName: "photo")
+        ZStack {
+            if let topic {
+                ScrollView {
+                    VStack {
+                        if let topic = topic {
+                            HStack {
+                                KFImage(URL(string: topic.member.avatar!))
+                                    .placeholder({ _ in
+                                        Image(systemName: "photo")
+                                            .resizable()
+                                            .scaledToFit()
+                                    })
+                                    .fade(duration: 0.25)
                                     .resizable()
                                     .scaledToFit()
-                            })
-                            .fade(duration: 0.25)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 50, height: 50)
-                            .cornerRadius(4)
-                        VStack(alignment: .leading, spacing: 5) {
-                            Text(topic.member.name)
-                            Text(topic.createTime!)
-                                .foregroundColor(.secondary)
-                        }
-                        Spacer()
-                        Text("#\(topic.node.title)")
-                            .padding(3)
-                    }
-                    Text(topic.title)
-                        .textSelection(.enabled)
-                        .bold()
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.bottom)
-                    if !topic.contentSections.isEmpty {
-                        ForEach(topic.contentSections) {
-                            switch $0.type {
-                            case .literal:
-                                Text($0.content as! AttributedString)
-                                    .textSelection(.enabled)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                            case .image:
-                                KFImage(URL(string: $0.content as! String)!)
-                                    .resizable()
-                                    .scaledToFit()
-                            default:
-                                EmptyView()
+                                    .frame(width: 50, height: 50)
+                                    .cornerRadius(4)
+                                VStack(alignment: .leading, spacing: 5) {
+                                    Text(topic.member.name)
+                                    Text(topic.createTime!)
+                                        .foregroundColor(.secondary)
+                                }
+                                Spacer()
+                                Text("#\(topic.node.title)")
+                                    .padding(3)
                             }
-                        }
-                        Divider()
-                    }
-                    if let replies = replies {
-                        ForEach(replies.indices) { floor in
-                            let reply = replies[floor]
-                            VStack {
-                                ReplyView(reply: reply, isOP: topic.member.name == reply.member.name, floor: floor + 1)
+                            Text(topic.title)
+                                .textSelection(.enabled)
+                                .bold()
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.bottom)
+                            if !topic.contentSections.isEmpty {
+                                ForEach(topic.contentSections) {
+                                    switch $0.type {
+                                    case .literal:
+                                        Text($0.content as! AttributedString)
+                                            .textSelection(.enabled)
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                    case .image:
+                                        KFImage(URL(string: $0.content as! String)!)
+                                            .resizable()
+                                            .scaledToFit()
+                                    default:
+                                        EmptyView()
+                                    }
+                                }
                                 Divider()
                             }
+                            if let replies {
+                                ForEach(replies.indices) { floor in
+                                    let reply = replies[floor]
+                                    VStack {
+                                        ReplyView(reply: reply, isOP: topic.member.name == reply.member.name, floor: floor + 1)
+                                        Divider()
+                                    }
+                                }
+                            }
                         }
-                    } else {
-                        ProgressView()
-                            .frame(maxWidth: .infinity)
                     }
+                    .padding(.horizontal)
                 }
+            } else {
+                ProgressView()
+                    .frame(maxWidth: .infinity)
             }
-            .padding(.horizontal)
         }
         .navigationBarTitleDisplayMode(.inline)
         .task {
