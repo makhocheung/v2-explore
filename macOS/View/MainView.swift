@@ -24,6 +24,10 @@ struct MainView: View {
             Button("完成") {
             }
         }
+        .alert(appState.tips, isPresented: $appState.isShowTips) {
+            Button("完成") {
+            }
+        }
     }
 }
 

@@ -12,5 +12,7 @@ class AppState : ObservableObject {
     
     @Published var isShowErrorMsg = false
     @Published var errorMsg = ""
+    @Published var isShowTips = false
+    @Published var tips = ""
     let navigationNodes = try! V2EXClient.shared.getNavigatinNodes()
 }

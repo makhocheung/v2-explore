@@ -8,7 +8,6 @@
 import Kingfisher
 import SwiftUI
 import V2EXClient
-import WebKit
 
 struct TopicView: View {
     @Environment(\.colorScheme) var colorScheme
@@ -83,6 +82,17 @@ struct TopicView: View {
             } else {
                 ProgressView()
                     .frame(maxWidth: .infinity)
+            }
+        }
+        .toolbar {
+            ToolbarItem {
+                Button {
+                    UIPasteboard.general.string = "https://v2ex.com/t/\(topicId)"
+                    AppContext.shared.appState.isShowTips = true
+                    AppContext.shared.appState.tips = "链接已复制到粘贴板"
+                } label: {
+                    Image(systemName: "square.and.arrow.up")
+                }
             }
         }
         .navigationBarTitleDisplayMode(.inline)

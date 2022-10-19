@@ -83,6 +83,19 @@ struct TopicView: View {
                 Text("No content")
             }
         }
+        .toolbar {
+            ToolbarItem {
+                Button {
+                    let pasteBoard = NSPasteboard.general
+                    pasteBoard.clearContents()
+                    pasteBoard.setString("https://v2ex.com/t/\(topic?.id)", forType: .string)
+                    AppContext.shared.appState.isShowTips = true
+                    AppContext.shared.appState.tips = "链接已复制到粘贴板"
+                } label: {
+                    Image(systemName: "square.and.arrow.up")
+                }
+            }
+        }
         .onChange(of: navigationSelectionState.topicSelection) { topicId in
             self.topic = nil
             self.replies = nil
