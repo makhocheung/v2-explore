@@ -46,6 +46,7 @@ struct SidebarView: View {
             }
         }
         .listStyle(.sidebar)
+        .searchable(text: $searchText,placement: SearchFieldPlacement.sidebar, prompt: Text("搜索节点"))
         .onChange(of: navigationSelectionState.sidebarSelection) { _ in
             navigationSelectionState.topicSelection = nil
         }
