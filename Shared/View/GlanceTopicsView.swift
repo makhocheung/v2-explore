@@ -87,9 +87,11 @@ struct GlanceTopicsView: View {
 }
 
 #if DEBUG
-    struct GlanceTopicsView_Previews: PreviewProvider {
-        static var previews: some View {
-            GlanceTopicsView(glanceType: nil)
+    #if os(iOS)
+        struct GlanceTopicsView_Previews: PreviewProvider {
+            static var previews: some View {
+                GlanceTopicsView(glanceType: nil)
+            }
         }
-    }
+    #endif
 #endif

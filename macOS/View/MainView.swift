@@ -16,6 +16,7 @@ struct MainView: View {
             SidebarView()
         } content: {
             ContentView()
+                .navigationSplitViewColumnWidth(min: 250, ideal: 250)
         } detail: {
             TopicView()
         }

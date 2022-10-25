@@ -13,5 +13,9 @@ struct V2EXApp: App {
         WindowGroup {
             MainView()
         }
+        #if os(macOS)
+        .windowToolbarStyle(.unified(showsTitle: false))
+        .defaultSize(width: 1240, height: 800)
+        #endif
     }
 }

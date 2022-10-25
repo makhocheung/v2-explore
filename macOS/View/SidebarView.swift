@@ -18,13 +18,18 @@ struct SidebarView: View {
     @State var searchText = ""
     var body: some View {
         List(selection: $navigationSelectionState.sidebarSelection) {
-            if "探索".contains(searchText) {
-                Label("探索", systemImage: "newspaper.fill")
-                    .tag(SidebarTag.main)
-            }
-            ForEach(filteredGlanceTypes, id: \.self) { it in
-                Label(LocalizedStringKey("glance." + it.rawValue), systemImage: it.icon)
-                    .tag(SidebarTag.glance(it))
+            Section {
+                if !"探索".contains(searchText) {
+                    Label("探索", systemImage: "newspaper.fill")
+                        .tag(SidebarTag.main)
+                }
+                ForEach(filteredGlanceTypes, id: \.self) { it in
+                    Label(LocalizedStringKey("glance." + it.rawValue), systemImage: it.icon)
+                        .tag(SidebarTag.glance(it))
+                }
+            } header: {
+                Text("浏览")
+                    .font(.title3)
             }
             if searchText.isEmpty {
                 ForEach(Array(navigationNodes.keys.sorted().enumerated()), id: \.element) { _, key in
@@ -46,7 +51,7 @@ struct SidebarView: View {
             }
         }
         .listStyle(.sidebar)
-        .searchable(text: $searchText,placement: SearchFieldPlacement.sidebar, prompt: Text("搜索节点"))
+        .searchable(text: $searchText, placement: SearchFieldPlacement.sidebar, prompt: Text("搜索节点"))
         .onChange(of: navigationSelectionState.sidebarSelection) { _ in
             navigationSelectionState.topicSelection = nil
         }

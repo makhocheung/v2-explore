@@ -23,6 +23,7 @@ struct ExploreView: View {
                 bgView
             }
         }
+        .navigationTitle("探索")
         .refreshable {
             do {
                 switch listType {
