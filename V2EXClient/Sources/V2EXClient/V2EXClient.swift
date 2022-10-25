@@ -86,7 +86,13 @@ public class V2EXClient {
     }
 
     private func doGetTopicHtml(url: String) async throws -> String {
-        let (data, _) = try await urlSession.data(from: URL(string: url)!)
+        let (data, response) = try await urlSession.data(from: URL(string: url)!)
+        guard let response = response as? HTTPURLResponse else {
+            fatalError("不可能错误")
+        }
+        if response.statusCode == 404 {
+            throw V2EXClientError.unavailable
+        }
         return String(data: data, encoding: .utf8)!
     }
 

@@ -58,7 +58,12 @@ public struct ContentSection: Identifiable {
     public enum ContentSectionType {
         case literal, image, video
     }
+
     public let id = UUID()
     public var type: ContentSectionType
     public var content: Any
+}
+
+public enum V2EXClientError: Error {
+    case unavailable
 }

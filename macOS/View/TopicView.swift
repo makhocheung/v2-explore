@@ -16,6 +16,7 @@ struct TopicView: View {
     @State var webViewHeight = CGFloat.zero
     @State var isShoading = false
     @EnvironmentObject var navigationSelectionState: NavigationSelectionState
+    let appState = AppContext.shared.appState
 
     var body: some View {
         ZStack {
@@ -111,8 +112,12 @@ struct TopicView: View {
                         self.topic = topic
                         self.replies = replies
                         self.isShoading = false
+                    } catch V2EXClientError.unavailable {
+                        appState.isShowErrorMsg = true
+                        appState.errorMsg = "你无权限访问该帖子"
                     } catch {
-                        print(error)
+                        appState.isShowErrorMsg = true
+                        appState.errorMsg = "\(error)"
                     }
                 }
             }
@@ -124,8 +129,12 @@ struct TopicView: View {
                     self.topic = topic
                     self.replies = replies
                     self.isShoading = false
+                } catch V2EXClientError.unavailable {
+                    appState.isShowErrorMsg = true
+                    appState.errorMsg = "你无权限访问该帖子"
                 } catch {
-                    print(error)
+                    appState.isShowErrorMsg = true
+                    appState.errorMsg = "\(error)"
                 }
             }
         }
