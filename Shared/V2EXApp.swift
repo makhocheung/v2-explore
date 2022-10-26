@@ -9,6 +9,11 @@ import SwiftUI
 
 @main
 struct V2EXApp: App {
+    
+    #if os(macOS)
+    @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
+    #endif
+    
     var body: some Scene {
         WindowGroup {
             MainView()

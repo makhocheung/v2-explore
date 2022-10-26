@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		7005F54B28DFFE0E003184A6 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 7005F54A28DFFE0E003184A6 /* Kingfisher */; };
 		7005F54E28DFFE22003184A6 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 7005F54D28DFFE22003184A6 /* Kingfisher */; };
+		701269AB290903100094BBE2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701269AA290903100094BBE2 /* AppDelegate.swift */; };
 		70196BB328CA2A7C0085FBEA /* NavigationSelectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70196BB228CA2A7C0085FBEA /* NavigationSelectionState.swift */; };
 		70234E4528CA1DAB00271982 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70234E4428CA1DAB00271982 /* ContentView.swift */; };
 		703A463D28C0549C00A87598 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 703A464028C0549C00A87598 /* Localizable.strings */; };
@@ -54,6 +55,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		701269AA290903100094BBE2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		70196BB228CA2A7C0085FBEA /* NavigationSelectionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationSelectionState.swift; sourceTree = "<group>"; };
 		70234E4428CA1DAB00271982 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		703A463F28C0549C00A87598 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -202,6 +204,7 @@
 		70BC2D6D274CB665008E2AF1 /* macOS */ = {
 			isa = PBXGroup;
 			children = (
+				701269AA290903100094BBE2 /* AppDelegate.swift */,
 				70C2558828D4418000791602 /* View */,
 				700071F828CB04890076A346 /* State */,
 				70BC2D6E274CB665008E2AF1 /* macOS.entitlements */,
@@ -414,6 +417,7 @@
 				DBE6435D825309705AFE1537 /* AppAction.swift in Sources */,
 				70B5CCAB28BDFF3D003F9CF1 /* GlanceType.swift in Sources */,
 				70196BB328CA2A7C0085FBEA /* NavigationSelectionState.swift in Sources */,
+				701269AB290903100094BBE2 /* AppDelegate.swift in Sources */,
 				70C2558A28D442C200791602 /* TopicView.swift in Sources */,
 				DBE64CE3D9E60249D9E3A234 /* AppContext.swift in Sources */,
 			);
