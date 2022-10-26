@@ -13,11 +13,10 @@ let GLANCE_TAG_PREFIX = "glance."
 let NODE_TAG_PREFIX = "node."
 
 struct SidebarView: View {
-    let navigationNodes = AppContext.shared.appState.navigationNodes
-    @EnvironmentObject var navigationSelectionState: NavigationSelectionState
+    @EnvironmentObject var appState: AppState
     @State var searchText = ""
     var body: some View {
-        List(selection: $navigationSelectionState.sidebarSelection) {
+        List(selection: $appState.sidebarSelection) {
             Section {
                 if !"探索".contains(searchText) {
                     Label("探索", systemImage: "newspaper.fill")
@@ -52,8 +51,8 @@ struct SidebarView: View {
         }
         .listStyle(.sidebar)
         .searchable(text: $searchText, placement: SearchFieldPlacement.sidebar, prompt: Text("搜索节点"))
-        .onChange(of: navigationSelectionState.sidebarSelection) { _ in
-            navigationSelectionState.topicSelection = nil
+        .onChange(of: appState.sidebarSelection) { _ in
+            appState.topicSelection = nil
         }
     }
 
@@ -71,6 +70,10 @@ struct SidebarView: View {
         navigationNodes.flatMap { $1 }.filter { it in
             it.title.contains(searchText)
         }
+    }
+
+    var navigationNodes: [String: [Node]] {
+        appState.navigationNodes
     }
 }
 

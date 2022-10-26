@@ -10,12 +10,11 @@ import SwiftUI
 import V2EXClient
 
 struct TopicView: View {
-    @Environment(\.colorScheme) var colorScheme
+    @EnvironmentObject var appState: AppState
     let topicId: String
     @State var topic: Topic?
     @State var replies: [Reply]?
     @State var replyContent = ""
-    @State var webViewHeight = CGFloat.zero
 
     var body: some View {
         ZStack {
@@ -88,8 +87,7 @@ struct TopicView: View {
             ToolbarItem {
                 Button {
                     UIPasteboard.general.string = "https://v2ex.com/t/\(topicId)"
-                    AppContext.shared.appState.isShowTips = true
-                    AppContext.shared.appState.tips = "链接已复制到粘贴板"
+                    appState.show(normalInfo: "链接已复制到粘贴板")
                 } label: {
                     Image(systemName: "square.and.arrow.up")
                 }
@@ -102,7 +100,7 @@ struct TopicView: View {
                 self.topic = topic
                 self.replies = replies
             } catch {
-                print(error)
+                appState.show(errorInfo: "网络请求异常")
             }
         }
     }

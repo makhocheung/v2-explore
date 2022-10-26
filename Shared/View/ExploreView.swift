@@ -12,10 +12,8 @@ struct ExploreView: View {
     @State var listType = ExploreTopicType.latest
     @State var latestTopics: [Topic] = []
     @State var hottestTopics: [Topic] = []
-    var appAction = AppContext.shared.appAction
-    #if os(macOS)
-        @EnvironmentObject var navigationSelectionState: NavigationSelectionState
-    #endif
+    @EnvironmentObject var appState: AppState
+
     var body: some View {
         ZStack {
             listView
@@ -34,9 +32,7 @@ struct ExploreView: View {
                 }
             } catch {
                 if error.localizedDescription != "cancelled" {
-                    print("[v2-explore]: \(error.localizedDescription)")
-                    appAction.updateErrorMsg(errorMsg: "网络请求异常")
-                    appAction.toggleIsShowErrorMsg()
+                    appState.show(errorInfo: "网络请求异常")
                 }
             }
         }
@@ -51,7 +47,7 @@ struct ExploreView: View {
                 .pickerStyle(.segmented)
                 .onChange(of: listType) { _ in
                     #if os(macOS)
-                        navigationSelectionState.topicSelection = nil
+                        appState.clearTopicSelection()
                     #endif
                     Task {
                         do {
@@ -63,9 +59,7 @@ struct ExploreView: View {
                             }
                         } catch {
                             if error.localizedDescription != "cancelled" {
-                                print("[v2-explore]: \(error.localizedDescription)")
-                                appAction.updateErrorMsg(errorMsg: "网络请求异常")
-                                appAction.toggleIsShowErrorMsg()
+                                appState.show(errorInfo: "网络请求异常")
                             }
                         }
                     }
@@ -90,7 +84,7 @@ struct ExploreView: View {
 
     #if os(macOS)
         var listView: some View {
-            List(selection: $navigationSelectionState.topicSelection) {
+            List(selection: $appState.topicSelection) {
                 switch listType {
                 case .latest:
                     ForEach(latestTopics) {
@@ -103,8 +97,8 @@ struct ExploreView: View {
                 }
             }
             .listStyle(.sidebar)
-            .task(id: navigationSelectionState.sidebarSelection) {
-                guard navigationSelectionState.sidebarSelection == .main else {
+            .task(id: appState.sidebarSelection) {
+                guard appState.sidebarSelection == .main else {
                     return
                 }
                 latestTopics.removeAll()
@@ -118,9 +112,7 @@ struct ExploreView: View {
                     }
                 } catch {
                     if error.localizedDescription != "cancelled" {
-                        print("[v2-explore]: \(error.localizedDescription)")
-                        appAction.updateErrorMsg(errorMsg: "网络请求异常")
-                        appAction.toggleIsShowErrorMsg()
+                        appState.show(errorInfo: "网络请求异常")
                     }
                 }
             }
@@ -153,9 +145,7 @@ struct ExploreView: View {
                     }
                 } catch {
                     if error.localizedDescription != "cancelled" {
-                        print("[v2-explore]: \(error.localizedDescription)")
-                        appAction.updateErrorMsg(errorMsg: "网络请求异常")
-                        appAction.toggleIsShowErrorMsg()
+                        appState.show(errorInfo: "网络请求异常")
                     }
                 }
             }

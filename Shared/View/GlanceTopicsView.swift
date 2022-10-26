@@ -9,12 +9,11 @@ import V2EXClient
 
 struct GlanceTopicsView: View {
     @State var topics: [Topic] = []
-    var appAction = AppContext.shared.appAction
+    @EnvironmentObject var appState: AppState
 
     #if os(macOS)
-        @EnvironmentObject var navigationSelectionState: NavigationSelectionState
         var glanceType: GlanceType? {
-            switch navigationSelectionState.sidebarSelection {
+            switch appState.sidebarSelection {
             case let .glance(glanceType):
                 return glanceType
             default:
@@ -23,21 +22,19 @@ struct GlanceTopicsView: View {
         }
 
         var listView: some View {
-            List(selection: $navigationSelectionState.topicSelection) {
+            List(selection: $appState.topicSelection) {
                 ForEach(topics) {
                     SimpleTopicNavigationLinkView(topic: $0)
                 }
             }
             .listStyle(.sidebar)
-            .task(id: navigationSelectionState.sidebarSelection) {
+            .task(id: appState.sidebarSelection) {
                 topics = []
                 do {
                     topics = try await V2EXClient.shared.getTopicsByTab(tab: glanceType!.rawValue)
                 } catch {
                     if error.localizedDescription != "cancelled" {
-                        print("[v2-explore]: \(error.localizedDescription)")
-                        appAction.updateErrorMsg(errorMsg: "网络请求异常")
-                        appAction.toggleIsShowErrorMsg()
+                        appState.show(errorInfo: "网络请求异常")
                     }
                 }
             }
@@ -59,9 +56,7 @@ struct GlanceTopicsView: View {
                     topics = try await V2EXClient.shared.getTopicsByTab(tab: glanceType?.rawValue)
                 } catch {
                     if error.localizedDescription != "cancelled" {
-                        print("[v2-explore]: \(error.localizedDescription)")
-                        appAction.updateErrorMsg(errorMsg: "网络请求异常")
-                        appAction.toggleIsShowErrorMsg()
+                        appState.show(errorInfo: "网络请求异常")
                     }
                 }
             }

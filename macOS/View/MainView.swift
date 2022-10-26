@@ -9,8 +9,7 @@ import SwiftUI
 import V2EXClient
 
 struct MainView: View {
-    @StateObject var appState = AppContext.shared.appState
-    @StateObject var navigationSelectionState = NavigationSelectionState()
+    @EnvironmentObject var appState: AppState
     var body: some View {
         NavigationSplitView {
             SidebarView()
@@ -20,15 +19,8 @@ struct MainView: View {
         } detail: {
             TopicView()
         }
-        .environmentObject(navigationSelectionState)
-        .alert(appState.errorMsg, isPresented: $appState.isShowErrorMsg) {
-            Button("完成") {
-            }
-        }
-        .alert(appState.tips, isPresented: $appState.isShowTips) {
-            Button("完成") {
-            }
-        }
+        .alert(appState.normalInfo, isPresented: $appState.isShowNormalInfo) {}
+        .alert(appState.errorInfo, isPresented: $appState.isShowErrorInfo) {}
     }
 }
 

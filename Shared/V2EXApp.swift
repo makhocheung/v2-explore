@@ -14,9 +14,12 @@ struct V2EXApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
     #endif
     
+    private let appState = AppState()
+    
     var body: some Scene {
         WindowGroup {
             MainView()
+                .environmentObject(appState)
         }
         #if os(macOS)
         .windowToolbarStyle(.unified(showsTitle: false))

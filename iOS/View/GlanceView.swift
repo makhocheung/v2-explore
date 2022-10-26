@@ -11,7 +11,7 @@ import SwiftUI
 import V2EXClient
 
 struct GlanceView: View {
-    let navNodes = AppContext.shared.appState.navigationNodes
+    @EnvironmentObject var appState: AppState
     @State var searchText = ""
     var body: some View {
         List {
@@ -23,9 +23,9 @@ struct GlanceView: View {
                 }
             }
             if searchText.isEmpty {
-                ForEach(Array(navNodes.keys.sorted().enumerated()), id: \.element) { _, key in
+                ForEach(Array(navigationNodes.keys.sorted().enumerated()), id: \.element) { _, key in
                     Section {
-                        ForEach(navNodes[key]!) { node in
+                        ForEach(navigationNodes[key]!) { node in
                             NavigationLink(value: node) {
                                 Text(node.title)
                             }
@@ -63,11 +63,15 @@ struct GlanceView: View {
     }
     
     var filteredNavNodes: [Node] {
-        navNodes.flatMap { _,v in
+        navigationNodes.flatMap { _,v in
              v
         }.filter { it in
             it.title.contains(searchText)
         }
+    }
+    
+    var navigationNodes: [String: [Node]] {
+        appState.navigationNodes
     }
 }
 

@@ -15,8 +15,7 @@ struct TopicView: View {
     @State var replies: [Reply]?
     @State var webViewHeight = CGFloat.zero
     @State var isShoading = false
-    @EnvironmentObject var navigationSelectionState: NavigationSelectionState
-    let appState = AppContext.shared.appState
+    @EnvironmentObject var appState: AppState
 
     var body: some View {
         ZStack {
@@ -91,8 +90,7 @@ struct TopicView: View {
                         let pasteBoard = NSPasteboard.general
                         pasteBoard.clearContents()
                         pasteBoard.setString("https://v2ex.com/t/\(topic.id)", forType: .string)
-                        AppContext.shared.appState.isShowTips = true
-                        AppContext.shared.appState.tips = "链接已复制到粘贴板"
+                        appState.show(normalInfo: "链接已复制到粘贴板")
                     } label: {
                         Image(systemName: "square.and.arrow.up")
                     }
@@ -100,7 +98,7 @@ struct TopicView: View {
                 }
             }
         }
-        .onChange(of: navigationSelectionState.topicSelection) { topicId in
+        .onChange(of: appState.topicSelection) { topicId in
             self.topic = nil
             self.replies = nil
             self.webViewHeight = CGFloat.zero
@@ -113,28 +111,26 @@ struct TopicView: View {
                         self.replies = replies
                         self.isShoading = false
                     } catch V2EXClientError.unavailable {
-                        appState.isShowErrorMsg = true
-                        appState.errorMsg = "你无权限访问该帖子"
+                        appState.show(normalInfo: "你无权限访问该帖子")
                     } catch {
-                        appState.isShowErrorMsg = true
-                        appState.errorMsg = "\(error)"
+                        appState.show(errorInfo: "\(error)")
                     }
                 }
             }
         }
         .task {
-            if let id = navigationSelectionState.topicSelection {
+            if let id = appState.topicSelection {
                 do {
                     let (topic, replies) = try await V2EXClient.shared.getTopicReplies(id: id)
                     self.topic = topic
                     self.replies = replies
                     self.isShoading = false
                 } catch V2EXClientError.unavailable {
-                    appState.isShowErrorMsg = true
-                    appState.errorMsg = "你无权限访问该帖子"
+                    appState.isShowErrorInfo = true
+                    appState.errorInfo = "你无权限访问该帖子"
                 } catch {
-                    appState.isShowErrorMsg = true
-                    appState.errorMsg = "\(error)"
+                    appState.isShowErrorInfo = true
+                    appState.errorInfo = "\(error)"
                 }
             }
         }

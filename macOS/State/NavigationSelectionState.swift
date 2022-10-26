@@ -8,6 +8,5 @@
 import Foundation
 
 class NavigationSelectionState: ObservableObject {
-    @Published var sidebarSelection: SidebarTag?
-    @Published var topicSelection: String?
+    
 }

@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct ContentView: View {
-    @EnvironmentObject var navigationSelectionState: NavigationSelectionState
+    @EnvironmentObject var appState: AppState
     var body: some View {
-        if let sidebarSelection = navigationSelectionState.sidebarSelection {
+        if let sidebarSelection = appState.sidebarSelection {
             switch sidebarSelection {
             case .main:
                 ExploreView()

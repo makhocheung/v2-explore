@@ -11,14 +11,11 @@ import V2EXClient
 struct NodeView: View {
     @State var topics: [Topic] = []
     @State var currentNode: Node?
-    var appAction = AppContext.shared.appAction
-    #if os(macOS)
-        @EnvironmentObject var navigationSelectionState: NavigationSelectionState
-    #endif
+    @EnvironmentObject var appState: AppState
 
     #if os(macOS)
         var node: Node? {
-            switch navigationSelectionState.sidebarSelection {
+            switch appState.sidebarSelection {
             case let .node(node):
                 return node
             default:
@@ -48,7 +45,7 @@ struct NodeView: View {
 
     #if os(macOS)
         var listView: some View {
-            List(selection: $navigationSelectionState.topicSelection) {
+            List(selection: $appState.topicSelection) {
                 if let currentNode = currentNode {
                     VStack(spacing: 10) {
                         KFImage(URL(string: currentNode.avatar!))
@@ -76,7 +73,7 @@ struct NodeView: View {
                 }
             }
             .listStyle(.sidebar)
-            .task(id: navigationSelectionState.sidebarSelection) {
+            .task(id: appState.sidebarSelection) {
                 self.currentNode = nil
                 self.topics = []
                 do {
@@ -85,9 +82,7 @@ struct NodeView: View {
                     currentNode = node
                 } catch {
                     if error.localizedDescription != "cancelled" {
-                        print("[v2-explore]: \(error.localizedDescription)")
-                        appAction.updateErrorMsg(errorMsg: "网络请求异常")
-                        appAction.toggleIsShowErrorMsg()
+                        appState.show(errorInfo: "网络请求异常")
                     }
                 }
             }
@@ -134,9 +129,7 @@ struct NodeView: View {
                     currentNode = node
                 } catch {
                     if error.localizedDescription != "cancelled" {
-                        print("[v2-explore]: \(error.localizedDescription)")
-                        appAction.updateErrorMsg(errorMsg: "网络请求异常")
-                        appAction.toggleIsShowErrorMsg()
+                        appState.show(errorInfo: "网络请求异常")
                     }
                 }
             }

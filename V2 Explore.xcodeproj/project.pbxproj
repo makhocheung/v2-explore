@@ -10,7 +10,6 @@
 		7005F54B28DFFE0E003184A6 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 7005F54A28DFFE0E003184A6 /* Kingfisher */; };
 		7005F54E28DFFE22003184A6 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 7005F54D28DFFE22003184A6 /* Kingfisher */; };
 		701269AB290903100094BBE2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701269AA290903100094BBE2 /* AppDelegate.swift */; };
-		70196BB328CA2A7C0085FBEA /* NavigationSelectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70196BB228CA2A7C0085FBEA /* NavigationSelectionState.swift */; };
 		70234E4528CA1DAB00271982 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70234E4428CA1DAB00271982 /* ContentView.swift */; };
 		703A463D28C0549C00A87598 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 703A464028C0549C00A87598 /* Localizable.strings */; };
 		703A463E28C0549C00A87598 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 703A464028C0549C00A87598 /* Localizable.strings */; };
@@ -18,7 +17,6 @@
 		706ED76728DEA29C00D8CB2E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 70BC2D61274CB665008E2AF1 /* Assets.xcassets */; };
 		7071FDB227E6B04D0064A48F /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7071FDB127E6B04D0064A48F /* AppState.swift */; };
 		7071FDB327E6B04D0064A48F /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7071FDB127E6B04D0064A48F /* AppState.swift */; };
-		70768AB429078F7E0024D55C /* ToolbarState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70768AB329078F7E0024D55C /* ToolbarState.swift */; };
 		7086C91A28CB7B1C006EE04C /* SimpleTopicNavigationLinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7086C91928CB7B1C006EE04C /* SimpleTopicNavigationLinkView.swift */; };
 		70AAB00027633429000D3A98 /* ReplyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70AAAFFF27633429000D3A98 /* ReplyView.swift */; };
 		70B1DEF627D246AF00DA4DF0 /* UserState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B1DEF527D246AF00DA4DF0 /* UserState.swift */; };
@@ -46,17 +44,12 @@
 		70D4C0D227FDAF080055E95C /* V2EXClient in Frameworks */ = {isa = PBXBuildFile; productRef = 70D4C0D127FDAF080055E95C /* V2EXClient */; };
 		70D769C228F97FDE000991BF /* V2EXClient in Frameworks */ = {isa = PBXBuildFile; productRef = 70D769C128F97FDE000991BF /* V2EXClient */; };
 		70DA186328C1E50000F24275 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70DA186228C1E50000F24275 /* MainView.swift */; };
-		DBE6435D825309705AFE1537 /* AppAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE647E966938E07D1A06939 /* AppAction.swift */; };
 		DBE6492363F0AC4D310D1CEA /* ExploreTopicType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE6467C5A95A3F925DC1C7E /* ExploreTopicType.swift */; };
-		DBE649818E009B258812B8EC /* AppAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE647E966938E07D1A06939 /* AppAction.swift */; };
 		DBE6498A397356FCB62B8DB4 /* ExploreTopicType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE6467C5A95A3F925DC1C7E /* ExploreTopicType.swift */; };
-		DBE64CE3D9E60249D9E3A234 /* AppContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE6426B77A9BD71D198622C /* AppContext.swift */; };
-		DBE64D8222F9CD2EE4307965 /* AppContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE6426B77A9BD71D198622C /* AppContext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		701269AA290903100094BBE2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		70196BB228CA2A7C0085FBEA /* NavigationSelectionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationSelectionState.swift; sourceTree = "<group>"; };
 		70234E4428CA1DAB00271982 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		703A463F28C0549C00A87598 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		703A464128C054A200A87598 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -66,7 +59,6 @@
 		70616D2B2764D7DA0007AD6E /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		70717B2027E5F0A8005C315A /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
 		7071FDB127E6B04D0064A48F /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
-		70768AB329078F7E0024D55C /* ToolbarState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarState.swift; sourceTree = "<group>"; };
 		707A07892764B0DA0047EC33 /* GlanceTopicsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlanceTopicsView.swift; sourceTree = "<group>"; };
 		7086C91928CB7B1C006EE04C /* SimpleTopicNavigationLinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTopicNavigationLinkView.swift; sourceTree = "<group>"; };
 		708771E027A52B8400068A66 /* NodeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NodeView.swift; sourceTree = "<group>"; };
@@ -90,9 +82,7 @@
 		70C669B32760980800D3AF2B /* TopicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicView.swift; sourceTree = "<group>"; };
 		70D4C0D027FDAEDA0055E95C /* V2EXClient */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = V2EXClient; sourceTree = "<group>"; };
 		70DA186228C1E50000F24275 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
-		DBE6426B77A9BD71D198622C /* AppContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppContext.swift; sourceTree = "<group>"; };
 		DBE6467C5A95A3F925DC1C7E /* ExploreTopicType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExploreTopicType.swift; sourceTree = "<group>"; };
-		DBE647E966938E07D1A06939 /* AppAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppAction.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,15 +107,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		700071F828CB04890076A346 /* State */ = {
-			isa = PBXGroup;
-			children = (
-				70196BB228CA2A7C0085FBEA /* NavigationSelectionState.swift */,
-				70768AB329078F7E0024D55C /* ToolbarState.swift */,
-			);
-			path = State;
-			sourceTree = "<group>";
-		};
 		7005F54C28DFFE22003184A6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -183,11 +164,9 @@
 			children = (
 				70CB7A0927E714DD009783FF /* View */,
 				70B1DEEE27D2467300DA4DF0 /* State */,
-				70CB7A0C27E71528009783FF /* Action */,
 				70CB7A1927E71851009783FF /* Enum */,
 				70BC2D5F274CB664008E2AF1 /* V2EXApp.swift */,
 				70BC2D61274CB665008E2AF1 /* Assets.xcassets */,
-				DBE6426B77A9BD71D198622C /* AppContext.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -206,7 +185,6 @@
 			children = (
 				701269AA290903100094BBE2 /* AppDelegate.swift */,
 				70C2558828D4418000791602 /* View */,
-				700071F828CB04890076A346 /* State */,
 				70BC2D6E274CB665008E2AF1 /* macOS.entitlements */,
 			);
 			path = macOS;
@@ -245,14 +223,6 @@
 				7086C91928CB7B1C006EE04C /* SimpleTopicNavigationLinkView.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		70CB7A0C27E71528009783FF /* Action */ = {
-			isa = PBXGroup;
-			children = (
-				DBE647E966938E07D1A06939 /* AppAction.swift */,
-			);
-			path = Action;
 			sourceTree = "<group>";
 		};
 		70CB7A1927E71851009783FF /* Enum */ = {
@@ -390,8 +360,6 @@
 				70B1DEF627D246AF00DA4DF0 /* UserState.swift in Sources */,
 				70BC2D6F274CB665008E2AF1 /* V2EXApp.swift in Sources */,
 				DBE6498A397356FCB62B8DB4 /* ExploreTopicType.swift in Sources */,
-				DBE649818E009B258812B8EC /* AppAction.swift in Sources */,
-				DBE64D8222F9CD2EE4307965 /* AppContext.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -408,18 +376,14 @@
 				70B8C58F28C9DDB900F80A44 /* SidebarView.swift in Sources */,
 				70DA186328C1E50000F24275 /* MainView.swift in Sources */,
 				70CB7A1227E71535009783FF /* GlanceTopicsView.swift in Sources */,
-				70768AB429078F7E0024D55C /* ToolbarState.swift in Sources */,
 				7086C91A28CB7B1C006EE04C /* SimpleTopicNavigationLinkView.swift in Sources */,
 				70234E4528CA1DAB00271982 /* ContentView.swift in Sources */,
 				70CB7A1727E71535009783FF /* SimpleTopicView.swift in Sources */,
 				70CB7A1627E71535009783FF /* ProfileView.swift in Sources */,
 				DBE6492363F0AC4D310D1CEA /* ExploreTopicType.swift in Sources */,
-				DBE6435D825309705AFE1537 /* AppAction.swift in Sources */,
 				70B5CCAB28BDFF3D003F9CF1 /* GlanceType.swift in Sources */,
-				70196BB328CA2A7C0085FBEA /* NavigationSelectionState.swift in Sources */,
 				701269AB290903100094BBE2 /* AppDelegate.swift in Sources */,
 				70C2558A28D442C200791602 /* TopicView.swift in Sources */,
-				DBE64CE3D9E60249D9E3A234 /* AppContext.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -563,6 +527,7 @@
 				DEVELOPMENT_TEAM = 3Y4G3442RX;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.magazines-and-newspapers";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -574,7 +539,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = "1.1-SNAPSHOT";
-				PRODUCT_BUNDLE_IDENTIFIER = pub.cellebi.v2ex;
+				PRODUCT_BUNDLE_IDENTIFIER = com.naamfung.v2ex;
 				PRODUCT_NAME = "V2 Explore";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -596,6 +561,7 @@
 				DEVELOPMENT_TEAM = 3Y4G3442RX;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.magazines-and-newspapers";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -607,7 +573,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = "1.1-SNAPSHOT";
-				PRODUCT_BUNDLE_IDENTIFIER = pub.cellebi.v2ex;
+				PRODUCT_BUNDLE_IDENTIFIER = com.naamfung.v2ex;
 				PRODUCT_NAME = "V2 Explore";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -633,7 +599,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.magazines-and-newspapers";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -641,7 +607,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = "1.1-SNAPSHOT";
-				PRODUCT_BUNDLE_IDENTIFIER = pub.cellebi.v2ex;
+				PRODUCT_BUNDLE_IDENTIFIER = com.naamfung.v2ex;
 				PRODUCT_NAME = "V2 Explore";
 				SDKROOT = macosx;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -662,7 +628,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.magazines-and-newspapers";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -670,7 +636,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = "1.1-SNAPSHOT";
-				PRODUCT_BUNDLE_IDENTIFIER = pub.cellebi.v2ex;
+				PRODUCT_BUNDLE_IDENTIFIER = com.naamfung.v2ex;
 				PRODUCT_NAME = "V2 Explore";
 				SDKROOT = macosx;
 				SWIFT_EMIT_LOC_STRINGS = YES;

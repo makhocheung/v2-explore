@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MainView: View {
-    @StateObject var appState = AppContext.shared.appState
+    @EnvironmentObject var appState: AppState
 
     var body: some View {
         TabView {
@@ -34,25 +34,19 @@ struct MainView: View {
                 Label("我的", systemImage: "person.circle.fill")
             }
         }
-        .alert(appState.errorMsg, isPresented: $appState.isShowErrorMsg) {
-            Button("完成") {
-            }
-        }
-        .alert(appState.tips, isPresented: $appState.isShowTips) {
-            Button("完成") {
-            }
-        }
+        .alert(appState.errorInfo, isPresented: $appState.isShowErrorInfo) {}
+        .alert(appState.normalInfo, isPresented: $appState.isShowNormalInfo) {}
     }
 }
 
 #if DEBUG
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            MainView()
-            MainView()
-                .preferredColorScheme(.dark)
+    struct ContentView_Previews: PreviewProvider {
+        static var previews: some View {
+            Group {
+                MainView()
+                MainView()
+                    .preferredColorScheme(.dark)
+            }
         }
     }
-}
 #endif
