@@ -8,13 +8,13 @@
 
 // all, tech, creative, play, apple, jobs, deals, city, qna, nodes
 
-"glance.all"="";
-"glance.tech"="";
-"glance.creative"="";
-"glance.play"="";
-"glance.apple"="";
-"glance.jobs"="";
-"glance.deals"="";
-"glance.city"="";
-"glance.qna"="";
-"glance.nodes"="";
+"glance.all"="All";
+"glance.tech"="Technology";
+"glance.creative"="Creative";
+"glance.play"="Play";
+"glance.apple"="Apple";
+"glance.jobs"="Jobs";
+"glance.deals"="Deals";
+"glance.city"="City";
+"glance.qna"="Q & A";
+"glance.nodes"="Nodes";

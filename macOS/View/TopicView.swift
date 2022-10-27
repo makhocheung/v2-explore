@@ -16,6 +16,7 @@ struct TopicView: View {
     @State var webViewHeight = CGFloat.zero
     @State var isShoading = false
     @EnvironmentObject var appState: AppState
+    @Environment(\.openURL) var openURL
 
     var body: some View {
         ZStack {
@@ -85,16 +86,23 @@ struct TopicView: View {
         }
         .toolbar {
             if let topic {
-                ToolbarItem {
+                ToolbarItemGroup {
                     Button {
                         let pasteBoard = NSPasteboard.general
                         pasteBoard.clearContents()
                         pasteBoard.setString("https://v2ex.com/t/\(topic.id)", forType: .string)
                         appState.show(normalInfo: "链接已复制到粘贴板")
                     } label: {
-                        Image(systemName: "square.and.arrow.up")
+                        Image(systemName: "doc.on.doc")
                     }
                     .help("复制帖子链接")
+                    
+                    Button {
+                        openURL(URL(string: "https://v2ex.com/t/\(topic.id)")!)
+                    }label: {
+                        Image(systemName: "safari")
+                    }
+                    .help("用浏览器打开")
                 }
             }
         }

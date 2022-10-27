@@ -89,7 +89,7 @@ struct TopicView: View {
                     UIPasteboard.general.string = "https://v2ex.com/t/\(topicId)"
                     appState.show(normalInfo: "链接已复制到粘贴板")
                 } label: {
-                    Image(systemName: "square.and.arrow.up")
+                    Image(systemName: "doc.on.doc")
                 }
             }
         }
