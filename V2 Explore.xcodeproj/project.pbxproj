@@ -28,6 +28,7 @@
 		70BC2D70274CB665008E2AF1 /* V2EXApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BC2D5F274CB664008E2AF1 /* V2EXApp.swift */; };
 		70BC2D71274CB665008E2AF1 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BC2D60274CB664008E2AF1 /* MainView.swift */; };
 		70BC2D7E274CBC2A008E2AF1 /* SimpleTopicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BC2D7D274CBC2A008E2AF1 /* SimpleTopicView.swift */; };
+		70BD46B1290AB0AD00ACACED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 70BC2D61274CB665008E2AF1 /* Assets.xcassets */; };
 		70C2558A28D442C200791602 /* TopicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C2558928D442C200791602 /* TopicView.swift */; };
 		70C2558F28D447E800791602 /* SimpleTopicNavigationLinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7086C91928CB7B1C006EE04C /* SimpleTopicNavigationLinkView.swift */; };
 		70C2559028D44E8C00791602 /* ExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BC2D80274CBFC5008E2AF1 /* ExploreView.swift */; };
@@ -286,7 +287,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1310;
+				LastSwiftUpdateCheck = 1410;
 				LastUpgradeCheck = 1310;
 				TargetAttributes = {
 					70BC2D65274CB665008E2AF1 = {
@@ -325,6 +326,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				70BD46B1290AB0AD00ACACED /* Assets.xcassets in Resources */,
 				703A463D28C0549C00A87598 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -522,6 +524,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3Y4G3442RX;
@@ -556,6 +559,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3Y4G3442RX;
