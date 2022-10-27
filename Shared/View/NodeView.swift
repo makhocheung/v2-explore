@@ -62,7 +62,7 @@ struct NodeView: View {
                             .fixedSize(horizontal: false, vertical: true)
                         HStack {
                             Spacer()
-                            Text("\(currentNode.count!) 个主题")
+                            Text("info.themeCount \(currentNode.count!)")
                                 .padding(5)
                         }
                     }
@@ -82,7 +82,7 @@ struct NodeView: View {
                     currentNode = node
                 } catch {
                     if error.localizedDescription != "cancelled" {
-                        appState.show(errorInfo: "网络请求异常")
+                        appState.show(errorInfo: "info.network.error")
                     }
                 }
             }
@@ -106,7 +106,7 @@ struct NodeView: View {
                             .fixedSize(horizontal: false, vertical: true)
                         HStack {
                             Spacer()
-                            Text("\(currentNode.count!) 个主题")
+                            Text("info.themeCount \(currentNode.count!)")
                                 .padding(5)
                                 .background(Color("TagColor"))
                                 .cornerRadius(5)
@@ -129,7 +129,7 @@ struct NodeView: View {
                     currentNode = node
                 } catch {
                     if error.localizedDescription != "cancelled" {
-                        appState.show(errorInfo: "网络请求异常")
+                        appState.show(errorInfo: "info.network.error")
                     }
                 }
             }

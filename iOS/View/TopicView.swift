@@ -87,7 +87,7 @@ struct TopicView: View {
             ToolbarItem {
                 Button {
                     UIPasteboard.general.string = "https://v2ex.com/t/\(topicId)"
-                    appState.show(normalInfo: "链接已复制到粘贴板")
+                    appState.show(normalInfo: "info.copy.link")
                 } label: {
                     Image(systemName: "doc.on.doc")
                 }
@@ -100,7 +100,7 @@ struct TopicView: View {
                 self.topic = topic
                 self.replies = replies
             } catch {
-                appState.show(errorInfo: "网络请求异常")
+                appState.show(errorInfo: "info.network.error")
             }
         }
     }

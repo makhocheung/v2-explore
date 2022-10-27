@@ -21,7 +21,7 @@ struct ExploreView: View {
                 bgView
             }
         }
-        .navigationTitle("探索")
+        .navigationTitle("common.explore")
         .refreshable {
             do {
                 switch listType {
@@ -32,16 +32,16 @@ struct ExploreView: View {
                 }
             } catch {
                 if error.localizedDescription != "cancelled" {
-                    appState.show(errorInfo: "网络请求异常")
+                    appState.show(errorInfo: "info.network.error")
                 }
             }
         }
         .toolbar {
             ToolbarItem {
-                Picker("类型", selection: $listType) {
-                    Text("最新")
+                Picker("common.type", selection: $listType) {
+                    Text("common.latest")
                         .tag(ExploreTopicType.latest)
-                    Text("热门")
+                    Text("common.hottest")
                         .tag(ExploreTopicType.hottest)
                 }
                 .pickerStyle(.segmented)
@@ -59,7 +59,7 @@ struct ExploreView: View {
                             }
                         } catch {
                             if error.localizedDescription != "cancelled" {
-                                appState.show(errorInfo: "网络请求异常")
+                                appState.show(errorInfo: "info.network.error")
                             }
                         }
                     }
@@ -112,7 +112,7 @@ struct ExploreView: View {
                     }
                 } catch {
                     if error.localizedDescription != "cancelled" {
-                        appState.show(errorInfo: "网络请求异常")
+                        appState.show(errorInfo: "info.network.error")
                     }
                 }
             }
@@ -145,7 +145,7 @@ struct ExploreView: View {
                     }
                 } catch {
                     if error.localizedDescription != "cancelled" {
-                        appState.show(errorInfo: "网络请求异常")
+                        appState.show(errorInfo: "info.network.error")
                     }
                 }
             }

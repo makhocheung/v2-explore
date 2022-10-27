@@ -43,7 +43,7 @@ struct GlanceView: View {
                 }
             }
         }
-        .searchable(text: $searchText, prompt: Text("搜索节点"))
+        .searchable(text: $searchText, prompt: Text("search.nodes"))
         .navigationDestination(for: GlanceType.self) {
             GlanceTopicsView(glanceType: $0)
         }
@@ -57,7 +57,7 @@ struct GlanceView: View {
             return GlanceType.allCases
         } else {
             return GlanceType.allCases.filter { it in
-                return String(localized: LocalizedStringResource(stringLiteral: "glance." + it.rawValue)).contains(searchText)
+                String(localized: LocalizedStringResource(stringLiteral: "glance." + it.rawValue)).contains(searchText)
             }
         }
     }

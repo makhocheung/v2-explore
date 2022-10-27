@@ -19,8 +19,8 @@ struct MainView: View {
         } detail: {
             TopicView()
         }
-        .alert(appState.normalInfo, isPresented: $appState.isShowNormalInfo) {}
-        .alert(appState.errorInfo, isPresented: $appState.isShowErrorInfo) {}
+        .alert(LocalizedStringKey(appState.normalInfo), isPresented: $appState.isShowNormalInfo) {}
+        .alert(LocalizedStringKey(appState.errorInfo), isPresented: $appState.isShowErrorInfo) {}
     }
 }
 

@@ -91,18 +91,18 @@ struct TopicView: View {
                         let pasteBoard = NSPasteboard.general
                         pasteBoard.clearContents()
                         pasteBoard.setString("https://v2ex.com/t/\(topic.id)", forType: .string)
-                        appState.show(normalInfo: "链接已复制到粘贴板")
+                        appState.show(normalInfo: "info.copy.link")
                     } label: {
                         Image(systemName: "doc.on.doc")
                     }
-                    .help("复制帖子链接")
+                    .help("info.help.copyLink")
                     
                     Button {
                         openURL(URL(string: "https://v2ex.com/t/\(topic.id)")!)
                     }label: {
                         Image(systemName: "safari")
                     }
-                    .help("用浏览器打开")
+                    .help("info.help.openInBrowser")
                 }
             }
         }
@@ -119,9 +119,9 @@ struct TopicView: View {
                         self.replies = replies
                         self.isShoading = false
                     } catch V2EXClientError.unavailable {
-                        appState.show(normalInfo: "你无权限访问该帖子")
+                        appState.show(normalInfo: "info.noAccess")
                     } catch {
-                        appState.show(errorInfo: "\(error)")
+                        appState.show(errorInfo: "info.network.error")
                     }
                 }
             }
@@ -134,11 +134,9 @@ struct TopicView: View {
                     self.replies = replies
                     self.isShoading = false
                 } catch V2EXClientError.unavailable {
-                    appState.isShowErrorInfo = true
-                    appState.errorInfo = "你无权限访问该帖子"
+                    appState.show(normalInfo: "info.noAccess")
                 } catch {
-                    appState.isShowErrorInfo = true
-                    appState.errorInfo = "\(error)"
+                    appState.show(errorInfo: "info.network.error")
                 }
             }
         }

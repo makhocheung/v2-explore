@@ -18,8 +18,8 @@ struct SidebarView: View {
     var body: some View {
         List(selection: $appState.sidebarSelection) {
             Section {
-                if !"探索".contains(searchText) {
-                    Label("探索", systemImage: "newspaper.fill")
+                if isContainExplore {
+                    Label("common.explore", systemImage: "newspaper.fill")
                         .tag(SidebarTag.main)
                 }
                 ForEach(filteredGlanceTypes, id: \.self) { it in
@@ -27,7 +27,7 @@ struct SidebarView: View {
                         .tag(SidebarTag.glance(it))
                 }
             } header: {
-                Text("浏览")
+                Text("common.glance")
                     .font(.title3)
             }
             if searchText.isEmpty {
@@ -50,7 +50,7 @@ struct SidebarView: View {
             }
         }
         .listStyle(.sidebar)
-        .searchable(text: $searchText, placement: SearchFieldPlacement.sidebar, prompt: Text("搜索节点"))
+        .searchable(text: $searchText, placement: SearchFieldPlacement.sidebar, prompt: Text("search.nodes"))
         .onChange(of: appState.sidebarSelection) { _ in
             appState.topicSelection = nil
         }
@@ -74,6 +74,10 @@ struct SidebarView: View {
 
     var navigationNodes: [String: [Node]] {
         appState.navigationNodes
+    }
+
+    var isContainExplore: Bool {
+        searchText.isEmpty || String(localized: LocalizedStringResource(stringLiteral: "common.explore")).contains(searchText)
     }
 }
 

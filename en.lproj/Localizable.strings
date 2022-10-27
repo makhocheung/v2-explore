@@ -18,3 +18,27 @@
 "glance.city"="City";
 "glance.qna"="Q & A";
 "glance.nodes"="Nodes";
+
+"common.explore"="Explore";
+"common.glance"="Glance";
+"common.profile"="Profile";
+"common.type"="Type";
+"common.latest"="Latest";
+"common.hottest"="Hottest";
+"common.confirm"="Confirm";
+"common.cancel"="Cancel";
+"common.share"="Share";
+
+"search.nodes"="Search nodes";
+
+"info.copy.link"="The link is copied to the pasteboard";
+"info.network.error"="Network request exception";
+"info.noAccess"="No access to the post";
+"info.help.copyLink"="Copy the post link";
+"info.help.openInBrowser"="Open it with a browser";
+"info.themeCount %@"="%@ themes";
+"info.clearCache"="Cache clear";
+"info.clearCacheTips %@"="Total %@, are you sure you want to clear the cache";
+"info.githubFeedback"="GitHub and feedback";
+"info.version %@ %@"="Version: %@(build %@)";
+"info.copyright"="Copyright © 2022 Nathan Mak. All Rights Reserved.";

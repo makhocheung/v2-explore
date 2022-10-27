@@ -34,7 +34,7 @@ struct GlanceTopicsView: View {
                     topics = try await V2EXClient.shared.getTopicsByTab(tab: glanceType!.rawValue)
                 } catch {
                     if error.localizedDescription != "cancelled" {
-                        appState.show(errorInfo: "网络请求异常")
+                        appState.show(errorInfo: "info.network.error")
                     }
                 }
             }
@@ -56,7 +56,7 @@ struct GlanceTopicsView: View {
                     topics = try await V2EXClient.shared.getTopicsByTab(tab: glanceType?.rawValue)
                 } catch {
                     if error.localizedDescription != "cancelled" {
-                        appState.show(errorInfo: "网络请求异常")
+                        appState.show(errorInfo: "info.network.error")
                     }
                 }
             }

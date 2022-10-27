@@ -14,7 +14,7 @@ typealias PasteBoard = NSPasteboard
 typealias PasteBoard = UIPasteboard
 #endif
 struct ProfileView: View {
-    @State var cacheSize = "计算中"
+    @State var cacheSize = "..."
 
     let appVersion: String
     let build: String
@@ -45,41 +45,41 @@ struct ProfileView: View {
             Button {
                 isShowCleanCacheAlert.toggle()
             } label: {
-                Label("缓存清理", systemImage: "clear.fill")
+                Label("info.clearCache", systemImage: "clear.fill")
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
-            .confirmationDialog("共 \(cacheSize)，确定要清理缓存吗", isPresented: $isShowCleanCacheAlert, titleVisibility: .visible) {
+            .confirmationDialog("info.clearCacheTips \(cacheSize)", isPresented: $isShowCleanCacheAlert, titleVisibility: .visible) {
                 Button(role: .destructive) {
                     ImageCache.default.clearDiskCache {
                         cacheSize = "0 MB"
                     }
                 } label: {
-                    Text("确认")
+                    Text("common.confirm")
                 }
                 Button(role: .cancel) {
                 } label: {
-                    Text("取消")
+                    Text("common.cancel")
                 }
             }
             Link(destination: URL(string: "https://github.com/makhocheung/v2-explore")!) {
-                Label("GitHub 与反馈", systemImage: "link.circle.fill")
+                Label("info.githubFeedback", systemImage: "link.circle.fill")
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
             Button {
 //                PasteBoard.general.url = URL(string: "https://testflight.apple.com/join/SdCh3Wbb")
                 isShowShareAlert.toggle()
             } label: {
-                Label("分享", systemImage: "square.and.arrow.up.fill")
+                Label("common.share", systemImage: "square.and.arrow.up.fill")
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
-            .alert("已复制分享链接", isPresented: $isShowShareAlert) {
-                Text("完成")
+            .alert("info.copy.link", isPresented: $isShowShareAlert) {
+                Text("common.cancel")
             }
-            Text("版本：\(appVersion)(build \(build))")
+            Text("info.version \(appVersion) \(build)")
                 .font(.footnote)
                 .padding()
                 .frame(maxWidth: .infinity)
-            Text("Copyright © 2022 Mak Ho Cheung. All Rights Reserved.")
+            Text("")
                 .font(.footnote)
                 .frame(maxWidth: .infinity)
                 //.listRowSeparator(.hidden)

@@ -14,28 +14,28 @@ struct MainView: View {
         TabView {
             NavigationStack {
                 ExploreView()
-                    .navigationTitle("探索")
+                    .navigationTitle("common.explore")
             }
             .tabItem {
-                Label("探索", systemImage: "newspaper.fill")
+                Label("common.explore", systemImage: "newspaper.fill")
             }
             NavigationStack {
                 GlanceView()
-                    .navigationTitle("浏览")
+                    .navigationTitle("common.glance")
             }
             .tabItem {
-                Label("浏览", systemImage: "rectangle.stack.fill")
+                Label("common.glance", systemImage: "rectangle.stack.fill")
             }
             NavigationStack {
                 ProfileView()
-                    .navigationTitle("我的")
+                    .navigationTitle("common.profile")
             }
             .tabItem {
-                Label("我的", systemImage: "person.circle.fill")
+                Label("common.profile", systemImage: "person.circle.fill")
             }
         }
-        .alert(appState.errorInfo, isPresented: $appState.isShowErrorInfo) {}
-        .alert(appState.normalInfo, isPresented: $appState.isShowNormalInfo) {}
+        .alert(LocalizedStringKey(appState.errorInfo), isPresented: $appState.isShowErrorInfo) {}
+        .alert(LocalizedStringKey(appState.normalInfo), isPresented: $appState.isShowNormalInfo) {}
     }
 }
 
