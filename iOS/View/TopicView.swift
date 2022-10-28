@@ -89,7 +89,7 @@ struct TopicView: View {
                     UIPasteboard.general.string = "https://v2ex.com/t/\(topicId)"
                     appState.show(normalInfo: "info.copy.link")
                 } label: {
-                    Image(systemName: "doc.on.doc")
+                    Image(systemName: "link")
                 }
             }
         }

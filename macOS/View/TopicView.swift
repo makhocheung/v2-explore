@@ -93,7 +93,7 @@ struct TopicView: View {
                         pasteBoard.setString("https://v2ex.com/t/\(topic.id)", forType: .string)
                         appState.show(normalInfo: "info.copy.link")
                     } label: {
-                        Image(systemName: "doc.on.doc")
+                        Image(systemName: "link")
                     }
                     .help("info.help.copyLink")
                     
