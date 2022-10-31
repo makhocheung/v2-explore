@@ -86,25 +86,28 @@ class Parser {
         var content: String?
         if let markdownBodyElement {
             content = try markdownBodyElement.outerHtml()
-            for it in markdownBodyElement.children() {
-                let imgElements = try it.getElementsByTag("img")
-                if imgElements.isEmpty() {
-                    topicContentSections.append(ContentSection(type: .literal, content: try parse2AttributeString(string: it.outerHtml())))
-                } else {
-                    for imgElement in imgElements {
-                        // todo 图片是超链接
-                        topicContentSections.append(ContentSection(type: .image, content: try imgElement.attr("src")))
+            if markdownBodyElement.children().isEmpty() {
+                topicContentSections.append(ContentSection(type: .literal, content: try parse2AttributeString(string: "<p>\(markdownBodyElement.text())</p>")))
+            } else {
+                for it in markdownBodyElement.children() {
+                    let imgElements = try it.getElementsByTag("img")
+                    if imgElements.isEmpty() {
+                        topicContentSections.append(ContentSection(type: .literal, content: try parse2AttributeString(string: it.outerHtml())))
+                    } else {
+                        for imgElement in imgElements {
+                            // todo 图片是超链接
+                            topicContentSections.append(ContentSection(type: .image, content: try imgElement.attr("src")))
+                        }
                     }
                 }
             }
-            
         } else if let topicContentElement {
             content = try topicContentElement.outerHtml()
             topicContentSections.append(ContentSection(type: .literal, content: try parse2AttributeString(string: content!)))
         }
 
         return (Topic(id: id, node: node, member: member, title: title, content: content, url: nil, replyCount: nil, createTime: createTime,
-                      lastReplyBy: nil, lastTouched: nil, pageCount: pageCount,contentSections: topicContentSections), try parse2Replies(doc: doc))
+                      lastReplyBy: nil, lastTouched: nil, pageCount: pageCount, contentSections: topicContentSections), try parse2Replies(doc: doc))
     }
 
     func parse2Replies(html: String) throws -> [Reply] {
