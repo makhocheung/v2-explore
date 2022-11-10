@@ -10,8 +10,10 @@ import V2EXClient
 
 struct MainView: View {
     @EnvironmentObject var appState: AppState
+    @State var visibility: NavigationSplitViewVisibility = .all
+
     var body: some View {
-        NavigationSplitView {
+        NavigationSplitView(columnVisibility: $visibility) {
             SidebarView()
         } content: {
             ContentView()
