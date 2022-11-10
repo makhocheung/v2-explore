@@ -36,7 +36,7 @@
 "info.noAccess"="No access to the post";
 "info.help.copyLink"="Copy the post link";
 "info.help.openInBrowser"="Open it with a browser";
-"info.themeCount %@"="%@ themes";
+"info.themeCount %lld"="%lld themes";
 "info.clearCache"="Cache clear";
 "info.clearCacheTips %@"="Total %@, are you sure you want to clear the cache";
 "info.githubFeedback"="GitHub and feedback";
