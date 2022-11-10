@@ -74,8 +74,8 @@ struct NodeView: View {
             }
             .listStyle(.sidebar)
             .task(id: appState.sidebarSelection) {
-                self.currentNode = nil
-                self.topics = []
+                currentNode = nil
+                topics.removeAll()
                 do {
                     let (node, topics) = try await V2EXClient.shared.getNodeTopics(node: node!)
                     self.topics = topics
@@ -83,6 +83,27 @@ struct NodeView: View {
                 } catch {
                     if error.localizedDescription != "cancelled" {
                         appState.show(errorInfo: "info.network.error")
+                    }
+                }
+            }
+            .toolbar {
+                ToolbarItem {
+                    Button {
+                        currentNode = nil
+                        topics.removeAll()
+                        Task {
+                            do {
+                                let (node, topics) = try await V2EXClient.shared.getNodeTopics(node: node!)
+                                self.topics = topics
+                                currentNode = node
+                            } catch {
+                                if error.localizedDescription != "cancelled" {
+                                    appState.show(errorInfo: "info.network.error")
+                                }
+                            }
+                        }
+                    } label: {
+                        Image(systemName: "arrow.clockwise")
                     }
                 }
             }

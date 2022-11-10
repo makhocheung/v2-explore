@@ -29,12 +29,30 @@ struct GlanceTopicsView: View {
             }
             .listStyle(.sidebar)
             .task(id: appState.sidebarSelection) {
-                topics = []
+                topics.removeAll()
                 do {
                     topics = try await V2EXClient.shared.getTopicsByTab(tab: glanceType!.rawValue)
                 } catch {
                     if error.localizedDescription != "cancelled" {
                         appState.show(errorInfo: "info.network.error")
+                    }
+                }
+            }
+            .toolbar {
+                ToolbarItem {
+                    Button {
+                        topics.removeAll()
+                        Task {
+                            do {
+                                topics = try await V2EXClient.shared.getTopicsByTab(tab: glanceType!.rawValue)
+                            } catch {
+                                if error.localizedDescription != "cancelled" {
+                                    appState.show(errorInfo: "info.network.error")
+                                }
+                            }
+                        }
+                    } label: {
+                        Image(systemName: "arrow.clockwise")
                     }
                 }
             }

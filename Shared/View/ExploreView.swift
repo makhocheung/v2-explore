@@ -65,6 +65,30 @@ struct ExploreView: View {
                     }
                 }
             }
+            #if os(macOS)
+                ToolbarItem {
+                    Button {
+                        latestTopics.removeAll()
+                        hottestTopics.removeAll()
+                        Task {
+                            do {
+                                switch listType {
+                                case .latest:
+                                    latestTopics = try await V2EXClient.shared.getLatestTopics()
+                                case .hottest:
+                                    hottestTopics = try await V2EXClient.shared.getHottestTopics()
+                                }
+                            } catch {
+                                if error.localizedDescription != "cancelled" {
+                                    appState.show(errorInfo: "info.network.error")
+                                }
+                            }
+                        }
+                    } label: {
+                        Image(systemName: "arrow.clockwise")
+                    }
+                }
+            #endif
         }
     }
 

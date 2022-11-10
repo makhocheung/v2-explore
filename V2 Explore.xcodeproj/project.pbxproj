@@ -541,7 +541,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = "1.2-SNAPSHOT";
 				PRODUCT_BUNDLE_IDENTIFIER = com.naamfung.v2ex;
 				PRODUCT_NAME = "V2 Explore";
 				SDKROOT = iphoneos;
@@ -576,7 +576,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = "1.2-SNAPSHOT";
 				PRODUCT_BUNDLE_IDENTIFIER = com.naamfung.v2ex;
 				PRODUCT_NAME = "V2 Explore";
 				SDKROOT = iphoneos;
