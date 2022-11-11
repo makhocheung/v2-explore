@@ -10,18 +10,12 @@ import V2EXClient
 
 struct NodeView: View {
     @State var topics: [Topic] = []
-    @State var currentNode: Node?
+    @State var fullNode: Node?
     @EnvironmentObject var appState: AppState
 
     #if os(macOS)
-        var node: Node? {
-            switch appState.sidebarSelection {
-            case let .node(node):
-                return node
-            default:
-                return nil
-            }
-        }
+        @State var node: Node?
+        @State var isShowNodesSelectionView = false
     #else
         var node: Node?
     #endif
@@ -34,7 +28,21 @@ struct NodeView: View {
             }
             .navigationTitle(node.title)
         } else {
-            EmptyView()
+            Label("info.noNodeSelection", systemImage: "water.waves.slash")
+            #if os(macOS)
+                .sheet(isPresented: $isShowNodesSelectionView) {
+                    NodesSelectionView(node: $node)
+                }
+                .toolbar {
+                    ToolbarItem {
+                        Button {
+                            isShowNodesSelectionView.toggle()
+                        } label: {
+                            Text("info.selectNode")
+                        }
+                    }
+                }
+            #endif
         }
     }
 
@@ -46,9 +54,9 @@ struct NodeView: View {
     #if os(macOS)
         var listView: some View {
             List(selection: $appState.topicSelection) {
-                if let currentNode = currentNode {
+                if let fullNode {
                     VStack(spacing: 10) {
-                        KFImage(URL(string: currentNode.avatar!))
+                        KFImage(URL(string: fullNode.avatar!))
                             .placeholder({ _ in
                                 Image(systemName: "photo")
                                     .resizable()
@@ -58,11 +66,11 @@ struct NodeView: View {
                             .resizable()
                             .scaledToFit()
                             .frame(width: 100, height: 100)
-                        Text(currentNode.title)
+                        Text(fullNode.title)
                             .fixedSize(horizontal: false, vertical: true)
                         HStack {
                             Spacer()
-                            Text("info.themeCount \(currentNode.count!)")
+                            Text("info.themeCount \(fullNode.count!)")
                                 .padding(5)
                         }
                     }
@@ -73,13 +81,16 @@ struct NodeView: View {
                 }
             }
             .listStyle(.sidebar)
-            .task(id: appState.sidebarSelection) {
-                currentNode = nil
+            .sheet(isPresented: $isShowNodesSelectionView) {
+                NodesSelectionView(node: $node)
+            }
+            .task(id: node) {
+                fullNode = nil
                 topics.removeAll()
                 do {
                     let (node, topics) = try await V2EXClient.shared.getNodeTopics(node: node!)
                     self.topics = topics
-                    currentNode = node
+                    fullNode = node
                 } catch {
                     if error.localizedDescription != "cancelled" {
                         appState.show(errorInfo: "info.network.error")
@@ -89,13 +100,20 @@ struct NodeView: View {
             .toolbar {
                 ToolbarItem {
                     Button {
-                        currentNode = nil
+                        isShowNodesSelectionView = true
+                    } label: {
+                        Text("info.selectNode")
+                    }
+                }
+                ToolbarItem {
+                    Button {
+                        fullNode = nil
                         topics.removeAll()
                         Task {
                             do {
                                 let (node, topics) = try await V2EXClient.shared.getNodeTopics(node: node!)
                                 self.topics = topics
-                                currentNode = node
+                                fullNode = node
                             } catch {
                                 if error.localizedDescription != "cancelled" {
                                     appState.show(errorInfo: "info.network.error")
@@ -111,9 +129,9 @@ struct NodeView: View {
     #else
         var listView: some View {
             List {
-                if let currentNode = currentNode {
+                if let fullNode {
                     VStack(spacing: 10) {
-                        KFImage(URL(string: currentNode.avatar!))
+                        KFImage(URL(string: fullNode.avatar!))
                             .placeholder({ _ in
                                 Image(systemName: "photo")
                                     .resizable()
@@ -123,11 +141,11 @@ struct NodeView: View {
                             .resizable()
                             .scaledToFit()
                             .frame(width: 100, height: 100)
-                        Text(currentNode.title)
+                        Text(fullNode.title)
                             .fixedSize(horizontal: false, vertical: true)
                         HStack {
                             Spacer()
-                            Text("info.themeCount \(currentNode.count!)")
+                            Text("info.themeCount \(fullNode.count!)")
                                 .padding(5)
                                 .background(Color("TagColor"))
                                 .cornerRadius(5)
@@ -147,7 +165,7 @@ struct NodeView: View {
                 do {
                     let (node, topics) = try await V2EXClient.shared.getNodeTopics(node: node!)
                     self.topics = topics
-                    currentNode = node
+                    fullNode = node
                 } catch {
                     if error.localizedDescription != "cancelled" {
                         appState.show(errorInfo: "info.network.error")

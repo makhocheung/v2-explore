@@ -16,7 +16,7 @@ struct ContentView: View {
                 ExploreView()
             case .glance:
                 GlanceTopicsView()
-            case .node:
+            case .nodes:
                 NodeView()
             }
         } else {

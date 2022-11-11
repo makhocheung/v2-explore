@@ -15,7 +15,8 @@
 "glance.deals"="交易";
 "glance.city"="城市";
 "glance.qna"="问答";
-"glance.nodes"="节点";
+
+"common.nodes"="节点";
 
 "common.explore"="探索";
 "common.glance"="浏览";
@@ -40,3 +41,6 @@
 "info.githubFeedback"="GitHub 与反馈";
 "info.version %@ %@"="版本：%@(build %@)";
 "info.copyright"="Copyright © 2022 Nathan Mak. All Rights Reserved.";
+
+"info.noNodeSelection"="未选择节点";
+"info.selectNode"="选择节点";

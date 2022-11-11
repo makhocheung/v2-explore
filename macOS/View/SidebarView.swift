@@ -8,81 +8,30 @@
 import SwiftUI
 import V2EXClient
 
-let MAIN_TAG = "main.explore"
-let GLANCE_TAG_PREFIX = "glance."
-let NODE_TAG_PREFIX = "node."
-
 struct SidebarView: View {
     @EnvironmentObject var appState: AppState
-    @State var searchText = ""
     var body: some View {
         List(selection: $appState.sidebarSelection) {
             Section {
-                if isContainExplore {
-                    Label("common.explore", systemImage: "newspaper.fill")
-                        .tag(SidebarTag.main)
-                }
-                ForEach(filteredGlanceTypes, id: \.self) { it in
+                Label("common.explore", systemImage: "newspaper.fill")
+                    .tag(SidebarTag.main)
+                ForEach(GlanceType.allCases, id: \.self) { it in
                     Label(LocalizedStringKey("glance." + it.rawValue), systemImage: it.icon)
                         .tag(SidebarTag.glance(it))
                 }
-            } header: {
-                Text("common.glance")
-                    .font(.title3)
-            }
-            if searchText.isEmpty {
-                ForEach(Array(navigationNodes.keys.sorted().enumerated()), id: \.element) { _, key in
-                    Section {
-                        ForEach(navigationNodes[key]!) { node in
-                            Label(node.title, systemImage: "number.square")
-                                .tag(SidebarTag.node(node))
-                        }
-                    } header: {
-                        Text("\(key)")
-                            .font(.title3)
-                    }
-                }
-            } else {
-                ForEach(filteredNavNodes) { node in
-                    Label(node.title, systemImage: "number.square")
-                        .tag(SidebarTag.node(node))
-                }
+                Label("common.nodes", systemImage: "square.grid.3x1.below.line.grid.1x2.fill")
+                    .tag(SidebarTag.nodes)
             }
         }
         .listStyle(.sidebar)
-        .searchable(text: $searchText, placement: SearchFieldPlacement.sidebar, prompt: Text("search.nodes"))
         .onChange(of: appState.sidebarSelection) { _ in
             appState.topicSelection = nil
         }
     }
-
-    var filteredGlanceTypes: [GlanceType] {
-        if searchText.isEmpty {
-            return GlanceType.allCases
-        } else {
-            return GlanceType.allCases.filter { it in
-                String(localized: LocalizedStringResource(stringLiteral: "glance." + it.rawValue)).contains(searchText)
-            }
-        }
-    }
-
-    var filteredNavNodes: [Node] {
-        navigationNodes.flatMap { $1 }.filter { it in
-            it.title.contains(searchText)
-        }
-    }
-
-    var navigationNodes: [String: [Node]] {
-        appState.navigationNodes
-    }
-
-    var isContainExplore: Bool {
-        searchText.isEmpty || String(localized: LocalizedStringResource(stringLiteral: "common.explore")).contains(searchText)
-    }
 }
 
 enum SidebarTag {
-    case main, glance(GlanceType), node(Node)
+    case main, glance(GlanceType), nodes
 }
 
 extension SidebarTag: Equatable {
@@ -102,10 +51,10 @@ extension SidebarTag: Equatable {
             default:
                 return false
             }
-        case let .node(lhsNode):
+        case .nodes:
             switch rhs {
-            case let .node(rhsNode):
-                return lhsNode.id == rhsNode.id
+            case .nodes:
+                return true
             default:
                 return false
             }
@@ -117,11 +66,11 @@ extension SidebarTag: Hashable {
     func hash(into hasher: inout Hasher) {
         switch self {
         case .main:
-            "main.explore".hash(into: &hasher)
+            "common.explore".hash(into: &hasher)
         case let .glance(glanceType):
             return "glance.\(glanceType.rawValue)".hash(into: &hasher)
-        case let .node(node):
-            return node.title.hash(into: &hasher)
+        case .nodes:
+            "common.nodes".hash(into: &hasher)
         }
     }
 }

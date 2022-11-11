@@ -8,7 +8,7 @@
 import Foundation
 
 enum GlanceType: String, CaseIterable {
-    case all, tech, creative, play, apple, jobs, deals, city, qna, nodes
+    case all, tech, creative, play, apple, jobs, deals, city, qna
 
     var icon: String {
         switch self {
@@ -30,8 +30,6 @@ enum GlanceType: String, CaseIterable {
             return "globe.asia.australia"
         case .qna:
             return "questionmark.circle"
-        case .nodes:
-            return "square.grid.3x1.below.line.grid.1x2.fill"
         }
     }
 }
