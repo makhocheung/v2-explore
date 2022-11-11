@@ -91,17 +91,23 @@ class Parser {
             } else {
                 for it in markdownBodyElement.children() {
                     let imgElements = try it.getElementsByTag("img")
-                    if imgElements.isEmpty() {
-                        topicContentSections.append(ContentSection(type: .literal, content: try parse2AttributeString(string: it.outerHtml())))
-                    } else {
+                    if !imgElements.isEmpty() {
                         for imgElement in imgElements {
                             // todo 图片是超链接
                             topicContentSections.append(ContentSection(type: .image, content: try imgElement.attr("src")))
                         }
+                        continue
                     }
+                    let codeElements = try it.select("pre > code")
+                    if !codeElements.isEmpty() {
+                        topicContentSections.append(ContentSection(type: .code, content: try parse2AttributeString(string: it.outerHtml())))
+                        continue
+                    }
+                    topicContentSections.append(ContentSection(type: .literal, content: try parse2AttributeString(string: it.outerHtml())))
                 }
             }
         } else if let topicContentElement {
+            // TODO 非 MD 内容优化
             content = try topicContentElement.outerHtml()
             topicContentSections.append(ContentSection(type: .literal, content: try parse2AttributeString(string: content!)))
         }

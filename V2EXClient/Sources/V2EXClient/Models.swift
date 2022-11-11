@@ -56,7 +56,7 @@ public struct Reply: Decodable, Identifiable {
 
 public struct ContentSection: Identifiable {
     public enum ContentSectionType {
-        case literal, image, video
+        case literal, image, code, video
     }
 
     public let id = UUID()

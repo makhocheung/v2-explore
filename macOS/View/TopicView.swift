@@ -61,6 +61,14 @@ struct TopicView: View {
                                     KFImage(URL(string: $0.content as! String)!)
                                         .resizable()
                                         .scaledToFit()
+                                case .code:
+                                    Text($0.content as! AttributedString)
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                        .padding(.horizontal)
+                                        .padding(.top)
+                                        .background(.thinMaterial)
+                                        .cornerRadius(5)
+                                        .padding(.bottom)
                                 default:
                                     EmptyView()
                                 }
@@ -96,10 +104,10 @@ struct TopicView: View {
                         Image(systemName: "link")
                     }
                     .help("info.help.copyLink")
-                    
+
                     Button {
                         openURL(URL(string: "https://v2ex.com/t/\(topic.id)")!)
-                    }label: {
+                    } label: {
                         Image(systemName: "safari")
                     }
                     .help("info.help.openInBrowser")
