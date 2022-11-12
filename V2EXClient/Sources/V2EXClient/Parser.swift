@@ -107,7 +107,7 @@ class Parser {
                 }
             }
         } else if let topicContentElement {
-            // TODO 非 MD 内容优化
+            // TODO: 非 MD 内容优化
             content = try topicContentElement.outerHtml()
             topicContentSections.append(ContentSection(type: .literal, content: try parse2AttributeString(string: content!)))
         }
@@ -167,6 +167,32 @@ class Parser {
             map[nodesTitle] = nodes
         }
         return map
+    }
+
+    func parse2PreSignIn(html: String) throws -> PreSignIn {
+        let doc = try SwiftSoup.parse(html)
+        let trs = try doc.select("form > table tr")
+        let usernameTr = trs[0]
+        let passwordTr = trs[1]
+        let captchaTr = trs[2]
+        let onceTr = trs[3]
+        let usernameKey = try usernameTr.getElementsByTag("input").first()!.attr("name")
+        let passwordKey = try passwordTr.getElementsByTag("input").first()!.attr("name")
+        let captchaKey = try captchaTr.getElementsByTag("input").first()!.attr("name")
+        let once = try onceTr.getElementsByTag("input").first()!.attr("value")
+        return PreSignIn(usernameKey: usernameKey, passwordKey: passwordKey, captchaKey: captchaKey, once: once)
+    }
+
+    func parse2User(html: String) throws -> User? {
+        let doc = try SwiftSoup.parse(html)
+        guard let userTable = try doc.getElementById("Rightbar")?.getElementsByClass("box").first()?.getElementsByClass("cell").first()?.getElementsByTag("table").first() else {
+            return nil
+        }
+        let aElements = try userTable.getElementsByTag("a")
+        let url = try aElements[0].attr("href")
+        let avatar = try aElements[0].getElementsByTag("img").first()!.attr("src")
+        let name = try aElements[2].text()
+        return User(name: name, url: url, avatar: avatar)
     }
 
     private func timestamp2Date(timestamp: Int64) -> String {

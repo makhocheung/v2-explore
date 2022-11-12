@@ -5,25 +5,60 @@
 //  Created by Mak Ho-Cheung on 2022/9/8.
 //
 
+import Kingfisher
 import SwiftUI
 import V2EXClient
 
 struct SidebarView: View {
     @EnvironmentObject var appState: AppState
     var body: some View {
-        List(selection: $appState.sidebarSelection) {
-            Section {
-                Label("common.explore", systemImage: "newspaper.fill")
-                    .tag(SidebarTag.main)
-                ForEach(GlanceType.allCases, id: \.self) { it in
-                    Label(LocalizedStringKey("glance." + it.rawValue), systemImage: it.icon)
-                        .tag(SidebarTag.glance(it))
+        VStack {
+            if let user = appState.user {
+                KFImage(URL(string: user.avatar)!)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 50)
+                    .clipShape(Circle())
+            } else {
+                Button {
+                    appState.isShowLoginView.toggle()
+                } label: {
+                    ZStack {
+                        HStack {
+                            Image(systemName: "person.circle")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(height: 25)
+                            Text("common.signIn")
+                        }
+                    }
+                    .frame(height: 50)
                 }
-                Label("common.nodes", systemImage: "square.grid.3x1.below.line.grid.1x2.fill")
-                    .tag(SidebarTag.nodes)
+                .buttonStyle(.borderless)
             }
+            List(selection: $appState.sidebarSelection) {
+                Section {
+                    Label("common.explore", systemImage: "newspaper.fill")
+                        .tag(SidebarTag.main)
+                    ForEach(GlanceType.allCases, id: \.self) { it in
+                        Label(LocalizedStringKey("glance." + it.rawValue), systemImage: it.icon)
+                            .tag(SidebarTag.glance(it))
+                    }
+                } header: {
+                    Text("common.hot")
+                }
+                Section {
+                    Label("common.nodes", systemImage: "square.grid.3x1.below.line.grid.1x2.fill")
+                        .tag(SidebarTag.nodes)
+//                    Label("搜索", systemImage: "magnifyingglass.circle")
+//                        .tag(SidebarTag.nodes)
+                } header: {
+                    Text("common.glance")
+                }
+            }
+            .listStyle(.sidebar)
         }
-        .listStyle(.sidebar)
+
         .onChange(of: appState.sidebarSelection) { _ in
             appState.topicSelection = nil
         }

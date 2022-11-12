@@ -108,6 +108,7 @@ struct NodeView: View {
                 ToolbarItem {
                     Button {
                         fullNode = nil
+                        appState.topicSelection = nil
                         topics.removeAll()
                         Task {
                             do {

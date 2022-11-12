@@ -19,7 +19,6 @@
 "glance.qna"="Q & A";
 
 "common.nodes"="Nodes";
-
 "common.explore"="Explore";
 "common.glance"="Glance";
 "common.profile"="Profile";
@@ -29,6 +28,11 @@
 "common.confirm"="Confirm";
 "common.cancel"="Cancel";
 "common.share"="Share";
+"common.signIn"="Sign in";
+"common.hot"="Hot";
+"common.username"="Username";
+"common.password"="password";
+"common.captcha"="Captcha";
 
 "search.nodes"="Search nodes";
 
@@ -46,3 +50,6 @@
 
 "info.noNodeSelection"="Don't select nodes";
 "info.selectNode"="Select nodes";
+"info.usernameOrEmail"="Username or email";
+"info.areYouRobot"="Robot?";
+"info.enterCaptchaAndClickToChangePicture"="Please enter captcha, click to change picture";

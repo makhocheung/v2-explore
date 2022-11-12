@@ -21,6 +21,9 @@ struct MainView: View {
         } detail: {
             TopicView()
         }
+        .sheet(isPresented: $appState.isShowLoginView) {
+            SignInView()
+        }
         .alert(LocalizedStringKey(appState.normalInfo), isPresented: $appState.isShowNormalInfo) {}
         .alert(LocalizedStringKey(appState.errorInfo), isPresented: $appState.isShowErrorInfo) {}
     }

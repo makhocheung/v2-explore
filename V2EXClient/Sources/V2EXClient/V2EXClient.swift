@@ -80,6 +80,44 @@ public class V2EXClient {
         #endif
     }
 
+    public func getCaptchaUrl() -> URL {
+        let timestamp = Int(Date.now.timeIntervalSince1970 * 1000)
+        return URL(string: "https://v2ex.com/_captcha?now=\(timestamp)")!
+    }
+
+    public func getPreSignIn() async throws -> PreSignIn {
+        let (data, response) = try await urlSession.data(from: URL(string: "https://v2ex.com/signin")!)
+        return try parser.parse2PreSignIn(html: String(data: data, encoding: .utf8)!)
+    }
+
+    public func signIn(signIn: SignIn) async throws -> User {
+        HTTPCookieStorage.shared.cookies?.filter { $0.domain.contains("v2ex.com") && $0.name == "A2" }.forEach {
+            HTTPCookieStorage.shared.deleteCookie($0)
+        }
+        let url = URL(string: "https://v2ex.com/signin")!
+        var request = URLRequest(url: url)
+        request.setValue("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.1 Safari/605.1.15", forHTTPHeaderField: "User-Agent")
+        request.setValue("https://v2ex.com/signin", forHTTPHeaderField: "Referer")
+        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "POST"
+        let encodedUsername = signIn.username.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        let encodedPassword = signIn.password.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        let body = "\(signIn.usernameKey)=\(encodedUsername)&\(signIn.passwordKey)=\(encodedPassword)&\(signIn.captchaKey)=\(signIn.captcha)&once=\(signIn.once)&next=/"
+        request.httpBody = body.data(using: .utf8)
+        let (data,_) = try await urlSession.data(for: request)
+        if let user = try parser.parse2User(html: String(data: data, encoding: .utf8)!) {
+            return user
+        } else {
+            throw V2EXClientError.loginFailed
+        }
+    }
+
+    public func isSignIn() async throws -> User? {
+        let (data, _) = try await urlSession.data(from: URL(string: "https://v2ex.com")!)
+        let html = String(data: data, encoding: .utf8)!
+        return try parser.parse2User(html: html)
+    }
+
     private func doGetTopicsHtml(url: String) async throws -> String {
         let (data, _) = try await urlSession.data(from: URL(string: url)!)
         return String(data: data, encoding: .utf8)!

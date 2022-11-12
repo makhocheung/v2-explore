@@ -65,5 +65,44 @@ public struct ContentSection: Identifiable {
 }
 
 public enum V2EXClientError: Error {
-    case unavailable
+    case unavailable, loginFailed
+}
+
+public struct PreSignIn {
+    public let usernameKey: String
+    public let passwordKey: String
+    public let captchaKey: String
+    public let once: String
+    public let captchaUrl = URL(string: "https://v2ex.com/_captcha")!
+}
+
+public struct SignIn {
+    public let usernameKey: String
+    public let passwordKey: String
+    public let captchaKey: String
+    public let username: String
+    public let password: String
+    public let captcha: String
+    public let once: String
+
+    public init(usernameKey: String, passwordKey: String, captchaKey: String, username: String, password: String, captcha: String, once: String) {
+        self.usernameKey = usernameKey
+        self.passwordKey = passwordKey
+        self.captchaKey = captchaKey
+        self.username = username
+        self.password = password
+        self.captcha = captcha
+        self.once = once
+    }
+}
+
+public struct User {
+    public let name: String
+    public let url: String
+    public let avatar: String
+    public init(name: String, url: String, avatar: String) {
+        self.name = name
+        self.url = url
+        self.avatar = avatar
+    }
 }

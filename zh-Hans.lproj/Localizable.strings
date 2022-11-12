@@ -17,7 +17,6 @@
 "glance.qna"="问答";
 
 "common.nodes"="节点";
-
 "common.explore"="探索";
 "common.glance"="浏览";
 "common.profile"="我的";
@@ -27,6 +26,11 @@
 "common.confirm"="确认";
 "common.cancel"="取消";
 "common.share"="分享";
+"common.signIn"="登录";
+"common.hot"="热门";
+"common.username"="用户名";
+"common.password"="密码";
+"common.captcha"="验证码";
 
 "search.nodes"="搜索节点";
 
@@ -44,3 +48,6 @@
 
 "info.noNodeSelection"="未选择节点";
 "info.selectNode"="选择节点";
+"info.usernameOrEmail"="用户名或电子邮箱地址";
+"info.areYouRobot"="机器人？";
+"info.enterCaptchaAndClickToChangePicture"="请输入验证码，点击可更换图片";

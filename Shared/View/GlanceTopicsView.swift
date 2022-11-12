@@ -42,6 +42,7 @@ struct GlanceTopicsView: View {
                 ToolbarItem {
                     Button {
                         topics.removeAll()
+                        appState.topicSelection = nil
                         Task {
                             do {
                                 topics = try await V2EXClient.shared.getTopicsByTab(tab: glanceType!.rawValue)

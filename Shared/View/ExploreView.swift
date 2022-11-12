@@ -70,6 +70,7 @@ struct ExploreView: View {
                     Button {
                         latestTopics.removeAll()
                         hottestTopics.removeAll()
+                        appState.topicSelection = nil
                         Task {
                             do {
                                 switch listType {
