@@ -20,8 +20,19 @@ class AppState: ObservableObject {
         let name = ud.string(forKey: "username")
         let avatar = ud.string(forKey: "avatar")
         let url = ud.string(forKey: "url")
-        if let name, let avatar, let url {
-            user = User(name: name, url: url, avatar: avatar)
+        let a2 = ud.string(forKey: "a2")
+        let a2ExpireDateAny = ud.object(forKey: "a2ExpireDate")
+
+        if let name, let avatar, let url, let a2, let a2ExpireDate = a2ExpireDateAny as? Date {
+            if a2ExpireDate > Date.now {
+                user = User(name: name, url: url, avatar: avatar, a2: a2, a2ExpireDate: a2ExpireDate as! Date)
+            } else {
+                ud.removeObject(forKey: "username")
+                ud.removeObject(forKey: "avatar")
+                ud.removeObject(forKey: "url")
+                ud.removeObject(forKey: "a2")
+                ud.removeObject(forKey: "a2ExpireDate")
+            }
         }
     }
 
@@ -44,6 +55,8 @@ class AppState: ObservableObject {
         ud.setValue(user.name, forKey: "username")
         ud.setValue(user.avatar, forKey: "avatar")
         ud.setValue(user.url, forKey: "url")
+        ud.setValue(user.a2, forKey: "a2")
+        ud.setValue(user.a2ExpireDate, forKey: "a2ExpireDate")
     }
 
     #if os(macOS)

@@ -86,7 +86,7 @@ public class V2EXClient {
     }
 
     public func getPreSignIn() async throws -> PreSignIn {
-        let (data, response) = try await urlSession.data(from: URL(string: "https://v2ex.com/signin")!)
+        let (data, _) = try await urlSession.data(from: URL(string: "https://v2ex.com/signin")!)
         return try parser.parse2PreSignIn(html: String(data: data, encoding: .utf8)!)
     }
 

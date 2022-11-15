@@ -100,9 +100,14 @@ public struct User {
     public let name: String
     public let url: String
     public let avatar: String
-    public init(name: String, url: String, avatar: String) {
+    public let a2: String
+    public let a2ExpireDate: Date
+    
+    public init(name: String, url: String, avatar: String, a2: String, a2ExpireDate: Date) {
         self.name = name
         self.url = url
         self.avatar = avatar
+        self.a2 = a2
+        self.a2ExpireDate = a2ExpireDate
     }
 }

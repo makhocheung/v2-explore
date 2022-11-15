@@ -20,6 +20,6 @@ final class V2EXClientTests: XCTestCase {
     }
     
     func testCookie() async throws {
-       print(try await V2EXClient.shared.isSignIn())
+        
     }
 }

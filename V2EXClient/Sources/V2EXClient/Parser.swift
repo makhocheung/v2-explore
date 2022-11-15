@@ -192,7 +192,13 @@ class Parser {
         let url = try aElements[0].attr("href")
         let avatar = try aElements[0].getElementsByTag("img").first()!.attr("src")
         let name = try aElements[2].text()
-        return User(name: name, url: url, avatar: avatar)
+        let a2Cookie = HTTPCookieStorage.shared.cookies?.filter {
+            $0.domain.contains("v2ex") && $0.name == "A2"
+        }.first
+        guard let a2Cookie else {
+            throw V2EXClientError.loginFailed
+        }
+        return User(name: name, url: url, avatar: avatar, a2: a2Cookie.value, a2ExpireDate: a2Cookie.expiresDate!)
     }
 
     private func timestamp2Date(timestamp: Int64) -> String {
