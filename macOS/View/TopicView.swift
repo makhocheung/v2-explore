@@ -13,7 +13,6 @@ struct TopicView: View {
     @Environment(\.colorScheme) var colorScheme
     @State var topic: Topic?
     @State var replies: [Reply]?
-    @State var webViewHeight = CGFloat.zero
     @State var isShoading = false
     @EnvironmentObject var appState: AppState
     @Environment(\.openURL) var openURL
@@ -93,31 +92,53 @@ struct TopicView: View {
             }
         }
         .toolbar {
-            if let topic {
+            if let topicId = appState.topicSelection {
                 ToolbarItemGroup {
-                    Button {
-                        let pasteBoard = NSPasteboard.general
-                        pasteBoard.clearContents()
-                        pasteBoard.setString("https://v2ex.com/t/\(topic.id)", forType: .string)
-                        appState.show(normalInfo: "info.copy.link")
-                    } label: {
-                        Image(systemName: "link")
-                    }
-                    .help("info.help.copyLink")
+                    Group {
+                        Button {
+                            let pasteBoard = NSPasteboard.general
+                            pasteBoard.clearContents()
+                            pasteBoard.setString("https://v2ex.com/t/\(topicId)", forType: .string)
+                            appState.show(normalInfo: "info.copy.link")
+                        } label: {
+                            Image(systemName: "link")
+                        }
+                        .help("info.help.copyLink")
 
-                    Button {
-                        openURL(URL(string: "https://v2ex.com/t/\(topic.id)")!)
-                    } label: {
-                        Image(systemName: "safari")
+                        Button {
+                            openURL(URL(string: "https://v2ex.com/t/\(topicId)")!)
+                        } label: {
+                            Image(systemName: "safari")
+                        }
+                        .help("info.help.openInBrowser")
+
+                        Button {
+                            self.topic = nil
+                            self.replies = nil
+                            self.isShoading = true
+                            Task {
+                                do {
+                                    let (topic, replies) = try await V2EXClient.shared.getTopicReplies(id: topicId)
+                                    self.topic = topic
+                                    self.replies = replies
+                                    self.isShoading = false
+                                } catch V2EXClientError.unavailable {
+                                    appState.show(normalInfo: "info.noAccess")
+                                } catch {
+                                    appState.show(errorInfo: "info.network.error")
+                                }
+                            }
+                        } label: {
+                            Image(systemName: "arrow.clockwise")
+                        }
                     }
-                    .help("info.help.openInBrowser")
+                    .disabled(isShoading)
                 }
             }
         }
         .onChange(of: appState.topicSelection) { topicId in
             self.topic = nil
             self.replies = nil
-            self.webViewHeight = CGFloat.zero
             if let topicId {
                 self.isShoading = true
                 Task {
