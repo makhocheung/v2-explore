@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-public struct Topic: Decodable, Identifiable {
+public struct Topic: Codable, Identifiable {
     public let id: String
     public let node: Node
     public let member: Member
@@ -27,13 +27,13 @@ public struct Topic: Decodable, Identifiable {
     }
 }
 
-public struct Member: Decodable {
+public struct Member: Codable {
     public var name: String
     public var url: String?
     public var avatar: String?
 }
 
-public struct Node: Decodable, Identifiable, Equatable, Hashable {
+public struct Node: Codable, Identifiable, Equatable, Hashable {
     public var id = UUID()
     public var title: String
     public var url: String
@@ -46,7 +46,7 @@ public struct Node: Decodable, Identifiable, Equatable, Hashable {
     public static let mock = Node(title: "Java", url: "https://www.v2ex.com/go/java", name: "Java", avatar: "https://cdn.v2ex.com/navatar/03af/dbd6/63_xlarge.png?m=1644490200", desc: "Sun 公司发明，被广泛使用的一门编程语言。", count: 5103)
 }
 
-public struct Reply: Decodable, Identifiable {
+public struct Reply: Codable, Identifiable {
     public var id: String
     public var content: String
     public var attributeStringContent: AttributedString

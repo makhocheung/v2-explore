@@ -17,7 +17,7 @@ struct MainView: View {
             SidebarView()
         } content: {
             ContentView()
-                .navigationSplitViewColumnWidth(min: 250, ideal: 250)
+                .navigationSplitViewColumnWidth(min: 270, ideal: 270)
         } detail: {
             TopicView()
         }
@@ -26,6 +26,10 @@ struct MainView: View {
         }
         .alert(LocalizedStringKey(appState.normalInfo), isPresented: $appState.isShowNormalInfo) {}
         .alert(LocalizedStringKey(appState.errorInfo), isPresented: $appState.isShowErrorInfo) {}
+        .onOpenURL { url in
+            appState.sidebarSelection = .main
+            appState.topicSelection = url.lastPathComponent
+        }
     }
 }
 

@@ -16,6 +16,10 @@ public class V2EXClient {
 
     // ========
 
+    public func getLatestTopicsForDebug() throws -> [Topic]  {
+        return try parser.parse2SimpleTopics(html: debugTopicsHtml)
+    }
+
     // 获取最新话题
     public func getLatestTopics() async throws -> [Topic] {
         #if DEBUG
@@ -104,7 +108,7 @@ public class V2EXClient {
         let encodedPassword = signIn.password.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         let body = "\(signIn.usernameKey)=\(encodedUsername)&\(signIn.passwordKey)=\(encodedPassword)&\(signIn.captchaKey)=\(signIn.captcha)&once=\(signIn.once)&next=/"
         request.httpBody = body.data(using: .utf8)
-        let (data,_) = try await urlSession.data(for: request)
+        let (data, _) = try await urlSession.data(for: request)
         if let user = try parser.parse2User(html: String(data: data, encoding: .utf8)!) {
             return user
         } else {

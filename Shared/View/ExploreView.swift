@@ -13,6 +13,7 @@ struct ExploreView: View {
     @State var latestTopics: [Topic] = []
     @State var hottestTopics: [Topic] = []
     @EnvironmentObject var appState: AppState
+    @AppStorage("topicsForWidgets",store: UserDefaults(suiteName: "group.com.naamfung.widgets")) var topicsForWidgets: Data?
 
     var body: some View {
         ZStack {
@@ -54,6 +55,7 @@ struct ExploreView: View {
                             switch listType {
                             case .latest:
                                 latestTopics = try await V2EXClient.shared.getLatestTopics()
+                                topicsForWidgets = try JSONEncoder().encode(Array(latestTopics.prefix(3)))
                             case .hottest:
                                 hottestTopics = try await V2EXClient.shared.getHottestTopics()
                             }
@@ -70,12 +72,13 @@ struct ExploreView: View {
                     Button {
                         latestTopics.removeAll()
                         hottestTopics.removeAll()
-                        appState.topicSelection = nil
+                        appState.clearTopicSelection()
                         Task {
                             do {
                                 switch listType {
                                 case .latest:
                                     latestTopics = try await V2EXClient.shared.getLatestTopics()
+                                    topicsForWidgets = try JSONEncoder().encode(Array(latestTopics.prefix(3)))
                                 case .hottest:
                                     hottestTopics = try await V2EXClient.shared.getHottestTopics()
                                 }
@@ -132,6 +135,7 @@ struct ExploreView: View {
                     switch listType {
                     case .latest:
                         latestTopics = try await V2EXClient.shared.getLatestTopics()
+                        topicsForWidgets = try JSONEncoder().encode(Array(latestTopics.prefix(3)))
                     case .hottest:
                         hottestTopics = try await V2EXClient.shared.getHottestTopics()
                     }
