@@ -26,6 +26,14 @@ struct V2EXApp: App {
         #endif
 
         #if os(macOS)
+            WindowGroup(id: "UserTopics", for: String.self) { value in
+                if let username = value.wrappedValue {
+                    UserTopicsView(username: username)
+                        .environmentObject(AppState())
+                }
+            }
+            .defaultSize(width: 1240, height: 800)
+
             Settings {
                 PreferencesView()
                     .environmentObject(appState)

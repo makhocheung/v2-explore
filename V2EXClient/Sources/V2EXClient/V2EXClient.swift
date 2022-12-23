@@ -49,6 +49,12 @@ public class V2EXClient {
         }
     }
 
+    // 获取某用户的话题
+    public func getTopicsByUser(username: String) async throws -> [Topic] {
+        let html = try await doGetTopicsHtml(url: "https://v2ex.com/member/\(username)/topics")
+        return try parser.parse2SimpleTopics(html: html)
+    }
+
     // 获取节点导航数据
     public func getNavigatinNodes() throws -> [String: [Node]] {
         let doc = try SwiftSoup.parse(nodesHtml)
@@ -146,7 +152,6 @@ public class V2EXClient {
             let detailHtml = String(data: detailData, encoding: .utf8)!
             return try parser.parse2UserFromDetail(html: detailHtml)
         }
-        
     }
 
     private func doGetTopicsHtml(url: String) async throws -> String {

@@ -17,11 +17,6 @@ struct SimpleTopicNavigationLinkView: View {
         #if os(macOS)
         VStack(spacing: 0) {
             SimpleTopicView(topic: topic)
-            Rectangle()
-                .foregroundColor(.accentColor.opacity(0.2))
-                .frame(maxWidth: .infinity)
-                .frame(height: 1)
-                .offset(y: 4.5)
         }
         #else
         SimpleTopicView(topic: topic)

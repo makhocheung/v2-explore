@@ -20,7 +20,7 @@ final class V2EXClientTests: XCTestCase {
     }
     
     func testCookie() async throws {
-       let user = try await V2EXClient.shared.getUserProfile(name: "MakHoCheung")
-        print(user)
+       let topics = try await V2EXClient.shared.getTopicsByUser(username: "ojh")
+        print(topics)
     }
 }

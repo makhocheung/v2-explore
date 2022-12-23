@@ -11,11 +11,13 @@ import V2EXClient
 
 struct SidebarView: View {
     @EnvironmentObject var appState: AppState
+    @State var userProfileSelection: UserProfileSelection?
+
     var body: some View {
         VStack {
             if let user = appState.user {
                 Button {
-                    appState.userProfileSelection = UserProfileSelection(isLoginUser: true, username: user.name)
+                    userProfileSelection = UserProfileSelection(isLoginUser: true, username: user.name)
                 } label: {
                     KFImage(URL(string: user.avatar)!)
                         .resizable()
@@ -24,6 +26,9 @@ struct SidebarView: View {
                         .clipShape(Circle())
                 }
                 .buttonStyle(.plain)
+                .popover(item: $userProfileSelection) {
+                    UserProfileView(username: $0.username,useHomeData: $0.isLoginUser)
+                }
             } else {
                 Button {
                     appState.isShowLoginView.toggle()

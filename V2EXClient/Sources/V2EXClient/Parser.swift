@@ -18,7 +18,14 @@ class Parser {
             let (id, title, url) = try parse2GetIdTitleUrl(element: try itemElement.getElementsByClass("item_title").first()!)
             let member = try parse2GetMember(ele: try itemElement.getElementsByTag("a").first()!)
             let (node, createTime, lastTouched, lastReplyBy) = try parse2GetNodeCreateTimeLastTouchedLastReplyBy(element: try itemElement.getElementsByClass("topic_info").first()!)
-            let replyCount = Int(try itemElement.getElementsByClass("count_livid").first()?.text() ?? "0") ?? 0
+            var replyCount = 0
+            if let countElement = try itemElement.getElementsByClass("count_livid").first() {
+                replyCount = Int(try countElement.text()) ?? 0
+            } else {
+                if let countOrangeElement = try itemElement.getElementsByClass("count_orange").first() {
+                    replyCount = Int(try countOrangeElement.text()) ?? 0
+                }
+            }
             topics.append(Topic(id: id, node: node, member: member, title: title, content: nil,
                                 url: url, replyCount: replyCount, createTime: createTime, lastReplyBy: lastReplyBy, lastTouched: lastTouched, pageCount: nil))
         }
@@ -329,12 +336,15 @@ class Parser {
         return (createTime, lastTouched, lastReplyBy)
     }
 
-    private func parse2GetMember(ele: Element) throws -> Member {
-        let imgElement = try ele.getElementsByTag("img").first()!
-        let url = try ele.attr("href")
-        let name = try imgElement.attr("alt")
-        let avatar = try imgElement.attr("src")
-        return Member(name: name, url: url, avatar: avatar)
+    private func parse2GetMember(ele: Element) throws -> Member? {
+        if let imgElement = try ele.getElementsByTag("img").first() {
+            let url = try ele.attr("href")
+            let name = try imgElement.attr("alt")
+            let avatar = try imgElement.attr("src")
+            return Member(name: name, url: url, avatar: avatar)
+        } else {
+            return nil
+        }
     }
 
     private func parse2AttributeString(string: String) throws -> AttributedString {

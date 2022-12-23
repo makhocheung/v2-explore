@@ -16,6 +16,7 @@ struct TopicView: View {
     @State var isShoading = false
     @EnvironmentObject var appState: AppState
     @Environment(\.openURL) var openURL
+    @State var userProfileSelection: UserProfileSelection?
 
     var body: some View {
         ZStack {
@@ -24,9 +25,9 @@ struct TopicView: View {
                     VStack {
                         HStack {
                             Button {
-                                appState.userProfileSelection = UserProfileSelection(username: topic.member.name)
+                                userProfileSelection = UserProfileSelection(username: topic.member!.name)
                             } label: {
-                                KFImage(URL(string: topic.member.avatar!))
+                                KFImage(URL(string: topic.member!.avatar!))
                                     .placeholder({ _ in
                                         Image(systemName: "photo")
                                             .resizable()
@@ -39,11 +40,14 @@ struct TopicView: View {
                                     .cornerRadius(4)
                             }
                             .buttonStyle(.plain)
+                            .popover(item: $userProfileSelection) {
+                                UserProfileView(username: $0.username,useHomeData: $0.isLoginUser)
+                            }
                             VStack(alignment: .leading, spacing: 5) {
                                 Button {
-                                    appState.userProfileSelection = UserProfileSelection(username: topic.member.name)
+                                    userProfileSelection = UserProfileSelection(username: topic.member!.name)
                                 } label: {
-                                    Text(topic.member.name)
+                                    Text(topic.member!.name)
                                 }
                                 .buttonStyle(.plain)
                                 Text(topic.createTime!)
@@ -87,7 +91,7 @@ struct TopicView: View {
                         ForEach(replies!.indices) { index in
                             let reply = replies![index]
                             VStack {
-                                ReplyView(reply: reply, isOP: topic.member.name == reply.member.name, floor: index + 1)
+                                ReplyView(reply: reply, isOP: topic.member!.name == reply.member.name, floor: index + 1)
                                 Divider()
                             }
                         }

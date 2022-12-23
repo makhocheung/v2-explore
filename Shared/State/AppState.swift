@@ -15,7 +15,7 @@ class AppState: ObservableObject {
     @Published var normalInfo = ""
     @Published var user: User?
     @Published var token: Token?
-    @Published var userProfileSelection: UserProfileSelection?
+    //@Published var userProfileSelection: UserProfileSelection?
 
     init() {
         let ud = UserDefaults.standard

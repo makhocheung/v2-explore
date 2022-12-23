@@ -14,11 +14,12 @@ struct ReplyView: View {
     var isOP = false
     var floor = 1
     @EnvironmentObject var appState: AppState
+    @State var userProfileSelection: UserProfileSelection?
     var body: some View {
         VStack {
             HStack {
                 Button {
-                    appState.userProfileSelection = UserProfileSelection(username: reply.member.name)
+                    userProfileSelection = UserProfileSelection(username: reply.member.name)
                 } label: {
                     KFImage(URL(string: reply.member.avatar!))
                         .placeholder({ _ in
@@ -33,10 +34,13 @@ struct ReplyView: View {
                         .cornerRadius(4)
                 }
                 .buttonStyle(.plain)
+                .popover(item: $userProfileSelection) {
+                    UserProfileView(username: $0.username,useHomeData: $0.isLoginUser)
+                }
                 VStack(alignment: .leading, spacing: 2) {
                     HStack {
                         Button {
-                            appState.userProfileSelection = UserProfileSelection(username: reply.member.name)
+                            userProfileSelection = UserProfileSelection(username: reply.member.name)
                         } label: {
                             Text(reply.member.name)
                         }

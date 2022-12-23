@@ -15,20 +15,24 @@ struct SimpleTopicView: View {
     var body: some View {
         VStack(spacing: 5) {
             HStack {
-                KFImage(URL(string: topic.member.avatar!))
-                    .placeholder({ _ in
-                        Image(systemName: "photo")
-                            .resizable()
-                            .scaledToFit()
-                    })
-                    .fade(duration: 0.25)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 40, height: 40)
-                    .cornerRadius(4)
+                if let member = topic.member {
+                    KFImage(URL(string: member.avatar!))
+                        .placeholder({ _ in
+                            Image(systemName: "photo")
+                                .resizable()
+                                .scaledToFit()
+                        })
+                        .fade(duration: 0.25)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 40, height: 40)
+                        .cornerRadius(4)
+                }
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(topic.member.name)
-                        .foregroundColor(.primary)
+                    if let member = topic.member {
+                        Text(member.name)
+                            .foregroundColor(.primary)
+                    }
                     if let lastReplyBy = topic.lastReplyBy {
                         HStack {
                             Text(topic.lastTouched!)

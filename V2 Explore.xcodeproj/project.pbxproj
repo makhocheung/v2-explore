@@ -10,8 +10,10 @@
 		7005F54B28DFFE0E003184A6 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 7005F54A28DFFE0E003184A6 /* Kingfisher */; };
 		7005F54E28DFFE22003184A6 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 7005F54D28DFFE22003184A6 /* Kingfisher */; };
 		700B218F2952DB0D0053DAB6 /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 700B218E2952DB0D0053DAB6 /* UserProfileView.swift */; };
+		700DAF5B2955B09F0014C7C2 /* UserTopicsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 700DAF5A2955B09F0014C7C2 /* UserTopicsView.swift */; };
 		701269AB290903100094BBE2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701269AA290903100094BBE2 /* AppDelegate.swift */; };
 		70234E4528CA1DAB00271982 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70234E4428CA1DAB00271982 /* ContentView.swift */; };
+		70262FF7297120B300A583AF /* UserProfileContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70262FF6297120B300A583AF /* UserProfileContentView.swift */; };
 		703A463D28C0549C00A87598 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 703A464028C0549C00A87598 /* Localizable.strings */; };
 		703A463E28C0549C00A87598 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 703A464028C0549C00A87598 /* Localizable.strings */; };
 		7047430729306BE30028A610 /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7047430629306BE30028A610 /* PreferencesView.swift */; };
@@ -112,8 +114,10 @@
 
 /* Begin PBXFileReference section */
 		700B218E2952DB0D0053DAB6 /* UserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
+		700DAF5A2955B09F0014C7C2 /* UserTopicsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTopicsView.swift; sourceTree = "<group>"; };
 		701269AA290903100094BBE2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		70234E4428CA1DAB00271982 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		70262FF6297120B300A583AF /* UserProfileContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileContentView.swift; sourceTree = "<group>"; };
 		703A463F28C0549C00A87598 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		703A464128C054A200A87598 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		703E221527EEFE48007B0865 /* 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2.png; sourceTree = "<group>"; };
@@ -317,6 +321,8 @@
 				70C30311291E7D380039CCFA /* SignInView.swift */,
 				7047430629306BE30028A610 /* PreferencesView.swift */,
 				700B218E2952DB0D0053DAB6 /* UserProfileView.swift */,
+				700DAF5A2955B09F0014C7C2 /* UserTopicsView.swift */,
+				70262FF6297120B300A583AF /* UserProfileContentView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -575,12 +581,14 @@
 				70BC2D70274CB665008E2AF1 /* V2EXApp.swift in Sources */,
 				7047430729306BE30028A610 /* PreferencesView.swift in Sources */,
 				70CB7A0A27E71500009783FF /* NodeView.swift in Sources */,
+				700DAF5B2955B09F0014C7C2 /* UserTopicsView.swift in Sources */,
 				700B218F2952DB0D0053DAB6 /* UserProfileView.swift in Sources */,
 				70B8C58F28C9DDB900F80A44 /* SidebarView.swift in Sources */,
 				70DA186328C1E50000F24275 /* MainView.swift in Sources */,
 				70CB7A1227E71535009783FF /* GlanceTopicsView.swift in Sources */,
 				7086C91A28CB7B1C006EE04C /* SimpleTopicNavigationLinkView.swift in Sources */,
 				70234E4528CA1DAB00271982 /* ContentView.swift in Sources */,
+				70262FF7297120B300A583AF /* UserProfileContentView.swift in Sources */,
 				70CB7A1727E71535009783FF /* SimpleTopicView.swift in Sources */,
 				70CB7A1627E71535009783FF /* ProfileView.swift in Sources */,
 				DBE6492363F0AC4D310D1CEA /* ExploreTopicType.swift in Sources */,
@@ -834,6 +842,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -851,6 +860,7 @@
 				MARKETING_VERSION = "1.2-SNAPSHOT";
 				PRODUCT_BUNDLE_IDENTIFIER = com.naamfung.v2ex;
 				PRODUCT_NAME = "V2 Explore";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -864,6 +874,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -881,6 +892,7 @@
 				MARKETING_VERSION = "1.2-SNAPSHOT";
 				PRODUCT_BUNDLE_IDENTIFIER = com.naamfung.v2ex;
 				PRODUCT_NAME = "V2 Explore";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

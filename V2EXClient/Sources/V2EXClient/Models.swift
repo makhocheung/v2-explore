@@ -11,7 +11,7 @@ import SwiftUI
 public struct Topic: Codable, Identifiable {
     public let id: String
     public let node: Node
-    public let member: Member
+    public let member: Member?
     public let title: String
     public let content: String?
     public let url: String?
