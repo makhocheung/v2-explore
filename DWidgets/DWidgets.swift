@@ -47,6 +47,7 @@ struct DWidgets: Widget {
         }
         .configurationDisplayName("V2 Explore")
         .description("最新帖子")
+        .supportedFamilies([.systemSmall])
     }
 }
 

@@ -9,21 +9,27 @@ import SwiftUI
 
 @main
 struct V2EXApp: App {
-    
     #if os(macOS)
-    @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
+        @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
     #endif
-    
+
     private let appState = AppState()
-    
+
     var body: some Scene {
-        WindowGroup {
+        Window("V2 Explore", id: "Main") {
             MainView()
                 .environmentObject(appState)
         }
         #if os(macOS)
         .windowToolbarStyle(.unified(showsTitle: false))
         .defaultSize(width: 1240, height: 800)
+        #endif
+
+        #if os(macOS)
+            Settings {
+                PreferencesView()
+                    .environmentObject(appState)
+            }
         #endif
     }
 }

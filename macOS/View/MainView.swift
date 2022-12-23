@@ -24,6 +24,9 @@ struct MainView: View {
         .sheet(isPresented: $appState.isShowLoginView) {
             SignInView()
         }
+        .sheet(item: $appState.userProfileSelection) {
+            UserProfileView(username: $0.username,useHomeData: $0.isLoginUser)
+        }
         .alert(LocalizedStringKey(appState.normalInfo), isPresented: $appState.isShowNormalInfo) {}
         .alert(LocalizedStringKey(appState.errorInfo), isPresented: $appState.isShowErrorInfo) {}
         .onOpenURL { url in

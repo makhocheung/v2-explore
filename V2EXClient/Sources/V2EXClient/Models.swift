@@ -96,18 +96,66 @@ public struct SignIn {
     }
 }
 
-public struct User {
-    public let name: String
-    public let url: String
-    public let avatar: String
+public struct Token {
     public let a2: String
     public let a2ExpireDate: Date
-    
-    public init(name: String, url: String, avatar: String, a2: String, a2ExpireDate: Date) {
-        self.name = name
-        self.url = url
-        self.avatar = avatar
+
+    public init(a2: String, a2ExpireDate: Date) {
         self.a2 = a2
         self.a2ExpireDate = a2ExpireDate
+    }
+}
+
+public struct User: Identifiable {
+    public let id = UUID()
+    public let name: String
+    public let avatar: String
+    public var favoriteNodeCount: Int?
+    public var favoriteTopicCount: Int?
+    public var followerCount: Int?
+    public var notificationCount: Int?
+    public var silverCount: Int?
+    public var bronzeCount: Int?
+    public var memberDesc: String?
+    public var activityRank: Int?
+
+    public init(name: String, avatar: String) {
+        self.name = name
+        self.avatar = avatar
+    }
+
+    public init(name: String, avatar: String, favoriteNodeCount: Int?, favoriteTopicCount: Int?, followerCount: Int?, notificationCount: Int?, silverCount: Int?, bronzeCount: Int?) {
+        self.name = name
+        self.avatar = avatar
+        self.favoriteNodeCount = favoriteNodeCount
+        self.favoriteTopicCount = favoriteTopicCount
+        self.followerCount = followerCount
+        self.notificationCount = notificationCount
+        self.silverCount = silverCount
+        self.bronzeCount = bronzeCount
+    }
+
+    public init(name: String, avatar: String, memberDesc: String?, activityRank: Int?) {
+        self.name = name
+        self.avatar = avatar
+        self.memberDesc = memberDesc
+        self.activityRank = activityRank
+    }
+
+    public init(name: String, avatar: String, favoriteNodeCount: Int?, favoriteTopicCount: Int?, followerCount: Int?, notificationCount: Int?, silverCount: Int?, bronzeCount: Int?, memberDesc: String?, activityRank: Int?) {
+        self.name = name
+        self.avatar = avatar
+        self.favoriteNodeCount = favoriteNodeCount
+        self.favoriteTopicCount = favoriteTopicCount
+        self.followerCount = followerCount
+        self.notificationCount = notificationCount
+        self.silverCount = silverCount
+        self.bronzeCount = bronzeCount
+        self.memberDesc = memberDesc
+        self.activityRank = activityRank
+    }
+
+    public static func merge(l: User, r: User) -> User {
+        User(name: l.name, avatar: l.avatar, favoriteNodeCount: l.favoriteNodeCount ?? r.favoriteNodeCount, favoriteTopicCount: l.favoriteTopicCount ?? r.favoriteTopicCount, followerCount: l.followerCount ?? r.followerCount, notificationCount: l.notificationCount ?? r.notificationCount, silverCount: l.silverCount ?? r.silverCount, bronzeCount: l.bronzeCount ?? r.bronzeCount, memberDesc: l.memberDesc ?? r.memberDesc, activityRank: l.activityRank ?? r.activityRank)
     }
 }

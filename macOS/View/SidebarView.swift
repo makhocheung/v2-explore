@@ -14,11 +14,16 @@ struct SidebarView: View {
     var body: some View {
         VStack {
             if let user = appState.user {
-                KFImage(URL(string: user.avatar)!)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 50)
-                    .clipShape(Circle())
+                Button {
+                    appState.userProfileSelection = UserProfileSelection(isLoginUser: true, username: user.name)
+                } label: {
+                    KFImage(URL(string: user.avatar)!)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 50)
+                        .clipShape(Circle())
+                }
+                .buttonStyle(.plain)
             } else {
                 Button {
                     appState.isShowLoginView.toggle()

@@ -74,8 +74,8 @@ struct SignInView: View {
                             isSignIning = true
                             let signIn = SignIn(usernameKey: appState.preSignIn.usernameKey, passwordKey: appState.preSignIn.passwordKey, captchaKey: appState.preSignIn.captchaKey, username: username, password: password, captcha: captcha, once: appState.preSignIn.once)
                             do {
-                                let user = try await V2EXClient.shared.signIn(signIn: signIn)
-                                appState.upateUser(user: user)
+                                let (user, token) = try await V2EXClient.shared.signIn(signIn: signIn)
+                                appState.upateUserAndToken(user: user, token: token)
                             } catch {
                                 print(error)
                             }

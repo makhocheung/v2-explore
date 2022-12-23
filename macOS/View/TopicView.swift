@@ -23,19 +23,29 @@ struct TopicView: View {
                 ScrollView {
                     VStack {
                         HStack {
-                            KFImage(URL(string: topic.member.avatar!))
-                                .placeholder({ _ in
-                                    Image(systemName: "photo")
-                                        .resizable()
-                                        .scaledToFit()
-                                })
-                                .fade(duration: 0.25)
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 50, height: 50)
-                                .cornerRadius(4)
+                            Button {
+                                appState.userProfileSelection = UserProfileSelection(username: topic.member.name)
+                            } label: {
+                                KFImage(URL(string: topic.member.avatar!))
+                                    .placeholder({ _ in
+                                        Image(systemName: "photo")
+                                            .resizable()
+                                            .scaledToFit()
+                                    })
+                                    .fade(duration: 0.25)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 50, height: 50)
+                                    .cornerRadius(4)
+                            }
+                            .buttonStyle(.plain)
                             VStack(alignment: .leading, spacing: 5) {
-                                Text(topic.member.name)
+                                Button {
+                                    appState.userProfileSelection = UserProfileSelection(username: topic.member.name)
+                                } label: {
+                                    Text(topic.member.name)
+                                }
+                                .buttonStyle(.plain)
                                 Text(topic.createTime!)
                                     .foregroundColor(.secondary)
                             }
@@ -95,6 +105,7 @@ struct TopicView: View {
             if let topicId = appState.topicSelection {
                 ToolbarItemGroup {
                     Group {
+                        Spacer()
                         Button {
                             let pasteBoard = NSPasteboard.general
                             pasteBoard.clearContents()

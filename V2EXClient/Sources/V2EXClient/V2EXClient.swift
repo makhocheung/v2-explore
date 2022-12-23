@@ -16,7 +16,7 @@ public class V2EXClient {
 
     // ========
 
-    public func getLatestTopicsForDebug() throws -> [Topic]  {
+    public func getLatestTopicsForDebug() throws -> [Topic] {
         return try parser.parse2SimpleTopics(html: debugTopicsHtml)
     }
 
@@ -94,7 +94,7 @@ public class V2EXClient {
         return try parser.parse2PreSignIn(html: String(data: data, encoding: .utf8)!)
     }
 
-    public func signIn(signIn: SignIn) async throws -> User {
+    public func signIn(signIn: SignIn) async throws -> (User, Token) {
         HTTPCookieStorage.shared.cookies?.filter { $0.domain.contains("v2ex.com") && $0.name == "A2" }.forEach {
             HTTPCookieStorage.shared.deleteCookie($0)
         }
@@ -110,7 +110,13 @@ public class V2EXClient {
         request.httpBody = body.data(using: .utf8)
         let (data, _) = try await urlSession.data(for: request)
         if let user = try parser.parse2User(html: String(data: data, encoding: .utf8)!) {
-            return user
+            let a2Cookie = HTTPCookieStorage.shared.cookies?.filter {
+                $0.domain.contains("v2ex") && $0.name == "A2"
+            }.first
+            guard let a2Cookie else {
+                throw V2EXClientError.loginFailed
+            }
+            return (user, Token(a2: a2Cookie.value, a2ExpireDate: a2Cookie.expiresDate!))
         } else {
             throw V2EXClientError.loginFailed
         }
@@ -120,6 +126,27 @@ public class V2EXClient {
         let (data, _) = try await urlSession.data(from: URL(string: "https://v2ex.com")!)
         let html = String(data: data, encoding: .utf8)!
         return try parser.parse2User(html: html)
+    }
+
+    public func getUserProfile(name: String, useHomeData: Bool = false) async throws -> User {
+        if useHomeData {
+            async let (homeData, _) = try urlSession.data(from: URL(string: "https://v2ex.com")!)
+            async let (detailData, _) = try urlSession.data(from: URL(string: "https://v2ex.com/member/\(name)")!)
+            let homeHtml = try await String(data: homeData, encoding: .utf8)!
+            let detailHtml = try await String(data: detailData, encoding: .utf8)!
+            let userFromHome = try parser.parse2UserFromHome(html: homeHtml)
+            let userFromDetail = try parser.parse2UserFromDetail(html: detailHtml)
+            if let userFromHome {
+                return User.merge(l: userFromHome, r: userFromDetail)
+            } else {
+                return userFromDetail
+            }
+        } else {
+            let (detailData, _) = try await urlSession.data(from: URL(string: "https://v2ex.com/member/\(name)")!)
+            let detailHtml = String(data: detailData, encoding: .utf8)!
+            return try parser.parse2UserFromDetail(html: detailHtml)
+        }
+        
     }
 
     private func doGetTopicsHtml(url: String) async throws -> String {

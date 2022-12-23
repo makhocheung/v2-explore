@@ -189,16 +189,58 @@ class Parser {
             return nil
         }
         let aElements = try userTable.getElementsByTag("a")
-        let url = try aElements[0].attr("href")
         let avatar = try aElements[0].getElementsByTag("img").first()!.attr("src")
         let name = try aElements[2].text()
-        let a2Cookie = HTTPCookieStorage.shared.cookies?.filter {
-            $0.domain.contains("v2ex") && $0.name == "A2"
-        }.first
-        guard let a2Cookie else {
-            throw V2EXClientError.loginFailed
+        return User(name: name, avatar: avatar)
+    }
+
+    func parse2UserFromHome(html: String) throws -> User? {
+        let doc = try SwiftSoup.parse(html)
+        let tables = try doc.getElementById("Rightbar")?.getElementsByClass("box").first()?.getElementsByClass("cell").first()?.getElementsByTag("table")
+        let flag = !(tables?.isEmpty() ?? true)
+        guard flag else {
+            return nil
         }
-        return User(name: name, url: url, avatar: avatar, a2: a2Cookie.value, a2ExpireDate: a2Cookie.expiresDate!)
+        let userTable = tables![0]
+        let countTable = tables![1]
+        let aElements = try userTable.getElementsByTag("a")
+        let avatar = try aElements[0].getElementsByTag("img").first()!.attr("src")
+        let name = try aElements[2].text()
+        let tdElements = try countTable.getElementsByTag("td")
+        let favoriteNodeCount = Int(try tdElements[0].getElementsByTag("span").first()?.text() ?? "")
+        let favoriteTopicCount = Int(try tdElements[1].getElementsByTag("span").first()?.text() ?? "")
+        let followerCount = Int(try tdElements[2].getElementsByTag("span").first()?.text() ?? "")
+        let moneyElement = try doc.getElementById("money")
+        let notificationElement = try moneyElement?.previousElementSibling()!
+        let notificationCountStr = (try notificationElement?.text().split(separator: " ").first)!
+        let notificationCount = Int(String(notificationCountStr))
+        let textNodes = (try moneyElement?.getElementsByTag("a").first()?.textNodes())!
+        let siliverCount = Int(textNodes[0].text().trimmingCharacters(in: .whitespacesAndNewlines))
+        let brozenCount = Int(textNodes[1].text().trimmingCharacters(in: .whitespacesAndNewlines))
+        return User(name: name, avatar: avatar, favoriteNodeCount: favoriteNodeCount, favoriteTopicCount: favoriteTopicCount, followerCount: followerCount, notificationCount: notificationCount, silverCount: siliverCount, bronzeCount: brozenCount)
+    }
+
+    func parse2UserFromDetail(html: String) throws -> User {
+        let doc = try SwiftSoup.parse(html)
+        let userTable = (try doc.getElementById("Main")?.getElementsByClass("box").first()?.getElementsByClass("cell").first()?.getElementsByTag("table").first())!
+        let avatar = try userTable.getElementsByTag("img").first()!.attr("src")
+        let tdElement = try userTable.getElementsByTag("td")[2]
+        let name = try tdElement.getElementsByTag("h1").first()!.text()
+        let activityRankElement = try tdElement.getElementsByTag("a").first()
+        let activityRank: Int?
+        if let activityRankElement {
+            activityRank = try Int(activityRankElement.text())
+        } else {
+            activityRank = nil
+        }
+        let memberDesc: String
+        let spanElements = try tdElement.getElementsByTag("span")
+        if spanElements.size() > 1 {
+            memberDesc = spanElements[1].textNodes()[0].text()
+        } else {
+            memberDesc = spanElements[0].textNodes()[0].text()
+        }
+        return User(name: name, avatar: avatar, memberDesc: memberDesc, activityRank: activityRank)
     }
 
     private func timestamp2Date(timestamp: Int64) -> String {

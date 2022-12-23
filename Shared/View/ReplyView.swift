@@ -13,23 +13,35 @@ struct ReplyView: View {
     var reply: Reply
     var isOP = false
     var floor = 1
+    @EnvironmentObject var appState: AppState
     var body: some View {
         VStack {
             HStack {
-                KFImage(URL(string: reply.member.avatar!))
-                    .placeholder({ _ in
-                        Image(systemName: "photo")
-                            .resizable()
-                            .scaledToFit()
-                    })
-                    .fade(duration: 0.25)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 40, height: 40)
-                    .cornerRadius(4)
+                Button {
+                    appState.userProfileSelection = UserProfileSelection(username: reply.member.name)
+                } label: {
+                    KFImage(URL(string: reply.member.avatar!))
+                        .placeholder({ _ in
+                            Image(systemName: "photo")
+                                .resizable()
+                                .scaledToFit()
+                        })
+                        .fade(duration: 0.25)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 40, height: 40)
+                        .cornerRadius(4)
+                }
+                .buttonStyle(.plain)
                 VStack(alignment: .leading, spacing: 2) {
                     HStack {
-                        Text(reply.member.name)
+                        Button {
+                            appState.userProfileSelection = UserProfileSelection(username: reply.member.name)
+                        } label: {
+                            Text(reply.member.name)
+                        }
+                        .buttonStyle(.plain)
+
                         if isOP {
                             Text("OP")
                                 .padding(2)
@@ -54,4 +66,3 @@ struct ReplyView: View {
         .font(.caption)
     }
 }
-
