@@ -7,6 +7,7 @@
 
 import Foundation
 import V2EXClient
+import SwiftUI
 
 class AppState: ObservableObject {
     @Published var isShowErrorInfo = false
