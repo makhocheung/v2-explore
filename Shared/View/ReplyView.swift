@@ -8,6 +8,7 @@
 import Kingfisher
 import SwiftUI
 import V2EXClient
+import Shimmer
 
 struct ReplyView: View {
     var reply: Reply
@@ -23,11 +24,12 @@ struct ReplyView: View {
                 } label: {
                     KFImage(URL(string: reply.member.avatar!))
                         .placeholder({ _ in
-                            Image(systemName: "photo")
-                                .resizable()
-                                .scaledToFit()
+                            Rectangle()
+                                .fill(.gray.opacity(0.7))
+                                .frame(width: 40, height: 40)
+                                .cornerRadius(4)
+                                .shimmering()
                         })
-                        .fade(duration: 0.25)
                         .resizable()
                         .scaledToFit()
                         .frame(width: 40, height: 40)

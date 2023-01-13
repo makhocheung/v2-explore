@@ -7,6 +7,7 @@
 
 import Kingfisher
 import SwiftUI
+import Shimmer
 
 struct GeneralView: View {
     @EnvironmentObject var appState: AppState
@@ -23,6 +24,12 @@ struct GeneralView: View {
             HStack {
                 if let user = appState.user {
                     KFImage(URL(string: user.avatar)!)
+                        .placeholder({ _ in
+                            Circle()
+                                .fill(.gray.opacity(0.7))
+                                .frame(width: 60, height: 60)
+                                .shimmering()
+                        })
                         .resizable()
                         .scaledToFit()
                         .frame(width: 60, height: 60)

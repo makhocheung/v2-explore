@@ -6,6 +6,7 @@
 //
 
 import Kingfisher
+import Shimmer
 import SwiftUI
 import V2EXClient
 
@@ -18,11 +19,12 @@ struct SimpleTopicView: View {
                 if let member = topic.member {
                     KFImage(URL(string: member.avatar!))
                         .placeholder({ _ in
-                            Image(systemName: "photo")
-                                .resizable()
-                                .scaledToFit()
+                            Rectangle()
+                                .fill(.gray.opacity(0.7))
+                                .frame(width: 40, height: 40)
+                                .cornerRadius(4)
+                                .shimmering()
                         })
-                        .fade(duration: 0.25)
                         .resizable()
                         .scaledToFit()
                         .frame(width: 40, height: 40)

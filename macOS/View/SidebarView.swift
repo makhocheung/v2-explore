@@ -8,6 +8,7 @@
 import Kingfisher
 import SwiftUI
 import V2EXClient
+import Shimmer
 
 struct SidebarView: View {
     @EnvironmentObject var appState: AppState
@@ -20,6 +21,12 @@ struct SidebarView: View {
                     userProfileSelection = UserProfileSelection(isLoginUser: true, username: user.name)
                 } label: {
                     KFImage(URL(string: user.avatar)!)
+                        .placeholder({ _ in
+                            Circle()
+                                .fill(.gray.opacity(0.7))
+                                .frame(width: 50, height: 50)
+                                .shimmering()
+                        })
                         .resizable()
                         .scaledToFit()
                         .frame(width: 50)

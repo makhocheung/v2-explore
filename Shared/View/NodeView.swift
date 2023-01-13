@@ -7,6 +7,7 @@
 import Kingfisher
 import SwiftUI
 import V2EXClient
+import Shimmer
 
 struct NodeView: View {
     @State var topics: [Topic] = []
@@ -58,11 +59,11 @@ struct NodeView: View {
                     VStack(spacing: 10) {
                         KFImage(URL(string: fullNode.avatar!))
                             .placeholder({ _ in
-                                Image(systemName: "photo")
-                                    .resizable()
-                                    .scaledToFit()
+                                Rectangle()
+                                    .fill(.gray.opacity(0.7))
+                                    .frame(width: 100, height: 100)
+                                    .shimmering()
                             })
-                            .fade(duration: 0.25)
                             .resizable()
                             .scaledToFit()
                             .frame(width: 100, height: 100)
@@ -134,11 +135,11 @@ struct NodeView: View {
                     VStack(spacing: 10) {
                         KFImage(URL(string: fullNode.avatar!))
                             .placeholder({ _ in
-                                Image(systemName: "photo")
-                                    .resizable()
-                                    .scaledToFit()
+                                Rectangle()
+                                    .fill(.gray.opacity(0.7))
+                                    .frame(width: 100, height: 100)
+                                    .shimmering()
                             })
-                            .fade(duration: 0.25)
                             .resizable()
                             .scaledToFit()
                             .frame(width: 100, height: 100)

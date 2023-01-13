@@ -8,6 +8,8 @@
 import Kingfisher
 import SwiftUI
 import V2EXClient
+import Shimmer
+
 
 struct TopicView: View {
     @EnvironmentObject var appState: AppState
@@ -25,11 +27,12 @@ struct TopicView: View {
                             HStack {
                                 KFImage(URL(string: topic.member.avatar!))
                                     .placeholder({ _ in
-                                        Image(systemName: "photo")
-                                            .resizable()
-                                            .scaledToFit()
+                                        Rectangle()
+                                            .fill(.gray.opacity(0.7))
+                                            .frame(width: 50, height: 50)
+                                            .cornerRadius(4)
+                                            .shimmering()
                                     })
-                                    .fade(duration: 0.25)
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: 50, height: 50)
@@ -57,6 +60,11 @@ struct TopicView: View {
                                             .frame(maxWidth: .infinity, alignment: .leading)
                                     case .image:
                                         KFImage(URL(string: $0.content as! String)!)
+                                            .placeholder { _ in
+                                                Rectangle()
+                                                    .fill(.gray.opacity(0.7))
+                                                    .shimmering()
+                                            }
                                             .resizable()
                                             .scaledToFit()
                                     case .code:

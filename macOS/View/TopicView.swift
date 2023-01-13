@@ -6,6 +6,7 @@
 //
 
 import Kingfisher
+import Shimmer
 import SwiftUI
 import V2EXClient
 
@@ -29,11 +30,12 @@ struct TopicView: View {
                             } label: {
                                 KFImage(URL(string: topic.member!.avatar!))
                                     .placeholder({ _ in
-                                        Image(systemName: "photo")
-                                            .resizable()
-                                            .scaledToFit()
+                                        Rectangle()
+                                            .fill(.gray.opacity(0.7))
+                                            .frame(width: 50, height: 50)
+                                            .cornerRadius(4)
+                                            .shimmering()
                                     })
-                                    .fade(duration: 0.25)
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: 50, height: 50)
@@ -41,7 +43,7 @@ struct TopicView: View {
                             }
                             .buttonStyle(.plain)
                             .popover(item: $userProfileSelection) {
-                                UserProfileView(username: $0.username,useHomeData: $0.isLoginUser)
+                                UserProfileView(username: $0.username, useHomeData: $0.isLoginUser)
                             }
                             VStack(alignment: .leading, spacing: 5) {
                                 Button {
@@ -72,6 +74,11 @@ struct TopicView: View {
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                 case .image:
                                     KFImage(URL(string: $0.content as! String)!)
+                                        .placeholder { _ in
+                                            Rectangle()
+                                                .fill(.gray.opacity(0.7))
+                                                .shimmering()
+                                        }
                                         .resizable()
                                         .scaledToFit()
                                 case .code:

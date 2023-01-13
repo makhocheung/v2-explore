@@ -15,6 +15,8 @@
 		70234E4528CA1DAB00271982 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70234E4428CA1DAB00271982 /* ContentView.swift */; };
 		70262FF7297120B300A583AF /* UserProfileContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70262FF6297120B300A583AF /* UserProfileContentView.swift */; };
 		70262FFA2971359D00A583AF /* GeneralView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70262FF92971359D00A583AF /* GeneralView.swift */; };
+		70262FFD297151D100A583AF /* Shimmer in Frameworks */ = {isa = PBXBuildFile; productRef = 70262FFC297151D100A583AF /* Shimmer */; };
+		70262FFF297151DF00A583AF /* Shimmer in Frameworks */ = {isa = PBXBuildFile; productRef = 70262FFE297151DF00A583AF /* Shimmer */; };
 		703A463D28C0549C00A87598 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 703A464028C0549C00A87598 /* Localizable.strings */; };
 		703A463E28C0549C00A87598 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 703A464028C0549C00A87598 /* Localizable.strings */; };
 		7047430729306BE30028A610 /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7047430629306BE30028A610 /* PreferencesView.swift */; };
@@ -176,6 +178,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				70262FFD297151D100A583AF /* Shimmer in Frameworks */,
 				7005F54B28DFFE0E003184A6 /* Kingfisher in Frameworks */,
 				70D4C0D227FDAF080055E95C /* V2EXClient in Frameworks */,
 			);
@@ -185,6 +188,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				70262FFF297151DF00A583AF /* Shimmer in Frameworks */,
 				70D769C228F97FDE000991BF /* V2EXClient in Frameworks */,
 				7005F54E28DFFE22003184A6 /* Kingfisher in Frameworks */,
 			);
@@ -406,6 +410,7 @@
 			packageProductDependencies = (
 				70D4C0D127FDAF080055E95C /* V2EXClient */,
 				7005F54A28DFFE0E003184A6 /* Kingfisher */,
+				70262FFC297151D100A583AF /* Shimmer */,
 			);
 			productName = "V2EX You (iOS)";
 			productReference = 70BC2D66274CB665008E2AF1 /* V2 Explore.app */;
@@ -429,6 +434,7 @@
 			packageProductDependencies = (
 				7005F54D28DFFE22003184A6 /* Kingfisher */,
 				70D769C128F97FDE000991BF /* V2EXClient */,
+				70262FFE297151DF00A583AF /* Shimmer */,
 			);
 			productName = "V2EX You (macOS)";
 			productReference = 70BC2D6C274CB665008E2AF1 /* V2 Explore.app */;
@@ -508,6 +514,7 @@
 			mainGroup = 70BC2D59274CB664008E2AF1;
 			packageReferences = (
 				7005F54928DFFE0E003184A6 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				70262FFB297151D100A583AF /* XCRemoteSwiftPackageReference "SwiftUI-Shimmer" */,
 			);
 			productRefGroup = 70BC2D67274CB665008E2AF1 /* Products */;
 			projectDirPath = "";
@@ -1093,6 +1100,14 @@
 				version = 7.4.0;
 			};
 		};
+		70262FFB297151D100A583AF /* XCRemoteSwiftPackageReference "SwiftUI-Shimmer" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/markiv/SwiftUI-Shimmer.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1105,6 +1120,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 7005F54928DFFE0E003184A6 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		70262FFC297151D100A583AF /* Shimmer */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 70262FFB297151D100A583AF /* XCRemoteSwiftPackageReference "SwiftUI-Shimmer" */;
+			productName = Shimmer;
+		};
+		70262FFE297151DF00A583AF /* Shimmer */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 70262FFB297151D100A583AF /* XCRemoteSwiftPackageReference "SwiftUI-Shimmer" */;
+			productName = Shimmer;
 		};
 		70C9D8C2292767BF00032665 /* V2EXClient */ = {
 			isa = XCSwiftPackageProductDependency;

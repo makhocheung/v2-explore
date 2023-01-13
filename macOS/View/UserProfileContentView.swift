@@ -8,6 +8,7 @@
 import Kingfisher
 import SwiftUI
 import V2EXClient
+import Shimmer
 
 struct UserProfileContentView: View {
     let user: User
@@ -17,6 +18,12 @@ struct UserProfileContentView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {
             KFImage(URL(string: user.avatar)!)
+                .placeholder({ _ in
+                    Circle()
+                        .fill(.gray.opacity(0.7))
+                        .frame(width: 60, height: 60)
+                        .shimmering()
+                })
                 .resizable()
                 .scaledToFit()
                 .frame(width: 60, height: 60)
