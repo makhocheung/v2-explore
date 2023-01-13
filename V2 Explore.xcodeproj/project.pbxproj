@@ -14,6 +14,7 @@
 		701269AB290903100094BBE2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701269AA290903100094BBE2 /* AppDelegate.swift */; };
 		70234E4528CA1DAB00271982 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70234E4428CA1DAB00271982 /* ContentView.swift */; };
 		70262FF7297120B300A583AF /* UserProfileContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70262FF6297120B300A583AF /* UserProfileContentView.swift */; };
+		70262FFA2971359D00A583AF /* GeneralView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70262FF92971359D00A583AF /* GeneralView.swift */; };
 		703A463D28C0549C00A87598 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 703A464028C0549C00A87598 /* Localizable.strings */; };
 		703A463E28C0549C00A87598 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 703A464028C0549C00A87598 /* Localizable.strings */; };
 		7047430729306BE30028A610 /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7047430629306BE30028A610 /* PreferencesView.swift */; };
@@ -118,6 +119,7 @@
 		701269AA290903100094BBE2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		70234E4428CA1DAB00271982 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		70262FF6297120B300A583AF /* UserProfileContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileContentView.swift; sourceTree = "<group>"; };
+		70262FF92971359D00A583AF /* GeneralView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralView.swift; sourceTree = "<group>"; };
 		703A463F28C0549C00A87598 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		703A464128C054A200A87598 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		703E221527EEFE48007B0865 /* 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2.png; sourceTree = "<group>"; };
@@ -220,6 +222,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		70262FF82971358000A583AF /* Preferences */ = {
+			isa = PBXGroup;
+			children = (
+				7047430629306BE30028A610 /* PreferencesView.swift */,
+				70262FF92971359D00A583AF /* GeneralView.swift */,
+			);
+			path = Preferences;
+			sourceTree = "<group>";
+		};
 		70717B1727E5ED1F005C315A /* screenshot */ = {
 			isa = PBXGroup;
 			children = (
@@ -313,13 +324,13 @@
 		70C2558828D4418000791602 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				70262FF82971358000A583AF /* Preferences */,
 				70DA186228C1E50000F24275 /* MainView.swift */,
 				70B8C58E28C9DDB900F80A44 /* SidebarView.swift */,
 				70234E4428CA1DAB00271982 /* ContentView.swift */,
 				70C2558928D442C200791602 /* TopicView.swift */,
 				70E14B0F291E146600043DAC /* NodesSelectionView.swift */,
 				70C30311291E7D380039CCFA /* SignInView.swift */,
-				7047430629306BE30028A610 /* PreferencesView.swift */,
 				700B218E2952DB0D0053DAB6 /* UserProfileView.swift */,
 				700DAF5A2955B09F0014C7C2 /* UserTopicsView.swift */,
 				70262FF6297120B300A583AF /* UserProfileContentView.swift */,
@@ -595,6 +606,7 @@
 				70B5CCAB28BDFF3D003F9CF1 /* GlanceType.swift in Sources */,
 				701269AB290903100094BBE2 /* AppDelegate.swift in Sources */,
 				70C30312291E7D380039CCFA /* SignInView.swift in Sources */,
+				70262FFA2971359D00A583AF /* GeneralView.swift in Sources */,
 				70C2558A28D442C200791602 /* TopicView.swift in Sources */,
 				70E14B10291E146600043DAC /* NodesSelectionView.swift in Sources */,
 			);

@@ -15,7 +15,7 @@ class AppState: ObservableObject {
     @Published var normalInfo = ""
     @Published var user: User?
     @Published var token: Token?
-    //@Published var userProfileSelection: UserProfileSelection?
+    // @Published var userProfileSelection: UserProfileSelection?
 
     init() {
         let ud = UserDefaults.standard
@@ -52,11 +52,26 @@ class AppState: ObservableObject {
 
     func upateUserAndToken(user: User, token: Token) {
         self.user = user
+        self.token = token
         let ud = UserDefaults.standard
         ud.setValue(user.name, forKey: "username")
         ud.setValue(user.avatar, forKey: "avatar")
         ud.setValue(token.a2, forKey: "a2")
         ud.setValue(token.a2ExpireDate, forKey: "a2ExpireDate")
+    }
+
+    func signOut() {
+        user = nil
+        token = nil
+        let ud = UserDefaults.standard
+        ud.removeObject(forKey: "username")
+        ud.removeObject(forKey: "avatar")
+        ud.removeObject(forKey: "a2")
+        ud.removeObject(forKey: "a2ExpireDate")
+        let s = HTTPCookieStorage.shared
+        s.cookies?.forEach {
+            s.deleteCookie($0)
+        }
     }
 
     #if os(macOS)
