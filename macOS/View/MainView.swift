@@ -24,6 +24,10 @@ struct MainView: View {
         .sheet(isPresented: $appState.isShowLoginView) {
             SignInView()
         }
+        .searchable(text: $appState.searchContent, placement: .toolbar, prompt: "搜索")
+        .onSubmit(of: .search) {
+            appState.search()
+        }
         .alert(LocalizedStringKey(appState.normalInfo), isPresented: $appState.isShowNormalInfo) {}
         .alert(LocalizedStringKey(appState.errorInfo), isPresented: $appState.isShowErrorInfo) {}
         .onOpenURL { url in

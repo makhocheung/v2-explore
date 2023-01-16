@@ -23,4 +23,9 @@ final class V2EXClientTests: XCTestCase {
        let topics = try await V2EXClient.shared.getTopicsByUser(username: "ojh")
         print(topics)
     }
+    
+    func testSearch() async throws {
+        let searchResult = try await V2EXClient.shared.search(keyword: "Java")
+        print(searchResult)
+    }
 }

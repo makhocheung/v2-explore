@@ -18,6 +18,8 @@ struct ContentView: View {
                 GlanceTopicsView()
             case .nodes:
                 NodeView()
+            case .search:
+                SearchView()
             }
         } else {
             Text("No content")

@@ -116,7 +116,6 @@ struct TopicView: View {
             if let topicId = appState.topicSelection {
                 ToolbarItemGroup {
                     Group {
-                        Spacer()
                         Button {
                             let pasteBoard = NSPasteboard.general
                             pasteBoard.clearContents()

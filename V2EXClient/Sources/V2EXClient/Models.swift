@@ -159,3 +159,26 @@ public struct User: Identifiable {
         User(name: l.name, avatar: l.avatar, favoriteNodeCount: l.favoriteNodeCount ?? r.favoriteNodeCount, favoriteTopicCount: l.favoriteTopicCount ?? r.favoriteTopicCount, followerCount: l.followerCount ?? r.followerCount, notificationCount: l.notificationCount ?? r.notificationCount, silverCount: l.silverCount ?? r.silverCount, bronzeCount: l.bronzeCount ?? r.bronzeCount, memberDesc: l.memberDesc ?? r.memberDesc, activityRank: l.activityRank ?? r.activityRank)
     }
 }
+
+public struct SearchHitSource: Codable {
+    public let id: Int
+    public let title: String?
+}
+
+public struct SearchHitHighlight: Codable {
+    public let title: [String]?
+}
+
+public struct SearchHit: Codable, Identifiable {
+    public let id = UUID()
+    public let source: SearchHitSource
+    public let highlight: SearchHitHighlight
+
+    enum CodingKeys: String, CodingKey {
+        case source = "_source", highlight
+    }
+}
+
+public struct SearchResult: Codable {
+    public let hits: [SearchHit]
+}

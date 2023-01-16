@@ -6,9 +6,9 @@
 //
 
 import Kingfisher
+import Shimmer
 import SwiftUI
 import V2EXClient
-import Shimmer
 
 struct SidebarView: View {
     @EnvironmentObject var appState: AppState
@@ -34,7 +34,7 @@ struct SidebarView: View {
                 }
                 .buttonStyle(.plain)
                 .popover(item: $userProfileSelection) {
-                    UserProfileView(username: $0.username,useHomeData: $0.isLoginUser)
+                    UserProfileView(username: $0.username, useHomeData: $0.isLoginUser)
                 }
             } else {
                 Button {
@@ -67,8 +67,8 @@ struct SidebarView: View {
                 Section {
                     Label("common.nodes", systemImage: "square.grid.3x1.below.line.grid.1x2.fill")
                         .tag(SidebarTag.nodes)
-//                    Label("搜索", systemImage: "magnifyingglass.circle")
-//                        .tag(SidebarTag.nodes)
+                    Label("搜索", systemImage: "magnifyingglass.circle")
+                        .tag(SidebarTag.search)
                 } header: {
                     Text("common.glance")
                 }
@@ -83,7 +83,7 @@ struct SidebarView: View {
 }
 
 enum SidebarTag {
-    case main, glance(GlanceType), nodes
+    case main, glance(GlanceType), nodes, search
 }
 
 extension SidebarTag: Equatable {
@@ -110,6 +110,13 @@ extension SidebarTag: Equatable {
             default:
                 return false
             }
+        case .search:
+            switch rhs {
+            case .search:
+                return true
+            default:
+                return false
+            }
         }
     }
 }
@@ -123,6 +130,8 @@ extension SidebarTag: Hashable {
             return "glance.\(glanceType.rawValue)".hash(into: &hasher)
         case .nodes:
             "common.nodes".hash(into: &hasher)
+        case .search:
+            "common.search".hash(into: &hasher)
         }
     }
 }

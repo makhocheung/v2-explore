@@ -6,8 +6,9 @@
 //
 
 import Foundation
-import V2EXClient
 import SwiftUI
+import V2EXClient
+import Combine
 
 class AppState: ObservableObject {
     @Published var isShowErrorInfo = false
@@ -17,6 +18,8 @@ class AppState: ObservableObject {
     @Published var user: User?
     @Published var token: Token?
     // @Published var userProfileSelection: UserProfileSelection?
+    @Published var searchResult: SearchResult?
+    @Published var searching = false
 
     init() {
         let ud = UserDefaults.standard
@@ -36,9 +39,22 @@ class AppState: ObservableObject {
                 ud.removeObject(forKey: "a2ExpireDate")
             }
         }
+        let searchCancellable = $searchContent.sink { it in
+            if !it.isEmpty {
+                self.sidebarSelection = SidebarTag.search
+            } else {
+                self.searchResult = nil
+                self.searching = false
+                if self.sidebarSelection == .search {
+                    self.topicSelection = nil
+                }
+            }
+        }
+        cancellableSet.insert(searchCancellable)
     }
 
     let navigationNodes = try! V2EXClient.shared.getNavigatinNodes()
+    var cancellableSet: Set<AnyCancellable> = []
     var preSignIn: PreSignIn!
 
     func show(errorInfo: String) {
@@ -75,11 +91,29 @@ class AppState: ObservableObject {
         }
     }
 
+    func search() {
+        searching = true
+        Task {
+            do {
+                let searchResult = try await V2EXClient.shared.search(keyword: searchContent)
+                await update(searchResult: searchResult)
+            } catch {
+                print(error)
+            }
+        }
+    }
+
+    @MainActor
+    func update(searchResult: SearchResult) {
+        self.searchResult = searchResult
+        self.searching = false
+    }
+
     #if os(macOS)
         @Published var sidebarSelection: SidebarTag?
         @Published var topicSelection: String?
         @Published var isShowLoginView = false
-
+        @Published var searchContent = ""
         func clearTopicSelection() {
             topicSelection = nil
         }

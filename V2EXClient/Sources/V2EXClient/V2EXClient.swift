@@ -154,6 +154,15 @@ public class V2EXClient {
         }
     }
 
+    public func search(keyword: String) async throws -> SearchResult {
+        var urlComponents = URLComponents(string: "https://www.sov2ex.com/api/search")!
+        urlComponents.queryItems = [URLQueryItem(name: "q", value: keyword),
+                                    URLQueryItem(name: "size", value: "50"),
+                                    URLQueryItem(name: "sort", value: "created")]
+        let (data, _) = try await urlSession.data(from: urlComponents.url!)
+        return try JSONDecoder().decode(SearchResult.self, from: data)
+    }
+
     private func doGetTopicsHtml(url: String) async throws -> String {
         let (data, _) = try await urlSession.data(from: URL(string: url)!)
         return String(data: data, encoding: .utf8)!
