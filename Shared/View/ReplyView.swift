@@ -13,7 +13,6 @@ import Shimmer
 struct ReplyView: View {
     var reply: Reply
     var isOP = false
-    var floor = 1
     @EnvironmentObject var appState: AppState
     @State var userProfileSelection: UserProfileSelection?
     var body: some View {
@@ -62,7 +61,7 @@ struct ReplyView: View {
                         .foregroundColor(.secondary)
                 }
                 Spacer()
-                Text("#\(floor)")
+                Text("#\(reply.floor)")
                     .foregroundColor(.secondary)
             }
             Text(reply.attributeStringContent)

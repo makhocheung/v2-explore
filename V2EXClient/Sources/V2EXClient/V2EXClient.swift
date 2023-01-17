@@ -76,18 +76,15 @@ public class V2EXClient {
         #if DEBUG
             return try parser.parse2TopicReplies(html: debugTopicHtml, id: "845141")
         #else
-            let html = try await doGetTopicHtml(url: "https://v2ex.com/t/\(id)")
+            let html = try await doGetTopicHtml(url: "https://v2ex.com/t/\(id)?p=1")
             return try parser.parse2TopicReplies(html: html, id: id)
         #endif
     }
 
-    public func getRepliesByTopic(id: String, p: Int) async throws -> [Reply] {
-        #if DEBUG
-            return try parser.parse2TopicReplies(html: debugTopicHtml, id: "845141").1
-        #else
-            let html = try await doGetTopicHtml(url: "https://v2ex.com/t/\(id)?p=\(p)")
-            return try parser.parse2Replies(html: html)
-        #endif
+    // 获取指定页面的评论并返回下一页页码
+    public func getRepliesByTopic(id: String, page: Int) async throws -> ([Reply], Int?) {
+        let html = try await doGetTopicHtml(url: "https://v2ex.com/t/\(id)?p=\(page)")
+        return try parser.parse2Replies(html: html)
     }
 
     public func getCaptchaUrl() -> URL {

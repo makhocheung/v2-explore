@@ -14,99 +14,127 @@ struct TopicView: View {
     @Environment(\.colorScheme) var colorScheme
     @State var topic: Topic?
     @State var replies: [Reply]?
-    @State var isShoading = false
+    @State var isLoadingTopic = false
     @EnvironmentObject var appState: AppState
     @Environment(\.openURL) var openURL
     @State var userProfileSelection: UserProfileSelection?
+    @State var isLoadingReply = false
 
     var body: some View {
         ZStack {
             if let topic {
-                ScrollView {
-                    VStack {
-                        HStack {
-                            Button {
-                                userProfileSelection = UserProfileSelection(username: topic.member!.name)
-                            } label: {
-                                KFImage(URL(string: topic.member!.avatar!))
-                                    .placeholder({ _ in
-                                        Rectangle()
-                                            .fill(.gray.opacity(0.7))
-                                            .frame(width: 50, height: 50)
-                                            .cornerRadius(4)
-                                            .shimmering()
-                                    })
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 50, height: 50)
-                                    .cornerRadius(4)
-                            }
-                            .buttonStyle(.plain)
-                            .popover(item: $userProfileSelection) {
-                                UserProfileView(username: $0.username, useHomeData: $0.isLoginUser)
-                            }
-                            VStack(alignment: .leading, spacing: 5) {
+                GeometryReader { proxy in
+                    ScrollView {
+                        VStack {
+                            HStack {
                                 Button {
                                     userProfileSelection = UserProfileSelection(username: topic.member!.name)
                                 } label: {
-                                    Text(topic.member!.name)
-                                }
-                                .buttonStyle(.plain)
-                                Text(topic.createTime!)
-                                    .foregroundColor(.secondary)
-                            }
-                            Spacer()
-                            Text("#\(topic.node.title)")
-                                .padding(3)
-                        }
-                        Text(topic.title)
-                            .textSelection(.enabled)
-                            .bold()
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(.bottom)
-
-                        if !topic.contentSections.isEmpty {
-                            ForEach(topic.contentSections) {
-                                switch $0.type {
-                                case .literal:
-                                    Text($0.content as! AttributedString)
-                                        .textSelection(.enabled)
-                                        .frame(maxWidth: .infinity, alignment: .leading)
-                                case .image:
-                                    KFImage(URL(string: $0.content as! String)!)
-                                        .placeholder { _ in
+                                    KFImage(URL(string: topic.member!.avatar!))
+                                        .placeholder({ _ in
                                             Rectangle()
                                                 .fill(.gray.opacity(0.7))
+                                                .frame(width: 50, height: 50)
+                                                .cornerRadius(4)
                                                 .shimmering()
-                                        }
+                                        })
                                         .resizable()
                                         .scaledToFit()
-                                case .code:
-                                    Text($0.content as! AttributedString)
-                                        .frame(maxWidth: .infinity, alignment: .leading)
-                                        .padding(.horizontal)
-                                        .padding(.top)
-                                        .background(.thinMaterial)
-                                        .cornerRadius(5)
-                                        .padding(.bottom)
-                                default:
-                                    EmptyView()
+                                        .frame(width: 50, height: 50)
+                                        .cornerRadius(4)
+                                }
+                                .buttonStyle(.plain)
+                                .popover(item: $userProfileSelection) {
+                                    UserProfileView(username: $0.username, useHomeData: $0.isLoginUser)
+                                }
+                                VStack(alignment: .leading, spacing: 5) {
+                                    Button {
+                                        userProfileSelection = UserProfileSelection(username: topic.member!.name)
+                                    } label: {
+                                        Text(topic.member!.name)
+                                    }
+                                    .buttonStyle(.plain)
+                                    Text(topic.createTime!)
+                                        .foregroundColor(.secondary)
+                                }
+                                Spacer()
+                                Text("#\(topic.node.title)")
+                                    .padding(3)
+                            }
+                            Text(topic.title)
+                                .textSelection(.enabled)
+                                .bold()
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.bottom)
+
+                            if !topic.contentSections.isEmpty {
+                                ForEach(topic.contentSections) {
+                                    switch $0.type {
+                                    case .literal:
+                                        Text($0.content as! AttributedString)
+                                            .textSelection(.enabled)
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                    case .image:
+                                        KFImage(URL(string: $0.content as! String)!)
+                                            .placeholder { _ in
+                                                Rectangle()
+                                                    .fill(.gray.opacity(0.7))
+                                                    .shimmering()
+                                            }
+                                            .resizable()
+                                            .scaledToFit()
+                                    case .code:
+                                        Text($0.content as! AttributedString)
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                            .padding(.horizontal)
+                                            .padding(.top)
+                                            .background(.thinMaterial)
+                                            .cornerRadius(5)
+                                            .padding(.bottom)
+                                    default:
+                                        EmptyView()
+                                    }
+                                }
+                                Divider()
+                            }
+                            ForEach(replies!) { reply in
+                                VStack {
+                                    ReplyView(reply: reply, isOP: topic.member!.name == reply.member.name)
+                                    Divider()
                                 }
                             }
-                            Divider()
+                            if let _ = topic.nextPage {
+                                ProgressView()
+                                    .padding(4)
+                                    .scaleEffect(0.7)
+                            }
                         }
-                        ForEach(replies!.indices) { index in
-                            let reply = replies![index]
-                            VStack {
-                                ReplyView(reply: reply, isOP: topic.member!.name == reply.member.name, floor: index + 1)
-                                Divider()
+                        .padding(.top)
+                        .padding(.horizontal)
+                        .background {
+                            GeometryReader {
+                                let gap = abs(-$0.frame(in: .named("scroll")).origin.y + proxy.size.height - $0.frame(in: .local).height)
+                                Color.clear.preference(key: IsScrollToBottomKey.self, value: gap < 1)
+                            }
+                        }
+                        .onPreferenceChange(IsScrollToBottomKey.self) { newValue in
+                            if !self.isLoadingReply && newValue {
+                                if let id = self.topic?.id, let nextPage = self.topic?.nextPage {
+                                    Task {
+                                        do {
+                                            let (replies, newNextPage) = try await V2EXClient.shared.getRepliesByTopic(id: id, page: nextPage)
+                                            loadReplies(replies: replies, nextPage: newNextPage)
+                                        } catch {
+                                            print(error)
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
-                    .padding(.top)
-                    .padding(.horizontal)
+                    .coordinateSpace(name: "scroll")
                 }
-            } else if isShoading {
+            } else if isLoadingTopic {
                 ProgressView()
             } else {
                 Text("No content")
@@ -136,13 +164,13 @@ struct TopicView: View {
                         Button {
                             self.topic = nil
                             self.replies = nil
-                            self.isShoading = true
+                            self.isLoadingTopic = true
                             Task {
                                 do {
                                     let (topic, replies) = try await V2EXClient.shared.getTopicReplies(id: topicId)
                                     self.topic = topic
                                     self.replies = replies
-                                    self.isShoading = false
+                                    self.isLoadingTopic = false
                                 } catch V2EXClientError.unavailable {
                                     appState.show(normalInfo: "info.noAccess")
                                 } catch {
@@ -153,7 +181,7 @@ struct TopicView: View {
                             Image(systemName: "arrow.clockwise")
                         }
                     }
-                    .disabled(isShoading)
+                    .disabled(isLoadingTopic)
                 }
             }
         }
@@ -161,13 +189,13 @@ struct TopicView: View {
             self.topic = nil
             self.replies = nil
             if let topicId {
-                self.isShoading = true
+                self.isLoadingTopic = true
                 Task {
                     do {
                         let (topic, replies) = try await V2EXClient.shared.getTopicReplies(id: topicId)
                         self.topic = topic
                         self.replies = replies
-                        self.isShoading = false
+                        self.isLoadingTopic = false
                     } catch V2EXClientError.unavailable {
                         appState.show(normalInfo: "info.noAccess")
                     } catch {
@@ -182,13 +210,28 @@ struct TopicView: View {
                     let (topic, replies) = try await V2EXClient.shared.getTopicReplies(id: id)
                     self.topic = topic
                     self.replies = replies
-                    self.isShoading = false
+                    self.isLoadingTopic = false
                 } catch V2EXClientError.unavailable {
                     appState.show(normalInfo: "info.noAccess")
                 } catch {
                     appState.show(errorInfo: "info.network.error")
                 }
             }
+        }
+    }
+
+    @MainActor
+    func loadReplies(replies: [Reply], nextPage: Int?) {
+        self.replies?.append(contentsOf: replies)
+        topic?.nextPage = nextPage
+        isLoadingReply = false
+    }
+    
+    struct IsScrollToBottomKey: PreferenceKey {
+        typealias Value = Bool
+        static var defaultValue = true
+        static func reduce(value: inout Value, nextValue: () -> Value) {
+            value = value && nextValue()
         }
     }
 }

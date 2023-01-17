@@ -119,22 +119,22 @@ class Parser {
             topicContentSections.append(ContentSection(type: .literal, content: try parse2AttributeString(string: content!)))
         }
 
+        let (replies, nextPage) = try parse2Replies(doc: doc)
         return (Topic(id: id, node: node, member: member, title: title, content: content, url: nil, replyCount: nil, createTime: createTime,
-                      lastReplyBy: nil, lastTouched: nil, pageCount: pageCount, contentSections: topicContentSections), try parse2Replies(doc: doc))
+                      lastReplyBy: nil, lastTouched: nil, pageCount: pageCount, contentSections: topicContentSections, nextPage: nextPage), replies)
     }
 
-    func parse2Replies(html: String) throws -> [Reply] {
+    func parse2Replies(html: String) throws -> ([Reply], Int?) {
         let doc = try SwiftSoup.parse(html)
         return try parse2Replies(doc: doc)
     }
 
-    func parse2Replies(doc: Document) throws -> [Reply] {
+    func parse2Replies(doc: Document) throws -> ([Reply], Int?) {
         var replies: [Reply] = []
         let boxElements = try doc.select("#Main > .box")
         guard boxElements.size() > 1 else {
-            return replies
+            return (replies, nil)
         }
-        let count = boxElements.count
         let cellElements = try boxElements[1].getElementsByClass("cell")
         for cellElement in cellElements {
             if cellElement.hasAttr("id") {
@@ -149,12 +149,20 @@ class Parser {
                 let createTime = try cellElement.select(".ago").first()!.text()
                 let content = try cellElement.select(".reply_content").first()!.outerHtml()
                 // let thankCount = try cellElement.select(".fade").first()?.text() ?? ""
-                // let floor = try cellElement.select(".no").first()!.text()
-                let reply = Reply(id: id, content: content, attributeStringContent: try parse2AttributeString(string: content), member: member, creatTime: createTime)
+                let floor = try cellElement.select(".no").first()!.text()
+                let reply = Reply(id: id, content: content, attributeStringContent: try parse2AttributeString(string: content), member: member, creatTime: createTime,floor: floor)
                 replies.append(reply)
             }
         }
-        return replies
+        var nextPage: Int?
+
+        if let pageCurrentElement = try doc.getElementsByClass("page_current").first() {
+            if let nextPageElement = try pageCurrentElement.nextElementSibling() {
+                nextPage = Int(try nextPageElement.text().trimmingCharacters(in: .whitespaces))
+            }
+        }
+
+        return (replies, nextPage)
     }
 
     func parse2Nodes(doc: Document) throws -> [String: [Node]] {

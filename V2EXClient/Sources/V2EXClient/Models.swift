@@ -21,6 +21,7 @@ public struct Topic: Codable, Identifiable {
     public let lastTouched: String?
     public let pageCount: Int?
     public var contentSections: [ContentSection] = []
+    public var nextPage: Int?
 
     enum CodingKeys: String, CodingKey {
         case id, node, member, title, content, url, replyCount, createTime, lastReplyBy, lastTouched, pageCount
@@ -52,6 +53,7 @@ public struct Reply: Codable, Identifiable {
     public var attributeStringContent: AttributedString
     public var member: Member
     public var creatTime: String
+    public var floor: String
 }
 
 public struct ContentSection: Identifiable {
