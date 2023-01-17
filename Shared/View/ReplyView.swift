@@ -67,6 +67,14 @@ struct ReplyView: View {
             Text(reply.attributeStringContent)
                 .textSelection(.enabled)
                 .frame(maxWidth: .infinity, alignment: .leading)
+            if reply.thankCount > 0 {
+                HStack {
+                    Spacer()
+                    Image(systemName: "heart.fill")
+                        .foregroundColor(.pink)
+                    Text("\(reply.thankCount)")
+                }
+            }
         }
         .font(.caption)
     }

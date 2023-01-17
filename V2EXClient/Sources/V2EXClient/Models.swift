@@ -54,6 +54,7 @@ public struct Reply: Codable, Identifiable {
     public var member: Member
     public var creatTime: String
     public var floor: String
+    public var thankCount: Int
 }
 
 public struct ContentSection: Identifiable {

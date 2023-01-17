@@ -148,9 +148,9 @@ class Parser {
                 let member = Member(name: name, url: url, avatar: avatar)
                 let createTime = try cellElement.select(".ago").first()!.text()
                 let content = try cellElement.select(".reply_content").first()!.outerHtml()
-                // let thankCount = try cellElement.select(".fade").first()?.text() ?? ""
+                let thankCount = try cellElement.select(".fade").first()?.text() ?? "0"
                 let floor = try cellElement.select(".no").first()!.text()
-                let reply = Reply(id: id, content: content, attributeStringContent: try parse2AttributeString(string: content), member: member, creatTime: createTime,floor: floor)
+                let reply = Reply(id: id, content: content, attributeStringContent: try parse2AttributeString(string: content), member: member, creatTime: createTime,floor: floor, thankCount: Int(thankCount)!)
                 replies.append(reply)
             }
         }
