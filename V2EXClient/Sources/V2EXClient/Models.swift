@@ -185,3 +185,16 @@ public struct SearchHit: Codable, Identifiable {
 public struct SearchResult: Codable {
     public let hits: [SearchHit]
 }
+
+public struct PostTopic {
+    public let title: String
+    public let syntax = "markdown"
+    public let content: String
+    public let nodeName: String
+    
+    public init(title: String, content: String, nodeName: String) {
+        self.title = title
+        self.content = content
+        self.nodeName = nodeName
+    }
+}

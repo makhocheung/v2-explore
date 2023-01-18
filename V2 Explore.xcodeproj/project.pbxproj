@@ -71,6 +71,7 @@
 		70D769C228F97FDE000991BF /* V2EXClient in Frameworks */ = {isa = PBXBuildFile; productRef = 70D769C128F97FDE000991BF /* V2EXClient */; };
 		70DA186328C1E50000F24275 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70DA186228C1E50000F24275 /* MainView.swift */; };
 		70E14B10291E146600043DAC /* NodesSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E14B0F291E146600043DAC /* NodesSelectionView.swift */; };
+		70E8ADAD29778BA100CA451A /* PostTopicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E8ADAC29778BA100CA451A /* PostTopicView.swift */; };
 		DBE6492363F0AC4D310D1CEA /* ExploreTopicType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE6467C5A95A3F925DC1C7E /* ExploreTopicType.swift */; };
 		DBE6498A397356FCB62B8DB4 /* ExploreTopicType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE6467C5A95A3F925DC1C7E /* ExploreTopicType.swift */; };
 /* End PBXBuildFile section */
@@ -173,6 +174,7 @@
 		70D4C0D027FDAEDA0055E95C /* V2EXClient */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = V2EXClient; sourceTree = "<group>"; };
 		70DA186228C1E50000F24275 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		70E14B0F291E146600043DAC /* NodesSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodesSelectionView.swift; sourceTree = "<group>"; };
+		70E8ADAC29778BA100CA451A /* PostTopicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTopicView.swift; sourceTree = "<group>"; };
 		DBE6467C5A95A3F925DC1C7E /* ExploreTopicType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExploreTopicType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -341,6 +343,7 @@
 				700B218E2952DB0D0053DAB6 /* UserProfileView.swift */,
 				700DAF5A2955B09F0014C7C2 /* UserTopicsView.swift */,
 				70262FF6297120B300A583AF /* UserProfileContentView.swift */,
+				70E8ADAC29778BA100CA451A /* PostTopicView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -615,6 +618,7 @@
 				701A3BF22974F159000912B0 /* SearchView.swift in Sources */,
 				70CB7A1727E71535009783FF /* SimpleTopicView.swift in Sources */,
 				70CB7A1627E71535009783FF /* ProfileView.swift in Sources */,
+				70E8ADAD29778BA100CA451A /* PostTopicView.swift in Sources */,
 				DBE6492363F0AC4D310D1CEA /* ExploreTopicType.swift in Sources */,
 				70B5CCAB28BDFF3D003F9CF1 /* GlanceType.swift in Sources */,
 				701269AB290903100094BBE2 /* AppDelegate.swift in Sources */,

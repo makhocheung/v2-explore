@@ -257,6 +257,17 @@ class Parser {
         }
         return User(name: name, avatar: avatar, memberDesc: memberDesc, activityRank: activityRank)
     }
+    
+    func parse2OnceBeforePostPage(html:String) throws -> String {
+        let doc = try SwiftSoup.parse(html)
+        return try doc.select("input[name=once]").first()!.val()
+    }
+    
+    func parse2IDAfterPostTopic(html: String) throws -> String {
+        let doc = try SwiftSoup.parse(html)
+        let topicContentElement = try doc.getElementsByClass("topic_content")[1]
+        return try topicContentElement.getElementsByTag("td")[1].text()
+    }
 
     private func timestamp2Date(timestamp: Int64) -> String {
         var timeStr: String = ""

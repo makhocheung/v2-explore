@@ -5,10 +5,10 @@
 //  Created by Mak Ho-Cheung on 2022/3/20.
 //
 
+import Combine
 import Foundation
 import SwiftUI
 import V2EXClient
-import Combine
 
 class AppState: ObservableObject {
     @Published var isShowErrorInfo = false
@@ -106,7 +106,7 @@ class AppState: ObservableObject {
     @MainActor
     func update(searchResult: SearchResult) {
         self.searchResult = searchResult
-        self.searching = false
+        searching = false
     }
 
     #if os(macOS)

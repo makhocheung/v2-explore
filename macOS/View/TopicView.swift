@@ -19,6 +19,7 @@ struct TopicView: View {
     @Environment(\.openURL) var openURL
     @State var userProfileSelection: UserProfileSelection?
     @State var isLoadingReply = false
+    @Environment(\.openWindow) var openWindow
 
     var body: some View {
         ZStack {
@@ -141,6 +142,13 @@ struct TopicView: View {
             }
         }
         .toolbar {
+            ToolbarItemGroup {
+                Button {
+                    openWindow(id: "PostTopic")
+                } label: {
+                    Image(systemName: "square.and.pencil")
+                }
+            }
             if let topicId = appState.topicSelection {
                 ToolbarItemGroup {
                     Group {
@@ -226,7 +234,7 @@ struct TopicView: View {
         topic?.nextPage = nextPage
         isLoadingReply = false
     }
-    
+
     struct IsScrollToBottomKey: PreferenceKey {
         typealias Value = Bool
         static var defaultValue = true

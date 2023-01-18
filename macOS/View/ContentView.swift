@@ -23,6 +23,11 @@ struct ContentView: View {
             }
         } else {
             Text("No content")
+                .toolbar {
+                    ToolbarItem {
+                        Text("V2 Explore")
+                    }
+                }
         }
     }
 }

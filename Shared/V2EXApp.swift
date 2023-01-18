@@ -32,8 +32,12 @@ struct V2EXApp: App {
                         .environmentObject(AppState())
                 }
             }
-            .defaultSize(width: 1240, height: 800)
-
+            .defaultSize(width: 1024, height: 600)
+            WindowGroup("发布帖子", id: "PostTopic") {
+                PostTopicView()
+                    .environmentObject(appState)
+            }
+            .defaultSize(width: 680, height: 640)
             Settings {
                 PreferencesView()
                     .environmentObject(appState)
