@@ -161,7 +161,7 @@ public class V2EXClient {
     }
 
     public func postTopic(topic: PostTopic) async throws -> String {
-        let once = try await getOnceBeforePostTopic()
+        let once = try await pollOnce()
         var urlComponents = URLComponents()
         urlComponents.queryItems = [
             URLQueryItem(name: "title", value: topic.title),
@@ -176,15 +176,34 @@ public class V2EXClient {
         request.setValue("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.1 Safari/605.1.15", forHTTPHeaderField: "User-Agent")
         request.httpMethod = "POST"
         request.httpBody = urlComponents.percentEncodedQuery!.data(using: .utf8)
-        let (data, response) = try await URLSession.shared.data(for: request)
+        let (data, _) = try await URLSession.shared.data(for: request)
         return try parser.parse2IDAfterPostTopic(html: String(data: data, encoding: .utf8)!)
     }
 
-    private func getOnceBeforePostTopic() async throws -> String {
-        let url = URL(string: "https://www.v2ex.com/write")!
-        let (data, response) = try await URLSession.shared.data(from: url)
+    public func reply(id: String, content: String) async throws {
+        let once = try await pollOnce()
+        var urlComponents = URLComponents()
+        urlComponents.queryItems = [
+            URLQueryItem(name: "content", value: content),
+            URLQueryItem(name: "once", value: once),
+        ]
+        let url = URL(string: "https://www.v2ex.com/t/\(id)")!
+        var request = URLRequest(url: url)
+        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        request.setValue("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.1 Safari/605.1.15", forHTTPHeaderField: "User-Agent")
+        request.httpMethod = "POST"
+        request.httpBody = urlComponents.percentEncodedQuery!.data(using: .utf8)
+        let (data, response) = try await URLSession.shared.data(for: request)
+        let httpResponse = response as! HTTPURLResponse
+        print(httpResponse.statusCode)
+        print(String(data: data, encoding: .utf8)!)
+    }
+
+    private func pollOnce() async throws -> String {
+        let url = URL(string: "https://www.v2ex.com/poll_once")!
+        let (data, _) = try await URLSession.shared.data(from: url)
         let html = String(data: data, encoding: .utf8)!
-        return try parser.parse2OnceBeforePostPage(html: html)
+        return try parser.parse2Once(html: html)
     }
 
     private func doGetTopicsHtml(url: String) async throws -> String {

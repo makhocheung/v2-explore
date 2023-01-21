@@ -20,6 +20,8 @@ class AppState: ObservableObject {
     // @Published var userProfileSelection: UserProfileSelection?
     @Published var searchResult: SearchResult?
     @Published var searching = false
+    // @Published var isShowPostReply = false
+    @Published var replyObjectInfo: ReplyObjectInfo?
 
     init() {
         let ud = UserDefaults.standard
@@ -114,6 +116,7 @@ class AppState: ObservableObject {
         @Published var topicSelection: String?
         @Published var isShowLoginView = false
         @Published var searchContent = ""
+        var needRefreshTopic = false
         func clearTopicSelection() {
             topicSelection = nil
         }
@@ -133,4 +136,11 @@ struct UserProfileSelection: Identifiable {
         self.isLoginUser = isLoginUser
         self.username = username
     }
+}
+
+struct ReplyObjectInfo: Identifiable {
+    let id: String
+    let username: String
+    let isReplyTopic: Bool
+    let outline: AttributedString
 }

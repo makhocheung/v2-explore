@@ -6,9 +6,9 @@
 //
 
 import Kingfisher
+import Shimmer
 import SwiftUI
 import V2EXClient
-import Shimmer
 
 struct ReplyView: View {
     var reply: Reply
@@ -36,7 +36,7 @@ struct ReplyView: View {
                 }
                 .buttonStyle(.plain)
                 .popover(item: $userProfileSelection) {
-                    UserProfileView(username: $0.username,useHomeData: $0.isLoginUser)
+                    UserProfileView(username: $0.username, useHomeData: $0.isLoginUser)
                 }
                 VStack(alignment: .leading, spacing: 2) {
                     HStack {
@@ -67,14 +67,24 @@ struct ReplyView: View {
             Text(reply.attributeStringContent)
                 .textSelection(.enabled)
                 .frame(maxWidth: .infinity, alignment: .leading)
-            if reply.thankCount > 0 {
-                HStack {
-                    Spacer()
-                    Image(systemName: "heart.fill")
-                        .foregroundColor(.pink)
+            HStack {
+                Spacer()
+                Button {
+                    appState.replyObjectInfo = ReplyObjectInfo(id: appState.topicSelection!, username: reply.member.name, isReplyTopic: false, outline: reply.attributeStringContent)
+                } label: {
+                    Image(systemName: "arrowshape.turn.up.left")
+                }
+                .buttonStyle(.plain)
+                HStack(spacing: 2) {
+                    Button {
+                    } label: {
+                        Image(systemName: "heart")
+                    }
+                    .buttonStyle(.plain)
                     Text("\(reply.thankCount)")
                 }
             }
+            .font(.callout)
         }
         .font(.caption)
     }

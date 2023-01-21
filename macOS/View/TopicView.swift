@@ -21,6 +21,8 @@ struct TopicView: View {
     @State var isLoadingReply = false
     @Environment(\.openWindow) var openWindow
 
+    @State var hasReplied = false
+
     var body: some View {
         ZStack {
             if let topic {
@@ -118,6 +120,28 @@ struct TopicView: View {
                                 Color.clear.preference(key: IsScrollToBottomKey.self, value: gap < 1)
                             }
                         }
+                        .sheet(item: $appState.replyObjectInfo, onDismiss: {
+                            if appState.needRefreshTopic {
+                                self.topic = nil
+                                self.replies = nil
+                                self.isLoadingTopic = true
+                                Task {
+                                    do {
+                                        let (topic, replies) = try await V2EXClient.shared.getTopicReplies(id: appState.topicSelection!)
+                                        self.topic = topic
+                                        self.replies = replies
+                                        self.isLoadingTopic = false
+                                        appState.needRefreshTopic = false
+                                    } catch V2EXClientError.unavailable {
+                                        appState.show(normalInfo: "info.noAccess")
+                                    } catch {
+                                        appState.show(errorInfo: "info.network.error")
+                                    }
+                                }
+                            }
+                        }) { info in
+                            PostReplyView(replyObjectInfo: info)
+                        }
                         .onPreferenceChange(IsScrollToBottomKey.self) { newValue in
                             if !self.isLoadingReply && newValue {
                                 if let id = self.topic?.id, let nextPage = self.topic?.nextPage {
@@ -152,6 +176,11 @@ struct TopicView: View {
             if let topicId = appState.topicSelection {
                 ToolbarItemGroup {
                     Group {
+                        Button {
+                            appState.replyObjectInfo = ReplyObjectInfo(id: topicId, username: topic!.member!.name, isReplyTopic: true, outline: AttributedString(stringLiteral: topic!.title))
+                        } label: {
+                            Image(systemName: "arrowshape.turn.up.left")
+                        }
                         Button {
                             let pasteBoard = NSPasteboard.general
                             pasteBoard.clearContents()

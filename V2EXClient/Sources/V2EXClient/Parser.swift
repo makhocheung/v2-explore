@@ -258,9 +258,9 @@ class Parser {
         return User(name: name, avatar: avatar, memberDesc: memberDesc, activityRank: activityRank)
     }
     
-    func parse2OnceBeforePostPage(html:String) throws -> String {
+    func parse2Once(html: String) throws -> String {
         let doc = try SwiftSoup.parse(html)
-        return try doc.select("input[name=once]").first()!.val()
+        return try doc.body()!.text()
     }
     
     func parse2IDAfterPostTopic(html: String) throws -> String {
