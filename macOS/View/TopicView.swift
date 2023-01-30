@@ -28,7 +28,7 @@ struct TopicView: View {
             if let topic {
                 GeometryReader { proxy in
                     ScrollView {
-                        VStack {
+                        LazyVStack {
                             HStack {
                                 Button {
                                     userProfileSelection = UserProfileSelection(username: topic.member!.name)
@@ -145,6 +145,7 @@ struct TopicView: View {
                         .onPreferenceChange(IsScrollToBottomKey.self) { newValue in
                             if !self.isLoadingReply && newValue {
                                 if let id = self.topic?.id, let nextPage = self.topic?.nextPage {
+                                    self.isLoadingReply = true
                                     Task {
                                         do {
                                             let (replies, newNextPage) = try await V2EXClient.shared.getRepliesByTopic(id: id, page: nextPage)
