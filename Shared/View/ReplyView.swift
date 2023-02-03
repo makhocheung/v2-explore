@@ -35,9 +35,11 @@ struct ReplyView: View {
                         .cornerRadius(4)
                 }
                 .buttonStyle(.plain)
-                .popover(item: $userProfileSelection) {
-                    UserProfileView(username: $0.username, useHomeData: $0.isLoginUser)
-                }
+                #if os(macOS)
+                    .popover(item: $userProfileSelection) {
+                        UserProfileView(username: $0.username, useHomeData: $0.isLoginUser)
+                    }
+                #endif
                 VStack(alignment: .leading, spacing: 2) {
                     HStack {
                         Button {
@@ -70,7 +72,9 @@ struct ReplyView: View {
             HStack {
                 Spacer()
                 Button {
-                    appState.replyObjectInfo = ReplyObjectInfo(id: appState.topicSelection!, username: reply.member.name, isReplyTopic: false, outline: reply.attributeStringContent)
+                    #if os(macOS)
+                        appState.replyObjectInfo = ReplyObjectInfo(id: appState.topicSelection!, username: reply.member.name, isReplyTopic: false, outline: reply.attributeStringContent)
+                    #endif
                 } label: {
                     Image(systemName: "arrowshape.turn.up.left")
                 }

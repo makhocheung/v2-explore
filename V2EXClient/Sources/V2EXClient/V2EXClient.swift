@@ -109,8 +109,16 @@ public class V2EXClient {
         request.httpMethod = "POST"
         let encodedUsername = signIn.username.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         let encodedPassword = signIn.password.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-        let body = "\(signIn.usernameKey)=\(encodedUsername)&\(signIn.passwordKey)=\(encodedPassword)&\(signIn.captchaKey)=\(signIn.captcha)&once=\(signIn.once)&next=/"
-        request.httpBody = body.data(using: .utf8)
+        let once = try await pollOnce()
+        var urlComponents = URLComponents()
+        urlComponents.queryItems = [
+            URLQueryItem(name: signIn.usernameKey, value: signIn.username),
+            URLQueryItem(name: signIn.passwordKey, value: signIn.password),
+            URLQueryItem(name: signIn.captchaKey, value: signIn.captcha),
+            URLQueryItem(name: once, value: once),
+            URLQueryItem(name: "next", value: "/"),
+        ]
+        request.httpBody = urlComponents.percentEncodedQuery?.data(using: .utf8)
         let (data, _) = try await urlSession.data(for: request)
         if let user = try parser.parse2User(html: String(data: data, encoding: .utf8)!) {
             let a2Cookie = HTTPCookieStorage.shared.cookies?.filter {

@@ -8,7 +8,7 @@
 import Kingfisher
 import SwiftUI
 
-struct PreferencesView: View {
+struct SettingsView: View {
     @EnvironmentObject var appState: AppState
 
     var body: some View {
@@ -21,8 +21,8 @@ struct PreferencesView: View {
     }
 }
 
-struct PreferencesView_Previews: PreviewProvider {
+struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        PreferencesView()
+        SettingsView()
     }
 }

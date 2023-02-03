@@ -16,13 +16,18 @@ struct V2EXApp: App {
     private let appState = AppState()
 
     var body: some Scene {
-        Window("V2 Explore", id: "Main") {
-            MainView()
-                .environmentObject(appState)
-        }
         #if os(macOS)
-        .windowToolbarStyle(.unified(showsTitle: false))
-        .defaultSize(width: 1240, height: 800)
+            Window("V2 Explore", id: "Main") {
+                MainView()
+                    .environmentObject(appState)
+            }
+            .windowToolbarStyle(.unified(showsTitle: false))
+            .defaultSize(width: 1240, height: 800)
+        #else
+            WindowGroup {
+                MainView()
+                    .environmentObject(appState)
+            }
         #endif
 
         #if os(macOS)
@@ -39,7 +44,7 @@ struct V2EXApp: App {
             }
             .defaultSize(width: 680, height: 640)
             Settings {
-                PreferencesView()
+                SettingsView()
                     .environmentObject(appState)
             }
         #endif

@@ -16,13 +16,17 @@ struct SearchView: View {
                 ProgressView()
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
             } else if let hits = appState.searchResult?.hits {
-                List(selection: $appState.topicSelection) {
-                    ForEach(hits) { it in
-                        Text(it.source.title ?? "空")
-                            .tag(String(it.source.id))
+                #if os(macOS)
+                    List(selection: $appState.topicSelection) {
+                        ForEach(hits) { it in
+                            Text(it.source.title ?? "空")
+                                .tag(String(it.source.id))
+                        }
                     }
-                }
-                .listStyle(.sidebar)
+                    .listStyle(.sidebar)
+                #else
+                    EmptyView()
+                #endif
             } else {
                 if appState.searchContent.isEmpty {
                     Text("No content")

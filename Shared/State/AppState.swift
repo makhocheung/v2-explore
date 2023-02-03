@@ -17,11 +17,23 @@ class AppState: ObservableObject {
     @Published var normalInfo = ""
     @Published var user: User?
     @Published var token: Token?
-    // @Published var userProfileSelection: UserProfileSelection?
     @Published var searchResult: SearchResult?
     @Published var searching = false
-    // @Published var isShowPostReply = false
     @Published var replyObjectInfo: ReplyObjectInfo?
+    @Published var searchContent = ""
+    // @Published var userProfileSelection: UserProfileSelection?
+    // @Published var isShowPostReply = false
+    #if os(macOS)
+        @Published var sidebarSelection: SidebarTag?
+        @Published var topicSelection: String?
+        @Published var isShowLoginView = false
+    #endif
+    let navigationNodes = try! V2EXClient.shared.getNavigatinNodes()
+    var cancellableSet: Set<AnyCancellable> = []
+    var preSignIn: PreSignIn!
+    #if os(macOS)
+        var needRefreshTopic = false
+    #endif
 
     init() {
         let ud = UserDefaults.standard
@@ -41,29 +53,29 @@ class AppState: ObservableObject {
                 ud.removeObject(forKey: "a2ExpireDate")
             }
         }
-        let searchCancellable = $searchContent.sink { it in
-            if !it.isEmpty {
-                self.sidebarSelection = SidebarTag.search
-            } else {
-                self.searchResult = nil
-                self.searching = false
-                if self.sidebarSelection == .search {
-                    self.topicSelection = nil
+        #if os(macOS)
+            let searchCancellable = $searchContent.sink { it in
+                if !it.isEmpty {
+                    self.sidebarSelection = SidebarTag.search
+                } else {
+                    self.searchResult = nil
+                    self.searching = false
+                    if self.sidebarSelection == .search {
+                        self.topicSelection = nil
+                    }
                 }
             }
-        }
-        cancellableSet.insert(searchCancellable)
+            cancellableSet.insert(searchCancellable)
+        #endif
     }
 
-    let navigationNodes = try! V2EXClient.shared.getNavigatinNodes()
-    var cancellableSet: Set<AnyCancellable> = []
-    var preSignIn: PreSignIn!
-
+    @MainActor
     func show(errorInfo: String) {
         isShowErrorInfo = true
         self.errorInfo = errorInfo
     }
 
+    @MainActor
     func show(normalInfo: String) {
         isShowNormalInfo = true
         self.normalInfo = normalInfo
@@ -112,11 +124,6 @@ class AppState: ObservableObject {
     }
 
     #if os(macOS)
-        @Published var sidebarSelection: SidebarTag?
-        @Published var topicSelection: String?
-        @Published var isShowLoginView = false
-        @Published var searchContent = ""
-        var needRefreshTopic = false
         func clearTopicSelection() {
             topicSelection = nil
         }

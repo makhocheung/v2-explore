@@ -1,22 +1,25 @@
 //
-//  LoginView.swift
-//  V2 Explore (macOS)
+//  SiginInView.swift
+//  V2 Explore (iOS)
 //
-//  Created by Mak Ho-Cheung on 2022/11/11.
+//  Created by Mak Ho-Cheung on 2023/2/3.
 //
 
-import Shimmer
 import SwiftUI
 import V2EXClient
 
 struct SignInView: View {
+    
     @State var username = ""
     @State var password = ""
     @State var captcha = ""
     @State var captchaUrl: URL?
-    @EnvironmentObject var appState: AppState
-    @Environment(\.dismiss) var dismissAction
     @State var isSignIning = false
+    
+    @Environment(\.dismiss) var dismissAction
+
+    @EnvironmentObject var appState: AppState
+   
     var body: some View {
         Grid {
             GridRow {

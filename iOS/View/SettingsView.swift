@@ -1,47 +1,29 @@
 //
-//  SwiftUIView.swift
-//  V2EX You (iOS)
+//  SettingsView.swift
+//  V2 Explore (iOS)
 //
-//  Created by Mak Ho-Cheung on 2021/12/11.
+//  Created by Mak Ho-Cheung on 2023/2/3.
 //
 
-import Kingfisher
 import SwiftUI
+import Kingfisher
 
-#if os(macOS)
-typealias PasteBoard = NSPasteboard
-#elseif os(iOS)
-typealias PasteBoard = UIPasteboard
-#endif
-struct ProfileView: View {
+struct SettingsView: View {
     @State var cacheSize = "..."
+    @State var isShowCleanCacheAlert = false
+    @State var isShowShareAlert = false
 
     let appVersion: String
     let build: String
 
-    // alert boolean
-    @State var isShowCleanCacheAlert = false
-    @State var isShowShareAlert = false
-
     init() {
         let dict = Bundle.main.infoDictionary!
-        appVersion = dict["CFBundleShortVersionString"] as? String ?? "0.0"
+        appVersion = dict["CFBundleShortVersionString"] as! String
         build = dict["CFBundleVersion"] as? String ?? "0"
     }
 
     var body: some View {
         List {
-            VStack {
-                Image("Icon")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 100, height: 100)
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
-                Text("V2 Explore")
-                    .font(.title)
-            }
-            .frame(maxWidth: .infinity)
-            //.listRowSeparator(.hidden)
             Button {
                 isShowCleanCacheAlert.toggle()
             } label: {
@@ -66,7 +48,7 @@ struct ProfileView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
             Button {
-//                PasteBoard.general.url = URL(string: "https://testflight.apple.com/join/SdCh3Wbb")
+                UIPasteboard.general.url = URL(string: "https://testflight.apple.com/join/SdCh3Wbb")
                 isShowShareAlert.toggle()
             } label: {
                 Label("common.share", systemImage: "square.and.arrow.up.fill")
@@ -82,7 +64,7 @@ struct ProfileView: View {
             Text("")
                 .font(.footnote)
                 .frame(maxWidth: .infinity)
-                //.listRowSeparator(.hidden)
+            // .listRowSeparator(.hidden)
         }
         .listStyle(.plain)
         .onAppear {
@@ -98,11 +80,8 @@ struct ProfileView: View {
     }
 }
 
-#if DEBUG
-    struct ProfileView_Previews: PreviewProvider {
-        static var previews: some View {
-            ProfileView()
-                .navigationTitle("我的")
-        }
+struct SettingsView_Previews: PreviewProvider {
+    static var previews: some View {
+        SettingsView()
     }
-#endif
+}
