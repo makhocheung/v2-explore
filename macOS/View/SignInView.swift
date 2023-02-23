@@ -18,35 +18,26 @@ struct SignInView: View {
     @Environment(\.dismiss) var dismissAction
     @State var isSignIning = false
     var body: some View {
-        Grid {
-            GridRow {
-                AppIconView(size: 64)
-                    .gridCellColumns(2)
-            }
-            GridRow {
-                Text("common.username")
-                    .gridColumnAlignment(.leading)
+        Form {
+            AppIconView(size: 64)
+                .listRowBackground(Color.clear)
+            Section("common.username") {
                 TextField("info.usernameOrEmail", text: $username)
-                    .frame(width: 221)
+                    .multilineTextAlignment(.leading)
             }
-            GridRow {
-                Text("common.password")
-                    .gridColumnAlignment(.leading)
-                SecureField("", text: $password)
-                    .frame(width: 221)
+            Section("common.password") {
+                SecureField("输入密码", text: $password)
+                    .frame(width: 100)
             }
-            GridRow {
+            Section {
                 Text("info.areYouRobot")
-                    .gridColumnAlignment(.leading)
-                captchaView
+                // captchaView
             }
-            GridRow {
-                Text("common.captcha")
-                    .gridColumnAlignment(.leading)
+            Section("common.captcha") {
                 TextField("info.enterCaptchaAndClickToChangePicture", text: $captcha)
-                    .frame(width: 221)
+                    .frame(width: 100)
             }
-            GridRow {
+            Section {
                 HStack {
                     Button {
                         dismissAction()
@@ -61,14 +52,10 @@ struct SignInView: View {
                             .frame(width: 55)
                     }
                 }
-                .gridCellColumns(2)
             }
         }
-        .padding()
-        .padding(.horizontal)
-        .padding(.horizontal)
-        .frame(width: 400, height: 300)
-        .background(.thinMaterial)
+        .formStyle(.grouped)
+        .frame(idealWidth: 720)
         .overlay {
             if isSignIning {
                 ZStack {
@@ -101,7 +88,7 @@ struct SignInView: View {
             captchaUrl = V2EXClient.shared.getCaptchaUrl()
         }
     }
-    
+
     func siginIn() {
         isSignIning = true
         Task {
@@ -115,7 +102,7 @@ struct SignInView: View {
             }
         }
     }
-    
+
     @MainActor
     func siginInDone() {
         isSignIning = false

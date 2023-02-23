@@ -16,26 +16,26 @@ struct SidebarView: View {
 
     var body: some View {
         VStack {
-            if let user = appState.user {
-                Button {
-                    userProfileSelection = UserProfileSelection(isLoginUser: true, username: user.name)
-                } label: {
-                    KFImage(URL(string: user.avatar)!)
-                        .placeholder({ _ in
-                            Circle()
-                                .fill(.gray.opacity(0.7))
-                                .frame(width: 50, height: 50)
-                                .shimmering()
-                        })
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 50)
-                        .clipShape(Circle())
-                }
-                .buttonStyle(.plain)
-                .popover(item: $userProfileSelection) {
-                    UserProfileView(username: $0.username, useHomeData: $0.isLoginUser)
-                }
+            if false {
+//                Button {
+//                    userProfileSelection = UserProfileSelection(isLoginUser: true, username: user.name)
+//                } label: {
+//                    KFImage(URL(string: user.avatar)!)
+//                        .placeholder({ _ in
+//                            Circle()
+//                                .fill(.gray.opacity(0.7))
+//                                .frame(width: 50, height: 50)
+//                                .shimmering()
+//                        })
+//                        .resizable()
+//                        .scaledToFit()
+//                        .frame(width: 50)
+//                        .clipShape(Circle())
+//                }
+//                .buttonStyle(.plain)
+//                .popover(item: $userProfileSelection) {
+//                    UserProfileView(username: $0.username, useHomeData: $0.isLoginUser)
+//                }
             } else {
                 Button {
                     appState.isShowLoginView.toggle()
