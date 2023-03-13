@@ -16,7 +16,7 @@ struct ReplyView: View {
     @EnvironmentObject var appState: AppState
     @State var userProfileSelection: UserProfileSelection?
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             HStack {
                 Button {
                     userProfileSelection = UserProfileSelection(username: reply.member.name)

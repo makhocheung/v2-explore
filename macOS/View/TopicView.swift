@@ -68,7 +68,6 @@ struct TopicView: View {
                                 .textSelection(.enabled)
                                 .bold()
                                 .frame(maxWidth: .infinity, alignment: .leading)
-                                .padding(.bottom)
 
                             if !topic.contentSections.isEmpty {
                                 ForEach(topic.contentSections) {
@@ -93,7 +92,6 @@ struct TopicView: View {
                                             .padding(.top)
                                             .background(.thinMaterial)
                                             .cornerRadius(5)
-                                            .padding(.bottom)
                                     default:
                                         EmptyView()
                                     }

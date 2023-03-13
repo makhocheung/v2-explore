@@ -8,8 +8,12 @@
 import Foundation
 import SwiftSoup
 import SwiftyJSON
+import ZMarkupParser
 
 class Parser {
+    
+    let zHTMLParser = ZHTMLParserBuilder.initWithDefault().set(rootStyle: MarkupStyle(font: MarkupStyleFont(size: 13))).build()
+    
     func parse2SimpleTopics(html: String) throws -> [Topic] {
         var topics: [Topic] = []
         let doc = try SwiftSoup.parse(html)
@@ -367,15 +371,14 @@ class Parser {
     }
 
     private func parse2AttributeString(string: String) throws -> AttributedString {
-        let nsAttrString = try NSAttributedString(data: string.data(using: .utf8)!, options: [.documentType: NSAttributedString.DocumentType.html, .characterEncoding: String.Encoding.utf8.rawValue], documentAttributes: nil)
-        var attrString = AttributedString(nsAttrString)
-        attrString.font = .body
-        attrString.foregroundColor = .primary
-        for it in attrString.runs {
-            if let _ = it.link {
-                attrString[it.range].foregroundColor = .blue
-            }
-        }
+        var attrString = AttributedString(zHTMLParser.render(string))
+//        attrString.font = .body
+//        attrString.foregroundColor = .primary
+//        for it in attrString.runs {
+//            if let _ = it.link {
+//                attrString[it.range].foregroundColor = .blue
+//            }
+//        }
         return attrString
     }
 }
