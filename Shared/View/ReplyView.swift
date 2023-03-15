@@ -32,7 +32,8 @@ struct ReplyView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 40, height: 40)
-                        .cornerRadius(4)
+                        .clipShape(RoundedRectangle(cornerRadius: 4, style: .continuous))
+                        .imageBorder(cornerRadius: 4)
                 }
                 .buttonStyle(.plain)
                 #if os(macOS)
@@ -67,6 +68,7 @@ struct ReplyView: View {
                     .foregroundColor(.secondary)
             }
             Text(reply.attributeStringContent)
+                .font(.body)
                 .textSelection(.enabled)
                 .frame(maxWidth: .infinity, alignment: .leading)
             HStack {

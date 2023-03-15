@@ -50,3 +50,28 @@ struct V2EXApp: App {
         #endif
     }
 }
+
+struct ImageBorderModifier: ViewModifier {
+    @Environment(\.colorScheme) var colorScheme
+    let cornerRadius: CGFloat
+
+    func body(content: Content) -> some View {
+        content
+            .overlay {
+                RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+                    .strokeBorder(lineWidth: 0.5)
+                    .foregroundStyle(.tertiary)
+                    .blendMode(colorScheme == .light ? .plusDarker : .plusLighter)
+                // RoundedRectangle(cornerRadius: 10, style: .continuous)
+                //                        .stroke(.ultraThickMaterial, lineWidth: 1)
+                
+            }
+    }
+}
+
+extension View {
+
+    func imageBorder(cornerRadius: CGFloat) -> some View {
+        ModifiedContent(content: self, modifier: ImageBorderModifier(cornerRadius: cornerRadius))
+    }
+}

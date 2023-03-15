@@ -44,7 +44,8 @@ struct TopicView: View {
                                         .resizable()
                                         .scaledToFit()
                                         .frame(width: 50, height: 50)
-                                        .cornerRadius(4)
+                                        .clipShape(RoundedRectangle(cornerRadius: 4, style: .continuous))
+                                        .imageBorder(cornerRadius: 4)
                                 }
                                 .buttonStyle(.plain)
                                 .popover(item: $userProfileSelection) {
@@ -68,7 +69,6 @@ struct TopicView: View {
                                 .textSelection(.enabled)
                                 .bold()
                                 .frame(maxWidth: .infinity, alignment: .leading)
-
                             if !topic.contentSections.isEmpty {
                                 ForEach(topic.contentSections) {
                                     switch $0.type {
@@ -77,14 +77,7 @@ struct TopicView: View {
                                             .textSelection(.enabled)
                                             .frame(maxWidth: .infinity, alignment: .leading)
                                     case .image:
-                                        KFImage(URL(string: $0.content as! String)!)
-                                            .placeholder { _ in
-                                                Rectangle()
-                                                    .fill(.gray.opacity(0.7))
-                                                    .shimmering()
-                                            }
-                                            .resizable()
-                                            .scaledToFit()
+                                        VImage(url: $0.content as! String)
                                     case .code:
                                         Text($0.content as! AttributedString)
                                             .frame(maxWidth: .infinity, alignment: .leading)
@@ -96,8 +89,14 @@ struct TopicView: View {
                                         EmptyView()
                                     }
                                 }
-                                Divider()
+
+                            } else {
+                                Text("无内容")
+                                    .foregroundColor(.secondary)
+                                    .frame(maxWidth: .infinity, alignment: .center)
+                                    .padding(.top)
                             }
+                            Divider()
                             ForEach(replies!) { reply in
                                 VStack {
                                     ReplyView(reply: reply, isOP: topic.member!.name == reply.member.name)
@@ -268,6 +267,39 @@ struct TopicView: View {
         static var defaultValue = true
         static func reduce(value: inout Value, nextValue: () -> Value) {
             value = value && nextValue()
+        }
+    }
+}
+
+struct VImage: View {
+    let url: String
+    @State var showPlaceholder = true
+    @State var maxWidth = CGFloat.zero
+    @State var opacity = 0.0
+    var body: some View {
+        HStack {
+            ZStack {
+                KFImage(URL(string: url)!)
+                    .onSuccess { it in
+                        withAnimation(.default) {
+                            opacity = 1.0
+                        }
+                        maxWidth = min(it.image.size.width, 760.0)
+                        showPlaceholder = false
+                    }
+                    .resizable()
+                    .scaledToFit()
+                    .frame(maxWidth: maxWidth)
+                    .opacity(opacity)
+                if showPlaceholder {
+                    Rectangle()
+                        .fill(.gray.opacity(0.7))
+                        .frame(width: 500, height: 400)
+                        .shimmering()
+                }
+            }
+
+            Spacer()
         }
     }
 }

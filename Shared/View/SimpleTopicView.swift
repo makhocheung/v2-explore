@@ -28,7 +28,8 @@ struct SimpleTopicView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 40, height: 40)
-                        .cornerRadius(4)
+                        .clipShape(RoundedRectangle(cornerRadius: 4,style: .continuous))
+                        .imageBorder(cornerRadius: 4)
                 }
                 VStack(alignment: .leading, spacing: 2) {
                     if let member = topic.member {

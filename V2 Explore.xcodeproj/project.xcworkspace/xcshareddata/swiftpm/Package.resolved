@@ -41,8 +41,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/ZhgChgLi/ZMarkupParser.git",
       "state" : {
-        "revision" : "f21dc1a8fa6146b6c1a695102ff8e59f26e5b709",
-        "version" : "1.3.3"
+        "revision" : "43d3f70dc4a2e10bbfd4e77afd0efc8a8f081256",
+        "version" : "1.3.5"
       }
     },
     {

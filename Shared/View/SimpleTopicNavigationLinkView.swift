@@ -15,18 +15,16 @@ struct SimpleTopicNavigationLinkView: View {
 
     var body: some View {
         #if os(macOS)
-        VStack(spacing: 0) {
             SimpleTopicView(topic: topic)
-        }
         #else
-        SimpleTopicView(topic: topic)
-            .overlay {
-                NavigationLink(value: topic.id) {
-                    EmptyView()
+            SimpleTopicView(topic: topic)
+                .overlay {
+                    NavigationLink(value: topic.id) {
+                        EmptyView()
+                    }
+                    .opacity(0)
                 }
-                .opacity(0)
-            }
-        
+
         #endif
     }
 }

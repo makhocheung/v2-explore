@@ -9,11 +9,18 @@ import Foundation
 import SwiftSoup
 import SwiftyJSON
 import ZMarkupParser
+#if canImport(AppKit)
+import AppKit
+#endif
 
 class Parser {
-    
-    let zHTMLParser = ZHTMLParserBuilder.initWithDefault().set(rootStyle: MarkupStyle(font: MarkupStyleFont(size: 13))).build()
-    
+    let zHTMLParser: ZHTMLParser
+
+    init() {
+        zHTMLParser = ZHTMLParserBuilder.initWithDefault()
+            .set(rootStyle: MarkupStyle(font: MarkupStyleFont(size: 13), paragraphStyle: MarkupStyleParagraphStyle(lineSpacing: 100, paragraphSpacingBefore: 200))).build()
+    }
+
     func parse2SimpleTopics(html: String) throws -> [Topic] {
         var topics: [Topic] = []
         let doc = try SwiftSoup.parse(html)
@@ -154,7 +161,7 @@ class Parser {
                 let content = try cellElement.select(".reply_content").first()!.outerHtml()
                 let thankCount = try cellElement.select(".fade").first()?.text() ?? "0"
                 let floor = try cellElement.select(".no").first()!.text()
-                let reply = Reply(id: id, content: content, attributeStringContent: try parse2AttributeString(string: content), member: member, creatTime: createTime,floor: floor, thankCount: Int(thankCount)!)
+                let reply = Reply(id: id, content: content, attributeStringContent: try parse2AttributeString(string: content), member: member, creatTime: createTime, floor: floor, thankCount: Int(thankCount)!)
                 replies.append(reply)
             }
         }
@@ -261,12 +268,12 @@ class Parser {
         }
         return User(name: name, avatar: avatar, memberDesc: memberDesc, activityRank: activityRank)
     }
-    
+
     func parse2Once(html: String) throws -> String {
         let doc = try SwiftSoup.parse(html)
         return try doc.body()!.text()
     }
-    
+
     func parse2IDAfterPostTopic(html: String) throws -> String {
         let doc = try SwiftSoup.parse(html)
         let topicContentElement = try doc.getElementsByClass("topic_content")[1]
