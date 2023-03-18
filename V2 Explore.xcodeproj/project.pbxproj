@@ -73,6 +73,7 @@
 		70CB7A1127E71535009783FF /* ReplyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70AAAFFF27633429000D3A98 /* ReplyView.swift */; };
 		70CB7A1227E71535009783FF /* GlanceTopicsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707A07892764B0DA0047EC33 /* GlanceTopicsView.swift */; };
 		70CB7A1727E71535009783FF /* SimpleTopicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BC2D7D274CBC2A008E2AF1 /* SimpleTopicView.swift */; };
+		70D1674629C57F7A00EB582C /* TopicContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D1674529C57F7A00EB582C /* TopicContentView.swift */; };
 		70D4C0D227FDAF080055E95C /* V2EXClient in Frameworks */ = {isa = PBXBuildFile; productRef = 70D4C0D127FDAF080055E95C /* V2EXClient */; };
 		70D769C228F97FDE000991BF /* V2EXClient in Frameworks */ = {isa = PBXBuildFile; productRef = 70D769C128F97FDE000991BF /* V2EXClient */; };
 		70DA186328C1E50000F24275 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70DA186228C1E50000F24275 /* MainView.swift */; };
@@ -183,6 +184,7 @@
 		70C9D8962927619D00032665 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		70C9D8BE292763C200032665 /* TopicsEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicsEntry.swift; sourceTree = "<group>"; };
 		70C9D8C02927646300032665 /* Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Provider.swift; sourceTree = "<group>"; };
+		70D1674529C57F7A00EB582C /* TopicContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicContentView.swift; sourceTree = "<group>"; };
 		70D4C0D027FDAEDA0055E95C /* V2EXClient */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = V2EXClient; sourceTree = "<group>"; };
 		70DA186228C1E50000F24275 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		70E14B0F291E146600043DAC /* NodesSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodesSelectionView.swift; sourceTree = "<group>"; };
@@ -354,6 +356,7 @@
 				70262FF6297120B300A583AF /* UserProfileContentView.swift */,
 				70E8ADAC29778BA100CA451A /* PostTopicView.swift */,
 				7032DF2229791B4400CBB878 /* PostReplyView.swift */,
+				70D1674529C57F7A00EB582C /* TopicContentView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -619,6 +622,7 @@
 				70CB7A1127E71535009783FF /* ReplyView.swift in Sources */,
 				7071FDB327E6B04D0064A48F /* AppState.swift in Sources */,
 				70B1DEF727D246AF00DA4DF0 /* UserState.swift in Sources */,
+				70D1674629C57F7A00EB582C /* TopicContentView.swift in Sources */,
 				70BC2D70274CB665008E2AF1 /* V2EXApp.swift in Sources */,
 				7047430729306BE30028A610 /* SettingsView.swift in Sources */,
 				7032DF2329791B4400CBB878 /* PostReplyView.swift in Sources */,
@@ -1123,7 +1127,7 @@
 			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
 			requirement = {
 				kind = exactVersion;
-				version = 7.4.0;
+				version = 7.6.2;
 			};
 		};
 		70262FFB297151D100A583AF /* XCRemoteSwiftPackageReference "SwiftUI-Shimmer" */ = {

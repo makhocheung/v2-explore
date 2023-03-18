@@ -8,19 +8,11 @@
 import Foundation
 import SwiftSoup
 import SwiftyJSON
-import ZMarkupParser
 #if canImport(AppKit)
-import AppKit
+    import AppKit
 #endif
 
 class Parser {
-    let zHTMLParser: ZHTMLParser
-
-    init() {
-        zHTMLParser = ZHTMLParserBuilder.initWithDefault()
-            .set(rootStyle: MarkupStyle(font: MarkupStyleFont(size: 13), paragraphStyle: MarkupStyleParagraphStyle(lineSpacing: 100, paragraphSpacingBefore: 200))).build()
-    }
-
     func parse2SimpleTopics(html: String) throws -> [Topic] {
         var topics: [Topic] = []
         let doc = try SwiftSoup.parse(html)
@@ -38,7 +30,7 @@ class Parser {
                 }
             }
             topics.append(Topic(id: id, node: node, member: member, title: title, content: nil,
-                                url: url, replyCount: replyCount, createTime: createTime, lastReplyBy: lastReplyBy, lastTouched: lastTouched, pageCount: nil))
+                                url: url, replyCount: replyCount, createTime: createTime, lastReplyBy: lastReplyBy, lastTouched: lastTouched, pageCount: nil, isMarkdown: false))
         }
         return topics
     }
@@ -62,7 +54,7 @@ class Parser {
             let replyCount = jsonObj["replies"].intValue
             let id = jsonObj["id"].stringValue
             topics.append(Topic(id: id, node: node, member: member, title: title, content: nil, url: url, replyCount: replyCount,
-                                createTime: createTime, lastReplyBy: lastReplyBy, lastTouched: lastTouched, pageCount: nil))
+                                createTime: createTime, lastReplyBy: lastReplyBy, lastTouched: lastTouched, pageCount: nil, isMarkdown: false))
         }
         return topics
     }
@@ -81,7 +73,7 @@ class Parser {
             let (createTime, lastTouched, lastReplyBy) = try parse2GetCreateTimeLastTouchedLastReplyBy(element: try cellElement.getElementsByClass("topic_info").first()!)
             let replyCount = Int(try cellElement.getElementsByClass("count_livid").first()?.text() ?? "0") ?? 0
             topics.append(Topic(id: id, node: node, member: member, title: title, content: nil,
-                                url: url, replyCount: replyCount, createTime: createTime, lastReplyBy: lastReplyBy, lastTouched: lastTouched, pageCount: nil))
+                                url: url, replyCount: replyCount, createTime: createTime, lastReplyBy: lastReplyBy, lastTouched: lastTouched, pageCount: nil, isMarkdown: false))
         }
         return (Node(title: node.title, url: node.url, name: node.name, parentNodeName: node.parentNodeName, avatar: avatar, desc: desc, count: Int(count)), topics)
     }
@@ -100,39 +92,22 @@ class Parser {
         let pageCount = Int(try mainElement.getElementsByClass("page_input").first()?.attr("max") ?? "0")!
         let markdownBodyElement = try boxElement.getElementsByClass("markdown_body").first()
         let topicContentElement = try boxElement.getElementsByClass("topic_content").first()
-        var topicContentSections: [ContentSection] = []
         var content: String?
+        var isMarkdown = false
         if let markdownBodyElement {
             content = try markdownBodyElement.outerHtml()
             if markdownBodyElement.children().isEmpty() {
-                topicContentSections.append(ContentSection(type: .literal, content: try parse2AttributeString(string: "<p>\(markdownBodyElement.text())</p>")))
-            } else {
-                for it in markdownBodyElement.children() {
-                    let imgElements = try it.getElementsByTag("img")
-                    if !imgElements.isEmpty() {
-                        for imgElement in imgElements {
-                            // todo 图片是超链接
-                            topicContentSections.append(ContentSection(type: .image, content: try imgElement.attr("src")))
-                        }
-                        continue
-                    }
-                    let codeElements = try it.select("pre > code")
-                    if !codeElements.isEmpty() {
-                        topicContentSections.append(ContentSection(type: .code, content: try parse2AttributeString(string: it.outerHtml())))
-                        continue
-                    }
-                    topicContentSections.append(ContentSection(type: .literal, content: try parse2AttributeString(string: it.outerHtml())))
-                }
+                content = try "<p>\(markdownBodyElement.text())</p>"
             }
+            isMarkdown = true
         } else if let topicContentElement {
             // TODO: 非 MD 内容优化
             content = try topicContentElement.outerHtml()
-            topicContentSections.append(ContentSection(type: .literal, content: try parse2AttributeString(string: content!)))
         }
 
         let (replies, nextPage) = try parse2Replies(doc: doc)
         return (Topic(id: id, node: node, member: member, title: title, content: content, url: nil, replyCount: nil, createTime: createTime,
-                      lastReplyBy: nil, lastTouched: nil, pageCount: pageCount, contentSections: topicContentSections, nextPage: nextPage), replies)
+                      lastReplyBy: nil, lastTouched: nil, pageCount: pageCount, nextPage: nextPage, isMarkdown: isMarkdown), replies)
     }
 
     func parse2Replies(html: String) throws -> ([Reply], Int?) {
@@ -161,7 +136,7 @@ class Parser {
                 let content = try cellElement.select(".reply_content").first()!.outerHtml()
                 let thankCount = try cellElement.select(".fade").first()?.text() ?? "0"
                 let floor = try cellElement.select(".no").first()!.text()
-                let reply = Reply(id: id, content: content, attributeStringContent: try parse2AttributeString(string: content), member: member, creatTime: createTime, floor: floor, thankCount: Int(thankCount)!)
+                let reply = Reply(id: id, content: content, member: member, creatTime: createTime, floor: floor, thankCount: Int(thankCount)!)
                 replies.append(reply)
             }
         }
@@ -375,17 +350,5 @@ class Parser {
         } else {
             return nil
         }
-    }
-
-    private func parse2AttributeString(string: String) throws -> AttributedString {
-        var attrString = AttributedString(zHTMLParser.render(string))
-//        attrString.font = .body
-//        attrString.foregroundColor = .primary
-//        for it in attrString.runs {
-//            if let _ = it.link {
-//                attrString[it.range].foregroundColor = .blue
-//            }
-//        }
-        return attrString
     }
 }

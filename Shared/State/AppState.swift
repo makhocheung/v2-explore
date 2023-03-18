@@ -149,5 +149,5 @@ struct ReplyObjectInfo: Identifiable {
     let id: String
     let username: String
     let isReplyTopic: Bool
-    let outline: AttributedString
+    let outline: String
 }

@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 
+
 public struct Topic: Codable, Identifiable {
     public let id: String
     public let node: Node
@@ -20,11 +21,13 @@ public struct Topic: Codable, Identifiable {
     public let lastReplyBy: Member?
     public let lastTouched: String?
     public let pageCount: Int?
-    public var contentSections: [ContentSection] = []
     public var nextPage: Int?
+    public let isMarkdown: Bool
+    
+    //public var parsedContent: (some View)?
 
     enum CodingKeys: String, CodingKey {
-        case id, node, member, title, content, url, replyCount, createTime, lastReplyBy, lastTouched, pageCount
+        case id, node, member, title, content, url, replyCount, createTime, lastReplyBy, lastTouched, pageCount, isMarkdown
     }
 }
 
@@ -50,21 +53,10 @@ public struct Node: Codable, Identifiable, Equatable, Hashable {
 public struct Reply: Codable, Identifiable {
     public var id: String
     public var content: String
-    public var attributeStringContent: AttributedString
     public var member: Member
     public var creatTime: String
     public var floor: String
     public var thankCount: Int
-}
-
-public struct ContentSection: Identifiable {
-    public enum ContentSectionType {
-        case literal, image, code, video
-    }
-
-    public let id = UUID()
-    public var type: ContentSectionType
-    public var content: Any
 }
 
 public enum V2EXClientError: Error {

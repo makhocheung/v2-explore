@@ -67,15 +67,17 @@ struct ReplyView: View {
                 Text("#\(reply.floor)")
                     .foregroundColor(.secondary)
             }
-            Text(reply.attributeStringContent)
+//            Text(reply.content)
+//                .font(.body)
+//                .textSelection(.enabled)
+//                .frame(maxWidth: .infinity, alignment: .leading)
+            ReplyContentView(html: reply.content)
                 .font(.body)
-                .textSelection(.enabled)
-                .frame(maxWidth: .infinity, alignment: .leading)
             HStack {
                 Spacer()
                 Button {
                     #if os(macOS)
-                        appState.replyObjectInfo = ReplyObjectInfo(id: appState.topicSelection!, username: reply.member.name, isReplyTopic: false, outline: reply.attributeStringContent)
+                        appState.replyObjectInfo = ReplyObjectInfo(id: appState.topicSelection!, username: reply.member.name, isReplyTopic: false, outline: reply.content)
                     #endif
                 } label: {
                     Image(systemName: "arrowshape.turn.up.left")

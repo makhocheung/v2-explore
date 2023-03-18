@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/onevcat/Kingfisher.git",
       "state" : {
-        "revision" : "017f94ccfdacabb1ae7f45b75b4217b24c06e6ac",
-        "version" : "7.4.0"
+        "revision" : "af4be924ad984cf4d16f4ae4df424e79a443d435",
+        "version" : "7.6.2"
       }
     },
     {
@@ -34,24 +34,6 @@
       "state" : {
         "revision" : "b3dcd7dbd0d488e1a7077cb33b00f2083e382f07",
         "version" : "5.0.1"
-      }
-    },
-    {
-      "identity" : "zmarkupparser",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/ZhgChgLi/ZMarkupParser.git",
-      "state" : {
-        "revision" : "43d3f70dc4a2e10bbfd4e77afd0efc8a8f081256",
-        "version" : "1.3.5"
-      }
-    },
-    {
-      "identity" : "znstextattachment",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/ZhgChgLi/ZNSTextAttachment",
-      "state" : {
-        "revision" : "4158a60b4c88e544eee53e7bb043dfb74bc19543",
-        "version" : "1.1.6"
       }
     }
   ],

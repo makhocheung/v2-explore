@@ -69,33 +69,7 @@ struct TopicView: View {
                                 .textSelection(.enabled)
                                 .bold()
                                 .frame(maxWidth: .infinity, alignment: .leading)
-                            if !topic.contentSections.isEmpty {
-                                ForEach(topic.contentSections) {
-                                    switch $0.type {
-                                    case .literal:
-                                        Text($0.content as! AttributedString)
-                                            .textSelection(.enabled)
-                                            .frame(maxWidth: .infinity, alignment: .leading)
-                                    case .image:
-                                        VImage(url: $0.content as! String)
-                                    case .code:
-                                        Text($0.content as! AttributedString)
-                                            .frame(maxWidth: .infinity, alignment: .leading)
-                                            .padding(.horizontal)
-                                            .padding(.top)
-                                            .background(.thinMaterial)
-                                            .cornerRadius(5)
-                                    default:
-                                        EmptyView()
-                                    }
-                                }
-
-                            } else {
-                                Text("无内容")
-                                    .foregroundColor(.secondary)
-                                    .frame(maxWidth: .infinity, alignment: .center)
-                                    .padding(.top)
-                            }
+                            TopicContentView(html: topic.content, isMarkdown: topic.isMarkdown)
                             Divider()
                             ForEach(replies!) { reply in
                                 VStack {
@@ -175,7 +149,7 @@ struct TopicView: View {
                 ToolbarItemGroup {
                     Group {
                         Button {
-                            appState.replyObjectInfo = ReplyObjectInfo(id: topicId, username: topic!.member!.name, isReplyTopic: true, outline: AttributedString(stringLiteral: topic!.title))
+                            appState.replyObjectInfo = ReplyObjectInfo(id: topicId, username: topic!.member!.name, isReplyTopic: true, outline: topic!.title)
                         } label: {
                             Image(systemName: "arrowshape.turn.up.left")
                         }
@@ -227,7 +201,8 @@ struct TopicView: View {
                 self.isLoadingTopic = true
                 Task {
                     do {
-                        let (topic, replies) = try await V2EXClient.shared.getTopicReplies(id: topicId)
+                        var (topic, replies) = try await V2EXClient.shared.getTopicReplies(id: topicId)
+                        // topic.parsedContent = ContentConverter.shared.convert(html: topic.content!)
                         self.topic = topic
                         self.replies = replies
                         self.isLoadingTopic = false
@@ -242,7 +217,8 @@ struct TopicView: View {
         .task {
             if let id = appState.topicSelection {
                 do {
-                    let (topic, replies) = try await V2EXClient.shared.getTopicReplies(id: id)
+                    var (topic, replies) = try await V2EXClient.shared.getTopicReplies(id: id)
+                    // topic.parsedContent = ContentConverter.shared.convert(html: topic.content!)
                     self.topic = topic
                     self.replies = replies
                     self.isLoadingTopic = false
