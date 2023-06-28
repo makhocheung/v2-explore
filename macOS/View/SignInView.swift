@@ -19,26 +19,24 @@ struct SignInView: View {
     @State var isSignIning = false
     var body: some View {
         Form {
-            AppIconView(size: 64)
-                .listRowBackground(Color.clear)
+            HStack {
+                AppIconView(size: 64)
+            }
+            .frame(maxWidth: .infinity, alignment: .center)
+
             Section("common.username") {
                 TextField("info.usernameOrEmail", text: $username)
-                    .multilineTextAlignment(.leading)
             }
             Section("common.password") {
                 SecureField("输入密码", text: $password)
-                    .frame(width: 100)
-            }
-            Section {
-                Text("info.areYouRobot")
-                // captchaView
             }
             Section("common.captcha") {
+                captchaView
                 TextField("info.enterCaptchaAndClickToChangePicture", text: $captcha)
-                    .frame(width: 100)
             }
             Section {
                 HStack {
+                    Spacer()
                     Button {
                         dismissAction()
                     } label: {
