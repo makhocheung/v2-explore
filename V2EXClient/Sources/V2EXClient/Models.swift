@@ -8,7 +8,6 @@
 import Foundation
 import SwiftUI
 
-
 public struct Topic: Codable, Identifiable {
     public let id: String
     public let node: Node
@@ -23,8 +22,8 @@ public struct Topic: Codable, Identifiable {
     public let pageCount: Int?
     public var nextPage: Int?
     public let isMarkdown: Bool
-    
-    //public var parsedContent: (some View)?
+
+    // public var parsedContent: (some View)?
 
     enum CodingKeys: String, CodingKey {
         case id, node, member, title, content, url, replyCount, createTime, lastReplyBy, lastTouched, pageCount, isMarkdown
@@ -78,14 +77,16 @@ public struct SignIn {
     public let username: String
     public let password: String
     public let captcha: String
+    public let once: String
 
-    public init(usernameKey: String, passwordKey: String, captchaKey: String, username: String, password: String, captcha: String) {
+    public init(usernameKey: String, passwordKey: String, captchaKey: String, username: String, password: String, captcha: String, once: String) {
         self.usernameKey = usernameKey
         self.passwordKey = passwordKey
         self.captchaKey = captchaKey
         self.username = username
         self.password = password
         self.captcha = captcha
+        self.once = once
     }
 }
 
@@ -181,7 +182,7 @@ public struct PostTopic {
     public let syntax = "markdown"
     public let content: String
     public let nodeName: String
-    
+
     public init(title: String, content: String, nodeName: String) {
         self.title = title
         self.content = content

@@ -28,7 +28,7 @@ struct SignInView: View {
                 TextField("info.usernameOrEmail", text: $username)
             }
             Section("common.password") {
-                SecureField("输入密码", text: $password)
+                TextField("输入密码", text: $password)
             }
             Section("common.captcha") {
                 captchaView
@@ -90,7 +90,7 @@ struct SignInView: View {
     func siginIn() {
         isSignIning = true
         Task {
-            let signIn = SignIn(usernameKey: appState.preSignIn.usernameKey, passwordKey: appState.preSignIn.passwordKey, captchaKey: appState.preSignIn.captchaKey, username: username, password: password, captcha: captcha)
+            let signIn = SignIn(usernameKey: appState.preSignIn.usernameKey, passwordKey: appState.preSignIn.passwordKey, captchaKey: appState.preSignIn.captchaKey, username: username, password: password, captcha: captcha, once: appState.preSignIn.once)
             do {
                 let (user, token) = try await V2EXClient.shared.signIn(signIn: signIn)
                 appState.upateUserAndToken(user: user, token: token)

@@ -107,15 +107,12 @@ public class V2EXClient {
         request.setValue("https://v2ex.com/signin", forHTTPHeaderField: "Referer")
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
-        let encodedUsername = signIn.username.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-        let encodedPassword = signIn.password.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-        let once = try await pollOnce()
         var urlComponents = URLComponents()
         urlComponents.queryItems = [
             URLQueryItem(name: signIn.usernameKey, value: signIn.username),
             URLQueryItem(name: signIn.passwordKey, value: signIn.password),
             URLQueryItem(name: signIn.captchaKey, value: signIn.captcha),
-            URLQueryItem(name: once, value: once),
+            URLQueryItem(name: "once", value: signIn.once),
             URLQueryItem(name: "next", value: "/"),
         ]
         request.httpBody = urlComponents.percentEncodedQuery?.data(using: .utf8)

@@ -185,6 +185,7 @@ class Parser {
     }
 
     func parse2User(html: String) throws -> User? {
+        print(html)
         let doc = try SwiftSoup.parse(html)
         guard let userTable = try doc.getElementById("Rightbar")?.getElementsByClass("box").first()?.getElementsByClass("cell").first()?.getElementsByTag("table").first() else {
             return nil
