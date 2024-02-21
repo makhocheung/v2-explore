@@ -71,7 +71,7 @@ struct NodeView: View {
                             .fixedSize(horizontal: false, vertical: true)
                         HStack {
                             Spacer()
-                            Text("info.themeCount \(fullNode.count!)")
+                            Text("info.themeCount \(fullNode.count ?? 0)")
                                 .padding(5)
                         }
                     }

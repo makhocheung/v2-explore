@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/onevcat/Kingfisher.git",
       "state" : {
-        "revision" : "af4be924ad984cf4d16f4ae4df424e79a443d435",
-        "version" : "7.6.2"
+        "revision" : "5b92f029fab2cce44386d28588098b5be0824ef5",
+        "version" : "7.11.0"
       }
     },
     {
@@ -14,8 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/scinfu/SwiftSoup.git",
       "state" : {
-        "revision" : "6778575285177365cbad3e5b8a72f2a20583cfec",
-        "version" : "2.4.3"
+        "revision" : "1d39e56d364cba79ce43b341f9661b534cccb18d",
+        "version" : "2.7.1"
       }
     },
     {
@@ -23,8 +23,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/markiv/SwiftUI-Shimmer.git",
       "state" : {
-        "revision" : "965a7cbcbf094cbcf22b9251a2323bdc3432e171",
-        "version" : "1.1.0"
+        "revision" : "5659a623567cefe258d1e3e67cb65585fbb6ecb6",
+        "version" : "1.4.2"
       }
     },
     {
