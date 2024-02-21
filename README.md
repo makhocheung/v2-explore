@@ -49,4 +49,4 @@ V2 Explore 是一个基于 SwiftUI 开发的跨多个苹果平台的第三方 [V
 
 ---
 
-Copyright © 2022 Naamfung Team. All Rights Reserved.
+Copyright © 2024 Naamfung Team. All Rights Reserved.
