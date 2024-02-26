@@ -19,7 +19,7 @@ struct TopicView: View {
 
     var body: some View {
         ZStack {
-            if topic != nil {
+            if let topic {
                 ScrollView {
                     VStack {
                         HStack {
@@ -49,36 +49,36 @@ struct TopicView: View {
                             .bold()
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.bottom)
-                        if !topic.contentSections.isEmpty {
-                            ForEach(topic.contentSections) {
-                                switch $0.type {
-                                case .literal:
-                                    Text($0.content as! AttributedString)
-                                        .textSelection(.enabled)
-                                        .frame(maxWidth: .infinity, alignment: .leading)
-                                case .image:
-                                    KFImage(URL(string: $0.content as! String)!)
-                                        .placeholder { _ in
-                                            Rectangle()
-                                                .fill(.gray.opacity(0.7))
-                                                .shimmering()
-                                        }
-                                        .resizable()
-                                        .scaledToFit()
-                                case .code:
-                                    Text($0.content as! AttributedString)
-                                        .frame(maxWidth: .infinity, alignment: .leading)
-                                        .padding(.horizontal)
-                                        .padding(.top)
-                                        .background(.thinMaterial)
-                                        .cornerRadius(5)
-                                        .padding(.bottom)
-                                default:
-                                    EmptyView()
-                                }
-                            }
-                            Divider()
-                        }
+//                        if !topic.contentSections.isEmpty {
+//                            ForEach(topic.contentSections) {
+//                                switch $0.type {
+//                                case .literal:
+//                                    Text($0.content as! AttributedString)
+//                                        .textSelection(.enabled)
+//                                        .frame(maxWidth: .infinity, alignment: .leading)
+//                                case .image:
+//                                    KFImage(URL(string: $0.content as! String)!)
+//                                        .placeholder { _ in
+//                                            Rectangle()
+//                                                .fill(.gray.opacity(0.7))
+//                                                .shimmering()
+//                                        }
+//                                        .resizable()
+//                                        .scaledToFit()
+//                                case .code:
+//                                    Text($0.content as! AttributedString)
+//                                        .frame(maxWidth: .infinity, alignment: .leading)
+//                                        .padding(.horizontal)
+//                                        .padding(.top)
+//                                        .background(.thinMaterial)
+//                                        .cornerRadius(5)
+//                                        .padding(.bottom)
+//                                default:
+//                                    EmptyView()
+//                                }
+//                            }
+//                            Divider()
+//                        }
                         if let replies {
                             ForEach(replies.indices) { floor in
                                 let reply = replies[floor]

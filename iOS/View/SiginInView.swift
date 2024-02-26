@@ -108,7 +108,7 @@ struct SignInView: View {
     func siginIn() {
         isSignIning = true
         Task {
-            let signIn = SignIn(usernameKey: appState.preSignIn.usernameKey, passwordKey: appState.preSignIn.passwordKey, captchaKey: appState.preSignIn.captchaKey, username: username, password: password, captcha: captcha)
+            let signIn = SignIn(usernameKey: appState.preSignIn.usernameKey, passwordKey: appState.preSignIn.passwordKey, captchaKey: appState.preSignIn.captchaKey, username: username, password: password, captcha: captcha,once: "")
             do {
                 let (user, token) = try await V2EXClient.shared.signIn(signIn: signIn)
                 appState.upateUserAndToken(user: user, token: token)

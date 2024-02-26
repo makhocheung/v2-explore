@@ -67,12 +67,11 @@ struct ReplyView: View {
                 Text("#\(reply.floor)")
                     .foregroundColor(.secondary)
             }
-//            Text(reply.content)
-//                .font(.body)
-//                .textSelection(.enabled)
-//                .frame(maxWidth: .infinity, alignment: .leading)
-            ReplyContentView(html: reply.content)
+            Text(reply.content)
                 .font(.body)
+                .textSelection(.enabled)
+                .frame(maxWidth: .infinity, alignment: .leading)
+    
             HStack {
                 Spacer()
                 Button {
