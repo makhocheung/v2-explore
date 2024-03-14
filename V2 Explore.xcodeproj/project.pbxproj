@@ -79,6 +79,13 @@
 		70DA186328C1E50000F24275 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70DA186228C1E50000F24275 /* MainView.swift */; };
 		70E14B10291E146600043DAC /* NodesSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E14B0F291E146600043DAC /* NodesSelectionView.swift */; };
 		70E8ADAD29778BA100CA451A /* PostTopicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E8ADAC29778BA100CA451A /* PostTopicView.swift */; };
+		70EEB2DB2BA333E20038439F /* RealityKitContent in Frameworks */ = {isa = PBXBuildFile; productRef = 70EEB2DA2BA333E20038439F /* RealityKitContent */; };
+		70EEB2DD2BA333E20038439F /* V2_Explore_visionOS_App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70EEB2DC2BA333E20038439F /* V2_Explore_visionOS_App.swift */; };
+		70EEB2DF2BA333E20038439F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70EEB2DE2BA333E20038439F /* ContentView.swift */; };
+		70EEB2E12BA333E20038439F /* ImmersiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70EEB2E02BA333E20038439F /* ImmersiveView.swift */; };
+		70EEB2E32BA333E20038439F /* ImageBasedLighting.skybox in Resources */ = {isa = PBXBuildFile; fileRef = 70EEB2E22BA333E20038439F /* ImageBasedLighting.skybox */; };
+		70EEB2E52BA333E30038439F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 70EEB2E42BA333E30038439F /* Assets.xcassets */; };
+		70EEB2E82BA333E30038439F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 70EEB2E72BA333E30038439F /* Preview Assets.xcassets */; };
 		DBE6492363F0AC4D310D1CEA /* ExploreTopicType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE6467C5A95A3F925DC1C7E /* ExploreTopicType.swift */; };
 		DBE6498A397356FCB62B8DB4 /* ExploreTopicType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE6467C5A95A3F925DC1C7E /* ExploreTopicType.swift */; };
 /* End PBXBuildFile section */
@@ -188,6 +195,15 @@
 		70DA186228C1E50000F24275 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		70E14B0F291E146600043DAC /* NodesSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodesSelectionView.swift; sourceTree = "<group>"; };
 		70E8ADAC29778BA100CA451A /* PostTopicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTopicView.swift; sourceTree = "<group>"; };
+		70EEB2D62BA333E20038439F /* V2 Explore(visionOS).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "V2 Explore(visionOS).app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		70EEB2D92BA333E20038439F /* RealityKitContent */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = RealityKitContent; sourceTree = "<group>"; };
+		70EEB2DC2BA333E20038439F /* V2_Explore_visionOS_App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = V2_Explore_visionOS_App.swift; sourceTree = "<group>"; };
+		70EEB2DE2BA333E20038439F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		70EEB2E02BA333E20038439F /* ImmersiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImmersiveView.swift; sourceTree = "<group>"; };
+		70EEB2E22BA333E20038439F /* ImageBasedLighting.skybox */ = {isa = PBXFileReference; lastKnownFileType = file.skybox; path = ImageBasedLighting.skybox; sourceTree = "<group>"; };
+		70EEB2E42BA333E30038439F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		70EEB2E72BA333E30038439F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		70EEB2E92BA333E30038439F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DBE6467C5A95A3F925DC1C7E /* ExploreTopicType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExploreTopicType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -229,6 +245,14 @@
 			files = (
 				70C9D88E2927619C00032665 /* SwiftUI.framework in Frameworks */,
 				70C9D88D2927619C00032665 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		70EEB2D32BA333E20038439F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				70EEB2DB2BA333E20038439F /* RealityKitContent in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,6 +310,8 @@
 				70BC2D6D274CB665008E2AF1 /* macOS */,
 				70C9D87B2927617600032665 /* DWidgets */,
 				70C9D88F2927619C00032665 /* MWidgets */,
+				70EEB2D72BA333E20038439F /* visionOS */,
+				70EEB2D82BA333E20038439F /* Packages */,
 				70BC2D67274CB665008E2AF1 /* Products */,
 				7005F54C28DFFE22003184A6 /* Frameworks */,
 			);
@@ -310,6 +336,7 @@
 				70BC2D6C274CB665008E2AF1 /* V2 Explore.app */,
 				70C9D8782927617500032665 /* DWidgetsExtension.appex */,
 				70C9D88C2927619C00032665 /* MWidgetsExtension.appex */,
+				70EEB2D62BA333E20038439F /* V2 Explore(visionOS).app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -408,6 +435,36 @@
 			path = Enum;
 			sourceTree = "<group>";
 		};
+		70EEB2D72BA333E20038439F /* visionOS */ = {
+			isa = PBXGroup;
+			children = (
+				70EEB2DC2BA333E20038439F /* V2_Explore_visionOS_App.swift */,
+				70EEB2DE2BA333E20038439F /* ContentView.swift */,
+				70EEB2E02BA333E20038439F /* ImmersiveView.swift */,
+				70EEB2E22BA333E20038439F /* ImageBasedLighting.skybox */,
+				70EEB2E42BA333E30038439F /* Assets.xcassets */,
+				70EEB2E92BA333E30038439F /* Info.plist */,
+				70EEB2E62BA333E30038439F /* Preview Content */,
+			);
+			path = visionOS;
+			sourceTree = "<group>";
+		};
+		70EEB2D82BA333E20038439F /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				70EEB2D92BA333E20038439F /* RealityKitContent */,
+			);
+			path = Packages;
+			sourceTree = "<group>";
+		};
+		70EEB2E62BA333E30038439F /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				70EEB2E72BA333E30038439F /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -497,6 +554,26 @@
 			productReference = 70C9D88C2927619C00032665 /* MWidgetsExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
+		70EEB2D52BA333E20038439F /* V2 Explore(visionOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 70EEB2EA2BA333E30038439F /* Build configuration list for PBXNativeTarget "V2 Explore(visionOS)" */;
+			buildPhases = (
+				70EEB2D22BA333E20038439F /* Sources */,
+				70EEB2D32BA333E20038439F /* Frameworks */,
+				70EEB2D42BA333E20038439F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "V2 Explore(visionOS)";
+			packageProductDependencies = (
+				70EEB2DA2BA333E20038439F /* RealityKitContent */,
+			);
+			productName = "V2 Explore(visionOS)";
+			productReference = 70EEB2D62BA333E20038439F /* V2 Explore(visionOS).app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -504,7 +581,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1410;
+				LastSwiftUpdateCheck = 1530;
 				LastUpgradeCheck = 1310;
 				TargetAttributes = {
 					70BC2D65274CB665008E2AF1 = {
@@ -518,6 +595,9 @@
 					};
 					70C9D88B2927619C00032665 = {
 						CreatedOnToolsVersion = 14.1;
+					};
+					70EEB2D52BA333E20038439F = {
+						CreatedOnToolsVersion = 15.3;
 					};
 				};
 			};
@@ -541,6 +621,7 @@
 			targets = (
 				70BC2D65274CB665008E2AF1 /* V2 Explore (iOS) */,
 				70BC2D6B274CB665008E2AF1 /* V2 Explore (macOS) */,
+				70EEB2D52BA333E20038439F /* V2 Explore(visionOS) */,
 				70C9D8772927617500032665 /* DWidgetsExtension */,
 				70C9D88B2927619C00032665 /* MWidgetsExtension */,
 			);
@@ -579,6 +660,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				70C9D8952927619D00032665 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		70EEB2D42BA333E20038439F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				70EEB2E52BA333E30038439F /* Assets.xcassets in Resources */,
+				70EEB2E82BA333E30038439F /* Preview Assets.xcassets in Resources */,
+				70EEB2E32BA333E20038439F /* ImageBasedLighting.skybox in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -664,6 +755,16 @@
 			files = (
 				70C9D8912927619C00032665 /* MWidgetsBundle.swift in Sources */,
 				70C9D8932927619C00032665 /* MWidgets.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		70EEB2D22BA333E20038439F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				70EEB2DF2BA333E20038439F /* ContentView.swift in Sources */,
+				70EEB2DD2BA333E20038439F /* V2_Explore_visionOS_App.swift in Sources */,
+				70EEB2E12BA333E20038439F /* ImmersiveView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1019,6 +1120,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1049,10 +1152,78 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		70EEB2EB2BA333E30038439F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"V2 Explore(visionOS)/Preview Content\"";
+				DEVELOPMENT_TEAM = 3Y4G3442RX;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "$(TARGET_NAME)/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.naamfung.v2ex;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = xros;
+				SUPPORTED_PLATFORMS = "xros xrsimulator";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				XROS_DEPLOYMENT_TARGET = 1.1;
+			};
+			name = Debug;
+		};
+		70EEB2EC2BA333E30038439F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"V2 Explore(visionOS)/Preview Content\"";
+				DEVELOPMENT_TEAM = 3Y4G3442RX;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "$(TARGET_NAME)/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.naamfung.v2ex;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = xros;
+				SUPPORTED_PLATFORMS = "xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				VALIDATE_PRODUCT = YES;
+				XROS_DEPLOYMENT_TARGET = 1.1;
 			};
 			name = Release;
 		};
@@ -1100,6 +1271,15 @@
 			buildConfigurations = (
 				70C9D89B2927619D00032665 /* Debug */,
 				70C9D89C2927619D00032665 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		70EEB2EA2BA333E30038439F /* Build configuration list for PBXNativeTarget "V2 Explore(visionOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				70EEB2EB2BA333E30038439F /* Debug */,
+				70EEB2EC2BA333E30038439F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1162,6 +1342,10 @@
 		70D769C128F97FDE000991BF /* V2EXClient */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = V2EXClient;
+		};
+		70EEB2DA2BA333E20038439F /* RealityKitContent */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = RealityKitContent;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
